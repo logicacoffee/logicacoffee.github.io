@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex" />
+  <title>Open recipe in Logica Coffee</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      background: #0b0b0b;
+      color: #f5f5f5;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px; text-align: center;
+    }
+    .card {
+      width: 100%; max-width: 420px;
+      background: #161616;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 36px 28px 32px;
+    }
+    .icon { font-size: 56px; line-height: 1; margin-bottom: 14px; }
+    h1 { font-size: 21px; margin: 0 0 8px; font-weight: 700; }
+    p { font-size: 15px; line-height: 1.5; color: #b8b8b8; margin: 0 0 24px; }
+    .btn {
+      display: block; width: 100%;
+      padding: 16px; border-radius: 14px;
+      font-size: 16px; font-weight: 700; text-decoration: none;
+      border: none; cursor: pointer; margin-bottom: 12px;
+      font-family: inherit;
+    }
+    .btn-primary { background: #ff7a18; color: #000; }
+    .btn-secondary { background: rgba(255,255,255,0.08); color: #fff; }
+    .muted { font-size: 12px; color: #6f6f6f; margin: 18px 0 0; }
+    .err { color: #ffb84d; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">☕️</div>
+    <h1 id="title">Opening your recipe…</h1>
+    <p id="subtitle">If Logica Coffee doesn't open automatically, tap the button below.</p>
+
+    <a id="openBtn" class="btn btn-primary" href="#">Open in Logica Coffee</a>
+    <a id="storeBtn" class="btn btn-secondary"
+       href="https://apps.apple.com/app/idREPLACE_WITH_APP_ID">Don't have the app? Get Logica Coffee</a>
+
+    <p class="muted">This link shares a custom coffee recipe. It only opens in the Logica&nbsp;Coffee app.</p>
+  </div>
+
+  <script>
+    (function () {
+      // The payload is base64url only: [A-Za-z0-9-_]. Validate before use so a
+      // malformed/hostile query string can never be turned into anything but a
+      // well-formed logicacoffee:// URL (and is never written into the DOM).
+      function getPayload() {
+        var m = window.location.search.match(/[?&]d=([^&]+)/);
+        if (!m) return null;
+        var d = m[1];
+        return /^[A-Za-z0-9\-_]+$/.test(d) ? d : null;
+      }
+
+      var d = getPayload();
+      var openBtn = document.getElementById('openBtn');
+
+      if (!d) {
+        document.getElementById('title').textContent = 'Recipe link looks broken';
+        document.getElementById('title').className = 'err';
+        document.getElementById('subtitle').textContent =
+          'This link is missing its recipe data. Ask the sender to share it again.';
+        openBtn.style.display = 'none';
+        return;
+      }
+
+      var appURL = 'logicacoffee://recipe?d=' + d;
+      openBtn.setAttribute('href', appURL);
+
+      // Auto-attempt the hand-off to the app on load.
+      window.location.href = appURL;
+    })();
+  </script>
+</body>
+</html>
