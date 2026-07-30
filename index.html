@@ -80,7 +80,7 @@
   a { color: inherit; }
   figure { margin: 0; }
   a:focus-visible { outline: 2px solid var(--amber-on-paper); outline-offset: 3px; }
-  .hero a:focus-visible, .onDark a:focus-visible, .plate-dark a:focus-visible {
+  .hero a:focus-visible, .onDark a:focus-visible, .feature-section--dark a:focus-visible {
     outline-color: var(--amber-on-dark);
   }
 
@@ -260,51 +260,194 @@
     text-transform: uppercase; color: var(--ink2); margin: 0 0 1.5rem;
   }
 
-  /* ---------- plates: screen large, note beside it — never on it ---------- */
-  .plate { display: grid; grid-template-columns: 1fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
-  @media (min-width: 54rem) {
-    .plate { grid-template-columns: 1fr 1fr; }
-    .plate.flip .plate-copy { order: 2; }
+  /* ---------- feature system ----------
+     Phone features use finished transparent device composites above their
+     decorative raster backdrops; only Watch keeps its genuine app capture as a
+     separate live layer. Neither treatment changes the copy-first document
+     order or requires a section-specific layout exception. */
+  .feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2.5rem, 7vw, 5rem);
+    align-items: center;
   }
-  .plate-shot { max-width: 19rem; margin-inline: auto; }
-  .plate-shot img { border-radius: 22px; box-shadow: 0 2rem 4rem -1.5rem rgba(29,22,16,0.4); }
-  .plate-shot figcaption {
+  .feature-copy,
+  .feature-figure,
+  .feature-canvas { min-width: 0; }
+  .feature-copy { overflow-wrap: anywhere; }
+  .feature-figure {
+    width: 100%;
+    max-width: 38rem;
+    margin-inline: auto;
+  }
+  .feature-canvas {
+    position: relative;
+    width: 100%;
+    max-width: 34rem;
+    margin-inline: auto;
+  }
+  .feature-backdrop {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: auto;
+  }
+  .feature-device {
+    position: absolute;
+    z-index: 1;
+    width: var(--frame-width);
+    height: auto;
+    left: var(--frame-left);
+    top: var(--frame-top);
+  }
+  .feature-screen {
+    width: min(100%, 19rem);
+    margin-inline: auto;
+    border-radius: 22px;
+    box-shadow: 0 2rem 4rem -1.5rem rgba(29,22,16,0.4);
+  }
+  .feature-canvas--layered .feature-screen {
+    position: absolute;
+    z-index: 1;
+    width: var(--screen-width, 46%);
+    left: var(--screen-left, 27%);
+    top: var(--screen-top, 8%);
+  }
+  .feature-figure figcaption {
     font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--ink2); padding-top: 1rem; text-align: center;
-    line-height: 1.7;
+    line-height: 1.7; overflow-wrap: anywhere;
   }
-  .plate h3 {
+  .feature h3 {
     font-family: var(--serif); font-weight: 700;
     font-size: clamp(1.75rem, 4vw, 2.75rem); line-height: 1.06;
     letter-spacing: -0.024em; margin: 0; max-width: 17ch; text-wrap: balance;
   }
-  .plate h3 em { font-style: italic; font-weight: 400; }
-  .plate p {
+  .feature h3 em { font-style: italic; font-weight: 400; }
+  .feature p {
     font-family: var(--serif); font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
     color: var(--ink2); margin: 1.25rem 0 0; max-width: 34ch; line-height: 1.5;
   }
+  .feature--poster {
+    justify-items: center;
+    text-align: center;
+  }
+  .feature--poster .feature-copy { max-width: 40rem; }
+  .feature--poster h3,
+  .feature--poster p { margin-inline: auto; }
+  .feature--poster h3 { max-width: 20ch; }
+  .feature--poster p { max-width: 38ch; }
+  .feature--bean {
+    --frame-width: 50%;
+    --frame-left: 25%;
+    --frame-top: 13.89%;
+  }
+  .feature--timer {
+    --frame-width: 52%;
+    --frame-left: 24%;
+    --frame-top: 12.45%;
+  }
+  .feature--dialin {
+    --frame-width: 50%;
+    --frame-left: 29%;
+    --frame-top: 13.89%;
+  }
+  .feature--methods {
+    --frame-width: 36%;
+    --frame-left: 32%;
+    --frame-top: 1.25%;
+  }
+  .feature--methods .feature-canvas { max-width: 42rem; }
+  .feature--cupping {
+    --frame-width: 48%;
+    --frame-left: 26%;
+    --frame-top: 15.33%;
+  }
+  .feature--coach {
+    --frame-width: 50%;
+    --frame-left: 30%;
+    --frame-top: 13.89%;
+  }
+  .feature--insights,
+  .feature--gear {
+    --frame-width: 50%;
+    --frame-left: 25%;
+    --frame-top: 13.89%;
+  }
+  .feature--watch {
+    --screen-width: 38.9%;
+    --screen-left: 30.4%;
+    --screen-top: 27.6%;
+  }
+  .feature--watch .feature-canvas { max-width: 22rem; }
+  .feature--watch .feature-screen {
+    width: var(--screen-width);
+    border-radius: 18%;
+  }
+  @media (min-width: 68rem) {
+    .feature:not(.feature--poster) {
+      grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+      gap: clamp(3rem, 5vw, 6rem);
+    }
+    .feature--reverse:not(.feature--poster) {
+      grid-template-areas: "art copy";
+      grid-template-columns: minmax(0, 1.16fr) minmax(0, 0.84fr);
+    }
+    .feature--reverse .feature-copy { grid-area: copy; }
+    .feature--reverse .feature-figure { grid-area: art; }
+    .feature--poster .feature-figure { max-width: 42rem; }
+  }
 
-  /* ---------- composition variants ----------
-     Eight plates in a row read as one layout, and mirroring left/right is the
-     same composition twice rather than two compositions. These break the run
-     three different ways: a change of ground, a change of axis, a change of
-     scale. Each is used ONCE — a variant used twice is just another rhythm. */
+  /* ---------- brew today ----------
+     The collage carries its own deckled paper, torn terracotta layer, copper
+     arcs, device frame, and shadows. Keep the page composition open around it
+     instead of rebuilding any of that physical treatment in CSS. */
+  .brew-today { padding: 0 0 clamp(4.5rem, 12vw, 9rem); }
+  .brew-today > .wrap { max-width: 86rem; }
+  .brew-today-panel {
+    display: grid; grid-template-columns: 1fr; align-items: center;
+    gap: clamp(2.75rem, 7vw, 6.5rem);
+  }
+  .brew-today-copy { min-width: 0; }
+  .brew-today .label { color: var(--amber-on-paper); margin-bottom: 1.25rem; }
+  .brew-today h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: clamp(2.25rem, 5.4vw, 4.5rem); line-height: 1.02;
+    letter-spacing: -0.028em; margin: 0; max-width: 13ch; text-wrap: balance;
+  }
+  .brew-today-copy > p:not([class]) {
+    font-family: var(--sans); font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+    color: var(--ink2); margin: 1.5rem 0 0; max-width: 34ch; line-height: 1.5;
+  }
+  .brew-today-detail {
+    font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink2);
+    margin: 1.75rem 0 0; max-width: 46ch; line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+  .brew-today-shot {
+    min-width: 0; width: 100%; max-width: 42rem;
+    margin-inline: auto;
+  }
+  .brew-today-shot img {
+    width: 100%;
+  }
+  @media (min-width: 54rem) {
+    .brew-today-panel {
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: clamp(2.5rem, 3.5vw, 3.5rem);
+    }
+  }
 
-  /* Change of ground: one plate on warm black, reading as a return to the hero,
-     placed where the paper rhythm starts to settle. */
-  .plate-dark { background: var(--dark); }
-  .plate-dark h3 { color: var(--cream); }
-  .plate-dark p { color: rgba(242, 239, 232, 0.74); }
-  .plate-dark .plate-shot { max-width: 22rem; }
-  .plate-dark .plate-shot img { box-shadow: 0 2.5rem 5rem -1.5rem rgba(0, 0, 0, 0.85); }
-  .plate-dark .plate-shot figcaption { color: rgba(242, 239, 232, 0.5); }
-
-  /* Change of axis: copy centred above the screen rather than beside it. */
-  .plate.stack { grid-template-columns: 1fr; justify-items: center; text-align: center; }
-  .plate.stack .plate-copy { max-width: 36rem; }
-  .plate.stack h3 { margin-inline: auto; max-width: 20ch; }
-  .plate.stack p  { margin-inline: auto; max-width: 38ch; }
-  .plate.stack .plate-shot { max-width: 17rem; }
+  .feature-section--dark { background: var(--dark); }
+  .feature-section--dark .feature h3 { color: var(--cream); }
+  .feature-section--dark .feature p { color: rgba(242, 239, 232, 0.74); }
+  .feature-section--dark .feature-screen {
+    box-shadow: 0 2.5rem 5rem -1.5rem rgba(0, 0, 0, 0.85);
+  }
+  .feature-section--dark .feature-figure figcaption {
+    color: rgba(242, 239,232,0.5);
+  }
 
 
   /* ---------- the count: plain figures, no cards ---------- */
@@ -408,7 +551,7 @@
      (text-emphasis: dot) — worth asking before this ships. */
   :lang(ja) .hero h1 em,      :lang(zh-Hans) .hero h1 em,
   :lang(ja) .beat h2 em,      :lang(zh-Hans) .beat h2 em,
-  :lang(ja) .plate h3 em,     :lang(zh-Hans) .plate h3 em,
+  :lang(ja) .feature h3 em,   :lang(zh-Hans) .feature h3 em,
   :lang(ja) .refusals li span, :lang(zh-Hans) .refusals li span {
     font-style: normal;
   }
@@ -459,17 +602,37 @@
     </div>
   </section>
 
+  <!-- BREW TODAY -->
+  <section class="brew-today" aria-labelledby="brew-today-heading">
+    <div class="wrap">
+      <div class="brew-today-panel">
+        <div class="brew-today-copy">
+          <p class="label" data-t="brew-today.label">Brew today</p>
+          <h3 id="brew-today-heading" data-t="brew-today.h31">The right brew, at the right moment.</h3>
+          <p data-t="brew-today.p3">Logica considers your bean’s freshness and the cups you loved, then gives you one clear brew recommendation.</p>
+          <p class="brew-today-detail" data-t="brew-today.figcaption2">Ethiopia · Hario V60 · at its peak</p>
+        </div>
+        <figure class="brew-today-shot">
+          <img width="1003" height="1568" loading="lazy" decoding="async" src="assets/brew_today_collage.webp" alt="A framed Logica Coffee Brew Today recommendation for an Ethiopia Hario V60, layered on deckled cream and terracotta paper with copper linework.">
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <!-- REMEMBERING -->
-  <section class="beat" style="padding-top:0">
-    <div class="wrap plate">
-      <div class="plate-copy">
+  <section class="beat">
+    <div class="wrap feature feature--bean">
+      <div class="feature-copy">
         <h3 data-t="remembering.h31">It remembers, so <em>you</em> don't have to.</h3>
         <p data-t="remembering.p3">Dose, grind, water and its temperature, time, the grinder and the setting you used,
           what the cup cost, and what it actually tasted like. Scan the bag and the basics fill
           themselves in. One tap at the end of a brew logs the setup; taste tags take one more.</p>
       </div>
-      <figure class="plate-shot">
-        <img width="880" height="1912" loading="lazy" decoding="async" src="assets/04_bean.webp" alt="A bean detail screen for Sunrise Blend from Ethiopia, showing an estimated freshness window, tasting notes and the weight left in the bag.">
+      <figure class="feature-figure">
+        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_bean_backdrop.webp">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_bean_backdrop.webp" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_bean.webp" alt="A bean detail screen for Sunrise Blend from Ethiopia, showing an estimated freshness window, tasting notes and the weight left in the bag.">
+        </div>
         <figcaption data-t="remembering.figcaption2">Sunrise Blend · Ethiopia<br>180 g left of 250 g</figcaption>
       </figure>
     </div>
@@ -491,31 +654,37 @@
   </section>
 
   <!-- THE TIMER -->
-  <section class="beat plate-dark">
-    <div class="wrap plate flip">
-      <div class="plate-copy">
+  <section class="beat feature-section--dark">
+    <div class="wrap feature feature--timer feature--dark feature--reverse">
+      <div class="feature-copy">
         <h3 data-t="the-timer.h31">A staged timeline, not a <em>stopwatch</em>.</h3>
         <p data-t="the-timer.p3">Every stage carries the water to reach and the moment to reach it by, and names what is
           coming next before it arrives. On a Switch it even tells you when to close the valve.</p>
       </div>
-      <figure class="plate-shot">
-        <img width="880" height="1912" loading="lazy" decoding="async" src="assets/02_timer.webp" alt="A running Hario Switch brew timer on the Bloom stage, step 2 of 4: close the switch, add 30 g of water and swirl to saturate the grounds, with a 30 ml target by 0:45 and Fill and Steep queued next.">
+      <figure class="feature-figure">
+        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_timer_backdrop.webp">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_timer_backdrop.webp" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_timer.webp" alt="A running Hario Switch brew timer on the Bloom stage, step 2 of 4: close the switch, add 30 g of water and swirl to saturate the grounds, with a 30 ml target by 0:45 and Fill and Steep queued next.">
+        </div>
         <figcaption data-t="the-timer.figcaption2">Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45</figcaption>
       </figure>
     </div>
   </section>
 
   <!-- ONE VARIABLE -->
-  <section class="beat" style="padding-top:0">
-    <div class="wrap plate">
-      <div class="plate-copy">
+  <section class="beat">
+    <div class="wrap feature feature--dialin">
+      <div class="feature-copy">
         <h3 data-t="one-variable.h31">Then it names the <em>one</em> thing to change.</h3>
         <p data-t="one-variable.p3">One click finer. Half a degree cooler. One variable at a time, holding everything else
           exactly where it is — the whole discipline of dialling in, and of this app. Twenty-three
           grinders carry their real detents, so that click is one your dial actually has.</p>
       </div>
-      <figure class="plate-shot">
-        <img width="880" height="1912" loading="lazy" decoding="async" src="assets/06_dialin.webp" alt="An espresso dial-in session showing the current grind setting, a running shot timer, and a taste picker of Sour, Balanced and Bitter.">
+      <figure class="feature-figure">
+        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_dialin_backdrop.webp">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_dialin_backdrop.webp" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_dialin.webp" alt="An espresso dial-in session showing the current grind setting, a running shot timer, and a taste picker of Sour, Balanced and Bitter.">
+        </div>
         <figcaption data-t="one-variable.figcaption2">“James will move one variable<br>and hold the rest”</figcaption>
       </figure>
     </div>
@@ -524,40 +693,46 @@
 
   <!-- METHODS GRID -->
   <section class="beat">
-    <div class="wrap plate flip">
-      <div class="plate-copy">
+    <div class="wrap feature feature--methods feature--poster">
+      <div class="feature-copy">
         <h3 data-t="methods-grid.h31">Whatever you brew on.</h3>
         <p data-t="methods-grid.p3">Filter, espresso and milk drinks. And when you want a recipe of your own on any of
           them, build it stage by stage and send it as a link or a QR code — their app will even
           translate your grind setting onto their grinder.</p>
       </div>
-      <figure class="plate-shot">
-        <img width="880" height="1912" loading="lazy" decoding="async" src="assets/07_recipes.webp" alt="The Choose a method screen showing AeroPress, Ceado Hoop, Chemex and Clever Dripper, under Filter, Espresso and Milk tabs.">
+      <figure class="feature-figure">
+        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_methods_backdrop.webp">
+          <img class="feature-backdrop" width="1200" height="960" loading="lazy" decoding="async" src="assets/feature_methods_backdrop.webp" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_methods.webp" alt="The Choose a method screen showing AeroPress, Ceado Hoop, Chemex and Clever Dripper, under Filter, Espresso and Milk tabs.">
+        </div>
         <figcaption data-t="methods-grid.figcaption2">Filter · Espresso · Milk</figcaption>
       </figure>
     </div>
   </section>
 
   <!-- TASTING LAB -->
-  <section class="beat" style="padding-top:0">
-    <div class="wrap plate stack">
-      <div class="plate-copy">
+  <section class="beat">
+    <div class="wrap feature feature--cupping feature--wide">
+      <div class="feature-copy">
         <h3 data-t="tasting-lab.h31">Taste them <em>blind</em>.</h3>
         <p data-t="tasting-lab.p3">Line up two to six coffees and score each one blind — eight marks, from aroma to
           overall preference — then reveal which was which and see what you actually chose.
           Cupping sessions live in the same private record as everything else.</p>
       </div>
-      <figure class="plate-shot">
-        <img width="880" height="1912" loading="lazy" decoding="async" src="assets/08_cupping.webp" alt="Scoring a blind cupping sample in the Tasting Lab: Sample A-42 rated across aroma, flavour clarity, acidity quality, sweetness, body, aftertaste, balance and overall preference.">
+      <figure class="feature-figure">
+        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_cupping_backdrop.webp">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_cupping_backdrop.webp" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_cupping.webp" alt="Scoring a blind cupping sample in the Tasting Lab: Sample A-42 rated across aroma, flavour clarity, acidity quality, sweetness, body, aftertaste, balance and overall preference.">
+        </div>
         <figcaption data-t="tasting-lab.figcaption2">Sample A-42 · scored blind<br>8 of 8 marks</figcaption>
       </figure>
     </div>
   </section>
 
   <!-- THE LOOP -->
-  <section class="beat" style="padding-top:0">
-    <div class="wrap plate">
-      <div class="plate-copy">
+  <section class="beat">
+    <div class="wrap feature feature--coach">
+      <div class="feature-copy">
         <h3 data-t="the-loop.h31">Pin your best cup. Brew <em>toward</em> it.</h3>
         <p data-t="the-loop.p3">Mark a Reference Cup and every later brew is measured against it. Logica explains what
           drifted, you plan one small correction, and it's waiting for you at setup next time —
@@ -565,24 +740,30 @@
           flavour words alone, or send you chasing grind on beans that are simply too fresh —
           it'll tell you to let them rest.</p>
       </div>
-      <figure class="plate-shot">
-        <img width="880" height="1912" loading="lazy" decoding="async" src="assets/03_coach.webp" alt="The Coach tab, marked James · Offline, reporting that the user's Hario V60 cups are balanced and advising them to repeat the recorded variables unchanged.">
+      <figure class="feature-figure">
+        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_coach_backdrop.webp">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_coach_backdrop.webp" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_coach.webp" alt="The Coach tab, marked James · Offline, reporting that the user's Hario V60 cups are balanced and advising them to repeat the recorded variables unchanged.">
+        </div>
         <figcaption data-t="the-loop.figcaption2">“Your Hario V60 cups are balanced”<br>James · offline</figcaption>
       </figure>
     </div>
   </section>
 
   <!-- INSIGHTS -->
-  <section class="beat" style="padding-top:0">
-    <div class="wrap plate flip">
-      <div class="plate-copy">
+  <section class="beat">
+    <div class="wrap feature feature--insights feature--reverse">
+      <div class="feature-copy">
         <h3 data-t="insights.h31">Your journal, read <em>back</em> to you.</h3>
         <p data-t="insights.p3">A rating trend, the setup your best cups keep sharing, how consistent your dose really
           is. Ask James to read the whole journal and he'll tell you what he sees — and your
           caffeine goes to Apple Health, if you want it there.</p>
       </div>
-      <figure class="plate-shot">
-        <img width="880" height="1912" loading="lazy" decoding="async" src="assets/05_insights.webp" alt="The Insights screen: a key takeaway that the user's cups are landing balanced, a rating trend chart averaging 4.5 stars, the setup shared by their best brews, and a dose-consistency reading.">
+      <figure class="feature-figure">
+        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_insights_backdrop.webp">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_insights_backdrop.webp" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_insights.webp" alt="The Insights screen: a key takeaway that the user's cups are landing balanced, a rating trend chart averaging 4.5 stars, the setup shared by their best brews, and a dose-consistency reading.">
+        </div>
         <figcaption data-t="insights.figcaption2">Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16</figcaption>
       </figure>
     </div>
@@ -600,16 +781,19 @@
 
   <!-- GEAR CARE -->
   <section class="beat">
-    <div class="wrap plate">
-      <div class="plate-copy">
+    <div class="wrap feature feature--gear feature--dark">
+      <div class="feature-copy">
         <h3 data-t="gear-care.h31">It looks after the <em>kit</em>, too.</h3>
         <p data-t="gear-care.p2">Tell it what you brew on and it keeps the upkeep on a calendar:
           descaling timed to your water hardness, grinder cleaning by use as well as by month,
           and a backflush reminder only if your machine actually has a three-way valve.
           Reminders, never a diagnosis.</p>
       </div>
-      <figure class="plate-shot">
-        <img width="880" height="1912" loading="lazy" decoding="async" src="assets/11_gear_detail.webp" alt="An espresso machine's gear record: a three-way valve switch enabling the detergent backflush reminder, water hardness set to Medium for descaling intervals, and maintenance tasks showing Descale last done Jul 25 2026 with group gasket check and detergent backflush not logged yet.">
+      <figure class="feature-figure">
+        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_gear_backdrop.webp">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_gear_backdrop.webp" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_gear.webp" alt="An espresso machine's gear record: a three-way valve switch enabling the detergent backflush reminder, water hardness set to Medium for descaling intervals, and maintenance tasks showing Descale last done Jul 25 2026 with group gasket check and detergent backflush not logged yet.">
+        </div>
         <figcaption data-t="gear-care.figcaption3">The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026</figcaption>
       </figure>
     </div>
@@ -617,15 +801,18 @@
 
   <!-- REACH -->
   <section class="beat">
-    <div class="wrap plate flip">
-      <div class="plate-copy">
+    <div class="wrap feature feature--watch feature--reverse">
+      <div class="feature-copy">
         <h3 data-t="reach.h31">It follows you to the kettle.</h3>
         <p data-t="reach.p3">The timer runs on your Lock Screen and in the Dynamic Island, and on your wrist with a
           haptic tap at every pour — so the phone can stay on the counter with dry hands. There's
           a Home Screen widget, and on iPad the brew, the journal and the coach sit side by side.</p>
       </div>
-      <figure class="plate-shot" style="max-width:13rem">
-        <img width="416" height="496" loading="lazy" decoding="async" src="assets/watch.webp" alt="The Logica Coffee watch app during a Hario V60 brew, showing the First Pour stage with a 150 ml target and a steady pour tempo.">
+      <figure class="feature-figure">
+        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_watch_backdrop.webp">
+          <img class="feature-backdrop" width="1000" height="1000" loading="lazy" decoding="async" src="assets/feature_watch_backdrop.webp" alt="">
+          <img class="feature-screen" width="416" height="496" loading="lazy" decoding="async" src="assets/watch.webp" alt="The Logica Coffee watch app during a Hario V60 brew, showing the First Pour stage with a 150 ml target and a steady pour tempo.">
+        </div>
         <figcaption data-t="reach.figcaption2">Apple Watch · first pour<br>target 150 ml · steady</figcaption>
       </figure>
     </div>
@@ -673,6 +860,73 @@
 (function () {
   // Copy for locales that have been authored. English is already in the markup.
   var STR = {"be": {"chrome.nav_methods": "Метады", "chrome.nav_privacy": "Прыватнасць", "chrome.foot_support": "Падтрымка", "chrome.nav_get": "Спампаваць ↗", "chrome.pending": "Гэтай старонкі яшчэ няма па-беларуску — паказваем англійскую версію.", "hero.h11": "Кожны кубак штосьці табе <em>кажа</em>.", "hero.p2": "Памочнік у заварванні: слухае, запамінае і адказвае. Бясплатна, афлайн, на тваёй прыладзе.", "chrome.cta": "Спампаваць у App Store", "chrome.hero_terms": "Бясплатна · Без рэкламы · Без акаўнта · Без падпіскі", "the-problem.h21": "Амаль ніхто не запісвае, што і як заварыў.", "the-problem.p2": "Заварылі, выпілі, забыліся — а заўтра зноў гадаем.", "remembering.h31": "Logica запомніць за <em>цябе</em>.", "remembering.p3": "Доза, памол, вада і яе тэмпература, час, млынок і яго наладка, у колькі выйшаў кубак і які смак атрымаўся насамрэч. Адсканіруй пачку — асноўнае запоўніцца само. Адзін дотык напрыканцы заварвання — і налады ўжо ў дзённіку; тэгі смаку дадасі яшчэ адным.", "remembering.figcaption2": "Sunrise Blend · Ethiopia<br>180 g left of 250 g", "the-count.p2": "Што ўнутры", "the-count.h21": "Рэцэпты, за якімі варта ісці.", "chrome.fig_methods": "Метады і напоі", "chrome.fig_recipes": "Пакрокавыя рэцэпты", "chrome.fig_authorities": "З указаннем аўтара", "the-count.p3": "Рэцэпты з указаннем аўтара ідуць за апублікаванымі методыкамі дваццаці прызнаных спецыялістаў — сярод іх Hoffmann, Rao, Kasuya, Hedrick, Adler, Wendelboe, Winton і Howell.", "the-timer.h31": "Секундамер проста лічыць. А гэты таймер <em>вядзе</em>.", "the-timer.p3": "На кожным этапе відаць, колькі вады даліць і да якой секунды, а пра наступны крок таймер папярэдзіць загадзя. На Hario Switch ён падкажа нават, калі закрыць клапан.", "the-timer.figcaption2": "Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45", "one-variable.h31": "Logica назаве тое <em>адзінае</em>, што варта змяніць.", "one-variable.p3": "На пстрык драбней. На паўградуса халадней. Адна зменная за раз, усё астатняе трымаем роўна там, дзе было, — у гэтым і ёсць калібраванне, і ў гэтым увесь сэнс дадатка. У дваццаці трох млынкоў тут свае сапраўдныя пстрыкі, так што такі пстрык на тваім млынку сапраўды ёсць.", "one-variable.figcaption2": "“James will move one variable<br>and hold the rest”", "methods-grid.h31": "Усё, на чым ты варыш.", "methods-grid.p3": "Фільтр, эспрэса і напоі з малаком. А захочацца ўласнага рэцэпту на любым з іх — збяры яго па этапах і дашлі спасылкай ці QR-кодам: дадатак на тым баку сам пералічыць тваю наладку памолу пад млынок сябра.", "methods-grid.figcaption2": "Filter · Espresso · Milk", "tasting-lab.h31": "Каштуй <em>усляпую</em>.", "tasting-lab.p3": "Пастаў побач ад двух да шасці гатункаў і ацані кожны ўсляпую — восем адзнак, ад арамату да агульнай перавагі. Потым раскрый, дзе што было, і ўбачыш, якую каву ты выбраў насамрэч, калі этыкетка не падказвала. Сляпыя дэгустацыі захоўваюцца там жа, у тваім асабістым дзённіку.", "tasting-lab.figcaption2": "Sample A-42 · scored blind<br>8 of 8 marks", "the-loop.h31": "Зрабі лепшы кубак эталонам. І <em>раўняйся</em> на яго.", "the-loop.p3": "Пазнач эталонны кубак — і кожны наступны Logica будзе звяраць з ім: растлумачыць, што пайшло ўбок, а ты заплануеш адну невялікую папраўку. Яна дачакаецца цябе пры наступнай наладцы і ціха знікне, як толькі ты яе ўнясеш. Джэймс не назаве шот збалансаваным толькі па словах пра смак і не адправіць ганяцца за памолам там, дзе зерне проста занадта свежае, — ён скажа даць яму адпачыць.", "the-loop.figcaption2": "“Your Hario V60 cups are balanced”<br>James · offline", "insights.h31": "Твой дзённік пачынае <em>працаваць</em> на цябе.", "insights.p3": "Тэндэнцыя ацэнак, налады, якія паўтараюцца ў лепшых кубках, і тое, наколькі роўная насамрэч твая доза. Папрасі Джэймса прачытаць увесь дзённік — ён раскажа, што бачыць. А кафеін пойдзе ў Apple Health, калі захочаш.", "insights.figcaption2": "Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16", "break.figcaption1": "Кава зрабіла сваю справу задоўга да таго, як трапіла да цябе на кухню.", "gear-care.h31": "Прыгледзіць і за <em>тэхнікай</em>.", "gear-care.p2": "Скажы, на чым ты варыш, — і догляд сам стане ў расклад: чыстка ад накіпу — пад жорсткасць тваёй вады, мыццё млынка — і па расходзе зерня, і па календары, а напамін пра бэкфлаш прыйдзе, толькі калі ў машыне сапраўды ёсць трохходавы клапан. Гэта напаміны. Дыягназаў дадатак не ставіць.", "gear-care.figcaption3": "The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026", "reach.h31": "Таймер дойдзе з табой да чайніка.", "reach.p3": "Таймер ідзе на экране блакіроўкі і ў Dynamic Island, а на запясці адбівае лёгкі тап пры кожным наліве — тэлефон спакойна застанецца на стале, а рукі — сухімі. Ёсць віджэт на хатнім экране, а на iPad заварванне, дзённік і трэнер стаяць побач.", "reach.figcaption2": "Apple Watch · first pour<br>target 150 ml · steady", "privacy.p2": "Прыватнасць закладзена ў код", "privacy.h21": "Дакладаць пра цябе няма куды. Такога кода ў дадатку проста няма.", "close.p2": "У дадатку няма ніводнага радка сеткавага кода. Падказкі лічыць дэтэрмінаваны рухавік, цалкам афлайн; этыкетку на пачцы распазнае сама прылада. Дзённік заварванняў застаецца на тваёй прыладзе і сінхранізуецца толькі праз твой уласны iCloud — а выгрузіць яго цалкам у JSON можна калі заўгодна.", "close.p3": "Без акаўнта · Без сачэння · Без сервераў Logica<br>Без рэкламы · Без пэйволаў · Без падпісак", "close.p4": "<a href=\"index.html\">Чытаць палітыку прыватнасці →</a>", "close.h21": "Пачні з <em>аднаго</em> кубка.", "close.p5": "Бясплатна. Усе функцыі. Чаявыя па жаданні.", "close.p6": "iOS 16.2 ці навейшая · Для Apple Watch патрэбна watchOS 10 · 12 моў", "chrome.foot_appstore": "App Store", "chrome.foot_privacy": "Палітыка прыватнасці", "chrome.foot_contact": "Пошта"}, "de": {"chrome.nav_methods": "Methoden", "chrome.nav_privacy": "Datenschutz", "chrome.foot_support": "Support", "chrome.nav_get": "App laden ↗", "chrome.pending": "Diese Seite gibt es noch nicht auf Deutsch — du siehst die englische Fassung.", "hero.h11": "Jede Tasse <em>verrät</em> dir etwas.", "hero.p2": "Ein Begleiter fürs Brühen, der zuhört, sich alles merkt und antwortet — kostenlos, offline, auf deinem Gerät.", "chrome.cta": "Laden im App Store", "chrome.hero_terms": "Kostenlos · Keine Werbung · Kein Konto · Kein Abo", "the-problem.h21": "Die wenigsten schreiben es auf.", "the-problem.p2": "Wir brühen, wir trinken, wir vergessen — und morgen raten wir wieder.", "remembering.h31": "Es merkt sich alles, damit <em>du</em> es nicht musst.", "remembering.p3": "Dosis, Mahlgrad, Wasser und seine Temperatur, Zeit, die Mühle und ihre Einstellung, was die Tasse gekostet hat und wie sie wirklich geschmeckt hat. Scanne die Packung, und das Wesentliche trägt sich selbst ein. Ein Tippen am Ende des Brühens sichert die Einstellungen, die Geschmacks-Tags kosten ein weiteres.", "remembering.figcaption2": "Sunrise Blend · Ethiopia<br>180 g left of 250 g", "the-count.p2": "Was drin ist", "the-count.h21": "Rezepte, die diesen Namen verdienen.", "chrome.fig_methods": "Brühmethoden &amp; Getränke", "chrome.fig_recipes": "Geführte Rezepte", "chrome.fig_authorities": "Von genannten Fachleuten", "the-count.p3": "Die ausgewiesenen folgen veröffentlichten Methoden von zwanzig namentlich genannten Fachleuten — darunter Hoffmann, Rao, Kasuya, Hedrick, Adler, Wendelboe, Winton und Howell.", "the-timer.h31": "Ein Ablauf in Stufen, keine <em>Stoppuhr</em>.", "the-timer.p3": "Jede Stufe nennt die Wassermenge und den Moment, bis zu dem sie stehen soll, und kündigt an, was als Nächstes kommt, bevor es kommt. Beim Hario Switch sagt sie dir sogar, wann du das Ventil schließt.", "the-timer.figcaption2": "Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45", "one-variable.h31": "Dann nennt es dir die <em>eine</em> Stellschraube.", "one-variable.p3": "Einen Klick feiner. Ein halbes Grad kühler. Eine Variable nach der anderen, alles andere bleibt genau da, wo es ist — das ist die ganze Disziplin des Einstellens, und die dieser App. 23 Mühlen bringen ihre echten Rasten mit, damit dieser Klick einer ist, den dein Rad wirklich hat.", "one-variable.figcaption2": "“James will move one variable<br>and hold the rest”", "methods-grid.h31": "Womit du auch brühst.", "methods-grid.p3": "Filter, Espresso und Milchgetränke. Und wenn du auf einem davon ein eigenes Rezept willst, baust du es Stufe für Stufe und verschickst es als Link oder QR-Code — die App auf der anderen Seite rechnet deinen Mahlgrad sogar auf die dortige Mühle um.", "methods-grid.figcaption2": "Filter · Espresso · Milk", "tasting-lab.h31": "Probiere sie <em>blind</em>.", "tasting-lab.p3": "Stell zwei bis sechs Kaffees nebeneinander und bewerte jeden blind — acht Kriterien, vom Aroma bis zur Gesamtpräferenz. Danach deckst du auf, was was war, und siehst, wofür du dich wirklich entschieden hast. Die Verkostungen liegen im selben privaten Archiv wie alles andere.", "tasting-lab.figcaption2": "Sample A-42 · scored blind<br>8 of 8 marks", "the-loop.h31": "Setz deine beste Tasse als <em>Maßstab</em>.", "the-loop.p3": "Markiere eine Referenztasse, und jeder spätere Brühgang misst sich an ihr. Logica erklärt, was abgewichen ist, du planst eine kleine Korrektur — und sie wartet beim nächsten Setup auf dich, bis sie verschwindet, sobald du sie ohnehin gemacht hast. Balanciert nennt es einen Shot nicht wegen ein paar Geschmackswörtern, und auf Bohnen, die schlicht noch zu frisch sind, schickt es dich nicht auf die Jagd nach dem Mahlgrad — es sagt dir, dass sie erst ruhen müssen.", "the-loop.figcaption2": "“Your Hario V60 cups are balanced”<br>James · offline", "insights.h31": "Dein Journal, dir <em>vorgelesen</em>.", "insights.p3": "Ein Bewertungsverlauf, die Einstellung, die deine besten Tassen immer wieder teilen, wie konstant deine Dosis wirklich ist. Bitte James, das ganze Journal zu lesen, und er sagt dir, was er sieht — und dein Koffein geht zu Apple Health, wenn du es dort haben willst.", "insights.figcaption2": "Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16", "break.figcaption1": "Der Kaffee hatte seinen Teil längst getan, bevor er in deine Küche kam.", "gear-care.h31": "Auch fürs <em>Gerät</em> denkt es mit.", "gear-care.p2": "Sag ihm, worauf du brühst, und es hält die Pflege im Kalender: Entkalken nach deiner Wasserhärte, Mühlenreinigung nach Gebrauch und nicht nur nach Monaten, und eine Backflush-Erinnerung nur, wenn deine Maschine wirklich ein Dreiwegeventil hat. Erinnerungen, nie eine Diagnose.", "gear-care.figcaption3": "The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026", "reach.h31": "Es geht mit an den Wasserkocher.", "reach.p3": "Der Timer läuft auf dem Sperrbildschirm und in der Dynamic Island, und am Handgelenk mit einem haptischen Tippen bei jedem Guss — so bleibt das Telefon mit trockenen Händen auf der Arbeitsplatte. Dazu ein Widget auf dem Home-Bildschirm, und auf dem iPad stehen Brühen, Journal und Coach nebeneinander.", "reach.figcaption2": "Apple Watch · first pour<br>target 150 ml · steady", "privacy.p2": "Privat per Konstruktion", "privacy.h21": "Sie kann nicht nach Hause telefonieren. Dafür fehlt der Code.", "close.p2": "Die App enthält überhaupt keinen Netzwerkcode. Das Coaching ist eine deterministische Engine, die offline läuft, und ein Packungsetikett liest sie per Texterkennung auf dem Gerät. Deine Brühhistorie bleibt auf deinem Gerät und synchronisiert nur über deine eigene iCloud — und du kannst alles jederzeit als JSON exportieren.", "close.p3": "Kein Konto · Kein Tracking · Keine Logica-Server<br>Keine Werbung · Keine Paywalls · Keine Abos", "close.p4": "<a href=\"index.html\">Datenschutzerklärung lesen →</a>", "close.h21": "Fang mit <em>einer</em> Tasse an.", "close.p5": "Kostenlos. Alle Funktionen. Trinkgeld optional.", "close.p6": "iOS 16.2 oder neuer · Apple Watch benötigt watchOS 10 · 12 Sprachen", "chrome.foot_appstore": "App Store", "chrome.foot_privacy": "Datenschutzerklärung", "chrome.foot_contact": "E-Mail"}, "es": {"chrome.nav_methods": "Métodos", "chrome.nav_privacy": "Privacidad", "chrome.foot_support": "Soporte", "chrome.nav_get": "Descargar ↗", "chrome.pending": "Esta página todavía no está en español — la ves en inglés.", "hero.h11": "Cada taza te <em>cuenta</em> algo.", "hero.p2": "Un compañero de preparación que escucha, recuerda y responde — gratis, sin conexión, en tu dispositivo.", "chrome.cta": "Descárgalo en el App Store", "chrome.hero_terms": "Gratis · Sin anuncios · Sin cuenta · Sin suscripción", "the-problem.h21": "Casi nadie lo apunta.", "the-problem.p2": "Preparamos, bebemos, olvidamos — y mañana volvemos a adivinar.", "remembering.h31": "Lo recuerda para que <em>tú</em> no tengas que hacerlo.", "remembering.p3": "Dosis, molienda, agua y su temperatura, tiempo, el molinillo y el punto que usaste, lo que costó la taza y a qué supo de verdad. Escanea la bolsa y lo básico se rellena solo. Un toque al terminar la preparación guarda los ajustes; las etiquetas de sabor piden uno más.", "remembering.figcaption2": "Sunrise Blend · Ethiopia<br>180 g left of 250 g", "the-count.p2": "Lo que viene dentro", "the-count.h21": "Recetas que merecen seguirse.", "chrome.fig_methods": "Métodos y bebidas", "chrome.fig_recipes": "Recetas guiadas", "chrome.fig_authorities": "De referencias con nombre", "the-count.p3": "Las acreditadas siguen métodos publicados por veinte referencias con nombre propio — entre ellas Hoffmann, Rao, Kasuya, Hedrick, Adler, Wendelboe, Winton y Howell.", "the-timer.h31": "Una secuencia por etapas, no un <em>cronómetro</em>.", "the-timer.p3": "Cada etapa lleva el agua que hay que alcanzar y el momento en que hay que alcanzarla, y anuncia la siguiente antes de que llegue. Con un Hario Switch hasta te dice cuándo cerrar la válvula.", "the-timer.figcaption2": "Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45", "one-variable.h31": "Y después nombra la <em>única</em> cosa que cambiar.", "one-variable.p3": "Un clic más fina. Medio grado menos. Una variable cada vez, con todo lo demás exactamente donde estaba: en eso consiste calibrar, y en eso consiste esta app. Veintitrés molinillos traen sus topes reales, así que ese clic es uno que tu rueda tiene de verdad.", "one-variable.figcaption2": "“James will move one variable<br>and hold the rest”", "methods-grid.h31": "Prepares como prepares.", "methods-grid.p3": "Filtro, espresso y bebidas con leche. Y cuando quieras tu propia receta sobre cualquiera de ellos, la construyes etapa a etapa y la mandas por enlace o código QR: la app de quien la reciba incluso traducirá tu punto de molienda al molinillo que tenga.", "methods-grid.figcaption2": "Filter · Espresso · Milk", "tasting-lab.h31": "Cátalos a <em>ciegas</em>.", "tasting-lab.p3": "Pon en fila de dos a seis cafés y puntúa cada uno a ciegas — ocho marcas, del aroma a la preferencia general — y después descubre cuál era cuál y qué elegiste en realidad. Las catas viven en el mismo registro privado que todo lo demás.", "tasting-lab.figcaption2": "Sample A-42 · scored blind<br>8 of 8 marks", "the-loop.h31": "Fija tu mejor taza. Prepara <em>hacia</em> ella.", "the-loop.p3": "Marca una taza de referencia y cada preparación posterior se mide contra ella. Logica explica qué se desvió, tú planeas una corrección pequeña y te espera en los ajustes de la próxima vez — y desaparece sin ruido en cuanto ya la has hecho. No dará por equilibrado un espresso solo por unas palabras de sabor, ni te mandará a perseguir la molienda con un café que sencillamente está demasiado fresco: te dirá que lo dejes reposar.", "the-loop.figcaption2": "“Your Hario V60 cups are balanced”<br>James · offline", "insights.h31": "Tu diario, <em>leído</em> en voz alta.", "insights.p3": "La tendencia de tus notas, los ajustes que repiten tus mejores tazas, lo constante que es de verdad tu dosis. Pídele a James que lea el diario entero y te dirá lo que ve — y tu cafeína va a Apple Health, si quieres tenerla ahí.", "insights.figcaption2": "Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16", "break.figcaption1": "El café hizo su parte mucho antes de llegar a tu cocina.", "gear-care.h31": "También cuida del <em>equipo</em>.", "gear-care.p2": "Dile con qué preparas y llevará el mantenimiento en el calendario: descalcificaciones al ritmo de la dureza de tu agua, limpieza del molinillo por uso y no solo por meses, y un aviso de backflush únicamente si tu máquina tiene de verdad una válvula de tres vías. Recordatorios, nunca un diagnóstico.", "gear-care.figcaption3": "The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026", "reach.h31": "Te acompaña hasta el hervidor.", "reach.p3": "El temporizador corre en la pantalla bloqueada y en la Dynamic Island, y en tu muñeca con un toque háptico en cada vertido — así el teléfono se queda en la encimera y tú, con las manos secas. Hay widget en la pantalla de inicio, y en el iPad la preparación, el diario y el coach caben uno al lado del otro.", "reach.figcaption2": "Apple Watch · first pour<br>target 150 ml · steady", "privacy.p2": "Privada por construcción", "privacy.h21": "No puede llamar a casa. No hay código que pueda hacerlo.", "close.p2": "La app no contiene ningún código de red. El coaching es un motor determinista que funciona sin conexión, y leer la etiqueta de una bolsa usa reconocimiento de texto en el propio dispositivo. Tu registro se queda en tu dispositivo y se sincroniza solo por tu propio iCloud — y puedes exportarlo entero en JSON cuando quieras.", "close.p3": "Sin cuenta · Sin rastreo · Sin servidores de Logica<br>Sin anuncios · Sin muros de pago · Sin suscripciones", "close.p4": "<a href=\"index.html\">Leer la política de privacidad →</a>", "close.h21": "Empieza por <em>una</em> taza.", "close.p5": "Gratis. Todas las funciones. Propinas opcionales.", "close.p6": "iOS 16.2 o posterior · Apple Watch requiere watchOS 10 · 12 idiomas", "chrome.foot_appstore": "App Store", "chrome.foot_privacy": "Política de Privacidad", "chrome.foot_contact": "Correo"}, "fr": {"chrome.nav_methods": "Méthodes", "chrome.nav_privacy": "Confidentialité", "chrome.foot_support": "Assistance", "chrome.nav_get": "Obtenir l’app ↗", "chrome.pending": "Cette page n’est pas encore en français — elle s’affiche en anglais.", "hero.h11": "Chaque tasse te <em>dit</em> quelque chose.", "hero.p2": "Un compagnon de préparation qui écoute, retient et te répond — gratuit, hors ligne, sur ton appareil.", "chrome.cta": "Télécharger dans l’App Store", "chrome.hero_terms": "Gratuit · Sans pub · Sans compte · Sans abonnement", "the-problem.h21": "Presque personne ne le note.", "the-problem.p2": "On prépare, on boit, on oublie — et demain on devine à nouveau.", "remembering.h31": "Il s'en souvient <em>à ta place</em>.", "remembering.p3": "Dose, mouture, eau et sa température, temps, le moulin et le réglage utilisé, ce que la tasse a coûté et le goût qu'elle avait vraiment. Scanne le paquet et l'essentiel se remplit tout seul. Une pression à la fin de l'extraction enregistre les réglages ; les tags de goût en demandent une de plus.", "remembering.figcaption2": "Sunrise Blend · Ethiopia<br>180 g left of 250 g", "the-count.p2": "Ce qu'il y a dans la boîte", "the-count.h21": "Des recettes qui valent la peine.", "chrome.fig_methods": "Méthodes et boissons", "chrome.fig_recipes": "Recettes guidées", "chrome.fig_authorities": "De références nommées", "the-count.p3": "Les recettes créditées suivent des méthodes publiées par vingt références nommées — Hoffmann, Rao, Kasuya, Hedrick, Adler, Wendelboe, Winton et Howell, entre autres.", "the-timer.h31": "Une séquence par étapes, pas un <em>chronomètre</em>.", "the-timer.p3": "Chaque étape porte l'eau à atteindre et l'instant où l'atteindre, et annonce la suivante avant qu'elle arrive. Sur un Hario Switch, il te dit même quand fermer la valve.", "the-timer.figcaption2": "Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45", "one-variable.h31": "Puis il nomme la <em>seule</em> chose à changer.", "one-variable.p3": "Un cran plus fin. Un demi-degré plus bas. Une variable à la fois, tout le reste maintenu exactement où il est : c'est toute la discipline du réglage, et celle de cette app. Vingt-trois moulins portent leurs vrais crans, pour que ce cran-là existe vraiment sur ta molette.", "one-variable.figcaption2": "“James will move one variable<br>and hold the rest”", "methods-grid.h31": "Quel que soit ton matériel.", "methods-grid.p3": "Filtre, espresso et boissons lactées. Et quand tu veux ta propre recette sur l'un d'eux, tu la construis étape par étape et tu l'envoies par lien ou par QR code — l'app d'en face traduira même ton réglage de mouture sur son moulin.", "methods-grid.figcaption2": "Filter · Espresso · Milk", "tasting-lab.h31": "Goûte-les à l'<em>aveugle</em>.", "tasting-lab.p3": "Aligne deux à six cafés et note chacun à l'aveugle — huit critères, de l'arôme à la préférence globale — puis révèle qui était qui et vois ce que tu as vraiment choisi. Les dégustations vivent dans le même carnet privé que le reste.", "tasting-lab.figcaption2": "Sample A-42 · scored blind<br>8 of 8 marks", "the-loop.h31": "Épingle ta meilleure tasse. <em>Vise-la</em>.", "the-loop.p3": "Marque une tasse de référence et chaque extraction suivante se mesure à elle. Logica explique ce qui a dérivé, tu prévois une petite correction, et elle t'attend au réglage suivant — puis disparaît discrètement une fois que tu l'as déjà faite. Il ne déclarera pas un espresso équilibré sur de simples mots de goût, et il ne t'enverra pas courir après la mouture sur des grains tout simplement trop frais : il te dira de les laisser reposer.", "the-loop.figcaption2": "“Your Hario V60 cups are balanced”<br>James · offline", "insights.h31": "Ton journal, <em>relu</em> pour toi.", "insights.p3": "Une tendance de tes notes, les réglages que tes meilleures tasses ont en commun, la vraie constance de ta dose. Demande à James de lire tout le journal et il te dira ce qu'il voit — et ta caféine part vers Apple Health, si tu le veux.", "insights.figcaption2": "Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16", "break.figcaption1": "Le café avait fait sa part bien avant d'arriver dans ta cuisine.", "gear-care.h31": "Il s'occupe aussi du <em>matériel</em>.", "gear-care.p2": "Dis-lui sur quoi tu prépares et il tient l'entretien au calendrier : détartrage calé sur la dureté de ton eau, nettoyage du moulin à l'usage autant qu'au mois, et un rappel de backflush seulement si ta machine a vraiment une valve trois voies. Des rappels, jamais un diagnostic.", "gear-care.figcaption3": "The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026", "reach.h31": "Il te suit jusqu'à la bouilloire.", "reach.p3": "Le minuteur tourne sur ton écran verrouillé et dans la Dynamic Island, et à ton poignet avec une pulsation haptique à chaque versement — le téléphone peut rester sur le plan de travail, les mains sèches. Il y a un widget sur l'écran d'accueil, et sur iPad l'extraction, le journal et le coach tiennent côte à côte.", "reach.figcaption2": "Apple Watch · first pour<br>target 150 ml · steady", "privacy.p2": "Privé par construction", "privacy.h21": "Elle ne peut rien renvoyer. Aucun code ne le permet.", "close.p2": "L'app ne contient aucun code réseau. Le coaching est un moteur déterministe qui tourne hors ligne ; lire l'étiquette d'un paquet passe par la reconnaissance de texte sur l'appareil. Ton carnet reste sur ton appareil et ne se synchronise que par ton propre iCloud — et tu peux tout exporter en JSON quand tu veux.", "close.p3": "Sans compte · Sans pistage · Sans serveurs Logica<br>Sans pub · Sans paywall · Sans abonnement", "close.p4": "<a href=\"index.html\">Lire la politique de confidentialité →</a>", "close.h21": "Commence par <em>une</em> tasse.", "close.p5": "Gratuit. Toutes les fonctions. Pourboire facultatif.", "close.p6": "iOS 16.2 ou version ultérieure · Apple Watch nécessite watchOS 10 · 12 langues", "chrome.foot_appstore": "App Store", "chrome.foot_privacy": "Politique de confidentialité", "chrome.foot_contact": "E-mail"}, "it": {"chrome.nav_methods": "Metodi", "chrome.nav_privacy": "Privacy", "chrome.foot_support": "Assistenza", "chrome.nav_get": "Scarica l’app ↗", "chrome.pending": "Questa pagina non è ancora in italiano — la vedi in inglese.", "hero.h11": "Ogni tazza ti <em>dice</em> qualcosa.", "hero.p2": "Un compagno di estrazione che ascolta, ricorda e risponde — gratis, offline, sul tuo dispositivo.", "chrome.cta": "Scarica su App Store", "chrome.hero_terms": "Gratis · Senza pubblicità · Senza account · Senza abbonamento", "the-problem.h21": "Quasi nessuno se lo segna.", "the-problem.p2": "Prepariamo, beviamo, dimentichiamo — e domani si tira di nuovo a indovinare.", "remembering.h31": "Se lo ricorda lui, così <em>tu</em> non devi.", "remembering.p3": "Dose, macinatura, acqua e la sua temperatura, tempo, il macinacaffè e il punto che hai usato, quanto è costata la tazza e che sapore aveva davvero. Scansiona il pacchetto e le basi si compilano da sole. Un tocco a fine estrazione salva i parametri; i tag di gusto ne chiedono un altro.", "remembering.figcaption2": "Sunrise Blend · Ethiopia<br>180 g left of 250 g", "the-count.p2": "Cosa c'è nella scatola", "the-count.h21": "Ricette che vale la pena seguire.", "chrome.fig_methods": "Metodi e bevande", "chrome.fig_recipes": "Ricette guidate", "chrome.fig_authorities": "Da nomi dichiarati", "the-count.p3": "Quelle accreditate seguono metodi pubblicati da venti nomi dichiarati — tra cui Hoffmann, Rao, Kasuya, Hedrick, Adler, Wendelboe, Winton e Howell.", "the-timer.h31": "Una sequenza a fasi, non un <em>cronometro</em>.", "the-timer.p3": "Ogni fase porta con sé l'acqua da raggiungere e il momento entro cui raggiungerla, e annuncia quella dopo prima che arrivi. Su un Hario Switch ti dice perfino quando chiudere la valvola.", "the-timer.figcaption2": "Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45", "one-variable.h31": "Poi ti dice l'<em>unica</em> cosa da cambiare.", "one-variable.p3": "Uno scatto più fine. Mezzo grado in meno. Una variabile alla volta, tenendo tutto il resto esattamente dov'è: è qui tutta la disciplina della calibrazione, e di questa app. Ventitré macinacaffè portano i loro scatti reali, così quello scatto è uno che la tua ghiera ha davvero.", "one-variable.figcaption2": "“James will move one variable<br>and hold the rest”", "methods-grid.h31": "Qualunque cosa usi.", "methods-grid.p3": "Filtro, espresso e bevande al latte. E quando vuoi una ricetta tua su uno di questi, la costruisci fase per fase e la mandi via link o QR — l'app di chi la riceve tradurrà persino la tua macinatura sul suo macinacaffè.", "methods-grid.figcaption2": "Filter · Espresso · Milk", "tasting-lab.h31": "Assaggiali alla <em>cieca</em>.", "tasting-lab.p3": "Metti in fila da due a sei caffè e valuta ciascuno alla cieca — otto voci, dall'aroma alla preferenza complessiva — poi scopri quale era quale e vedi cosa hai scelto davvero. Gli assaggi restano nello stesso archivio privato di tutto il resto.", "tasting-lab.figcaption2": "Sample A-42 · scored blind<br>8 of 8 marks", "the-loop.h31": "Fissa la tua tazza migliore. Punta <em>a quella</em>.", "the-loop.p3": "Segna una tazza di riferimento e ogni estrazione successiva si misura con lei. Logica spiega che cosa è andato alla deriva, tu pianifichi una piccola correzione e te la ritrovi pronta al setup successivo — poi sparisce in silenzio appena l'hai già fatta. Non chiamerà equilibrato un caffè solo per qualche parola di gusto, né ti manderà a rincorrere la macinatura su chicchi semplicemente troppo freschi: ti dirà di lasciarli riposare.", "the-loop.figcaption2": "“Your Hario V60 cups are balanced”<br>James · offline", "insights.h31": "Il tuo diario, <em>riletto</em> per te.", "insights.p3": "L'andamento dei voti, i parametri che le tue tazze migliori continuano a condividere, quanto è costante davvero la tua dose. Chiedi a James di leggere tutto il diario e ti dirà cosa vede — e la tua caffeina va in Apple Health, se la vuoi lì.", "insights.figcaption2": "Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16", "break.figcaption1": "Il caffè aveva già fatto la sua parte molto prima di arrivare in cucina.", "gear-care.h31": "Si occupa anche dell'<em>attrezzatura</em>.", "gear-care.p2": "Digli su cosa prepari e tiene la manutenzione a calendario: decalcificazione tarata sulla durezza della tua acqua, pulizia del macinacaffè per utilizzo oltre che per mese, e un promemoria di backflush solo se la tua macchina ha davvero una valvola a tre vie. Promemoria, mai una diagnosi.", "gear-care.figcaption3": "The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026", "reach.h31": "Ti segue fino al bollitore.", "reach.p3": "Il timer gira sulla schermata di blocco e nella Dynamic Island, e al polso con un tocco aptico a ogni versata — così il telefono resta sul piano e tu hai le mani asciutte. C'è un widget nella schermata Home, e su iPad estrazione, diario e coach stanno fianco a fianco.", "reach.figcaption2": "Apple Watch · first pour<br>target 150 ml · steady", "privacy.p2": "Privata per costruzione", "privacy.h21": "Non può telefonare a casa. Non c'è codice che possa farlo.", "close.p2": "L'app non contiene alcun codice di rete. Il coaching è un motore deterministico che gira offline; leggere l'etichetta di un pacchetto usa il riconoscimento del testo sul dispositivo. Il tuo archivio resta sul tuo dispositivo e si sincronizza solo attraverso il tuo iCloud — e puoi esportarlo tutto in JSON quando vuoi.", "close.p3": "Nessun account · Nessun tracking · Nessun server Logica<br>Nessuna pubblicità · Nessun paywall · Nessun abbonamento", "close.p4": "<a href=\"index.html\">Leggi l'informativa sulla privacy →</a>", "close.h21": "Comincia da <em>una</em> tazza.", "close.p5": "Gratis. Tutte le funzioni. Mancia facoltativa.", "close.p6": "iOS 16.2 o successivo · Apple Watch richiede watchOS 10 · 12 lingue", "chrome.foot_appstore": "App Store", "chrome.foot_privacy": "Informativa sulla privacy", "chrome.foot_contact": "E-mail"}, "ja": {"chrome.nav_methods": "抽出方法", "chrome.nav_privacy": "プライバシー", "chrome.foot_support": "サポート", "chrome.nav_get": "アプリを入手 ↗", "chrome.pending": "このページはまだ日本語になっていません。英語で表示しています。", "hero.h11": "どの一杯も、<em>何か</em>を語っている。", "hero.p2": "聞いて、覚えて、答えを返す抽出の相棒。無料、オフライン、すべて端末の中で。", "chrome.cta": "App Store からダウンロード", "chrome.hero_terms": "無料 · 広告なし · アカウント不要 · サブスクなし", "the-problem.h21": "ほとんどの人は、記録しない。", "the-problem.p2": "淹れて、飲んで、忘れる。そして明日もまた、勘で淹れる。", "remembering.h31": "覚えておくのは、<em>アプリ</em>の仕事。", "remembering.p3": "粉量、挽き目、湯量と温度、時間、使ったグラインダーとその目盛り、一杯のコスト、そして実際の味。袋のラベルをスキャンすれば基本情報は自動で埋まります。抽出の終わりに一度タップすれば設定が記録され、味のタグはもう一度タップするだけ。", "remembering.figcaption2": "Sunrise Blend · Ethiopia<br>180 g left of 250 g", "the-count.p2": "はじめから入っているもの", "the-count.h21": "たどる価値のあるレシピ。", "chrome.fig_methods": "抽出方法とドリンク", "chrome.fig_recipes": "ガイド付きレシピ", "chrome.fig_authorities": "名前のある作り手から", "the-count.p3": "出典つきのレシピは、名前のある20人の作り手が公開した手順にしたがっています。Hoffmann、Rao、Kasuya、Hedrick、Adler、Wendelboe、Winton、Howell など。", "the-timer.h31": "<em>ストップウォッチ</em>ではなく、段取り。", "the-timer.p3": "どの工程にも、到達すべき湯量とその時刻がついていて、次に来る工程を先に知らせます。Hario Switch なら、バルブを閉じるタイミングまで教えてくれます。", "the-timer.figcaption2": "Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45", "one-variable.h31": "そして、変えるべき<em>ひとつ</em>を指す。", "one-variable.p3": "挽き目を1クリック細く。温度を0.5度低く。ほかはそのままに、変えるのは一度にひとつ——それが調整の作法であり、このアプリの作法です。23台のグラインダーが実際のクリック位置を持っているので、その1クリックは手元のダイヤルに本当にあるクリックです。", "one-variable.figcaption2": "“James will move one variable<br>and hold the rest”", "methods-grid.h31": "何で淹れても。", "methods-grid.p3": "フィルター、エスプレッソ、ミルクの一杯まで。どの抽出方法でも自分のレシピが欲しくなったら、工程ごとに組み立てて、リンクかQRコードで送れます。受け取った側のアプリは、挽き目の設定を相手のグラインダーに合わせて読み替えます。", "methods-grid.figcaption2": "Filter · Espresso · Milk", "tasting-lab.h31": "<em>ブラインド</em>で味わう。", "tasting-lab.p3": "2〜6種類のコーヒーを並べ、正体を伏せたまま採点します。香りから総合的な好みまで8項目。採点が終わったら答え合わせをして、自分が本当に選んだ一杯を確かめられます。テイスティングの記録も、ほかと同じ非公開の記録に残ります。", "tasting-lab.figcaption2": "Sample A-42 · scored blind<br>8 of 8 marks", "the-loop.h31": "最高の一杯を基準に、そこへ<em>寄せる</em>。", "the-loop.p3": "リファレンスカップを決めると、以降の抽出はすべてそれと比べられます。何がずれたのかをLogicaが説明し、小さな修正をひとつだけ計画すると、それが次の準備画面で待っていて、直したあとは静かに消えます。味の言葉だけでショットを「バランスが取れている」とは言いませんし、まだ焙煎から日が浅すぎる豆で挽き目を追いかけさせることもしません。まずは休ませるように言ってくれます。", "the-loop.figcaption2": "“Your Hario V60 cups are balanced”<br>James · offline", "insights.h31": "ジャーナルが、<em>読み返して</em>くれる。", "insights.p3": "評価の推移、最高の一杯がいつも共有している設定、粉量が実際どれだけ安定しているか。ジェームズにジャーナル全体を読ませれば、見えたことを話してくれます。カフェインはApple Healthへ——望むなら。", "insights.figcaption2": "Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16", "break.figcaption1": "コーヒーは、台所に届くずっと前に、その仕事を終えている。", "gear-care.h31": "<em>道具</em>の面倒も見る。", "gear-care.p2": "何で淹れているかを教えると、手入れをカレンダーで管理します。デスケールは水の硬度に合わせた間隔で、グラインダーの清掃は月数だけでなく使用量でも、バックフラッシュの通知はマシンに三方バルブが実際にある場合だけ。あくまで通知であって、診断ではありません。", "gear-care.figcaption3": "The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026", "reach.h31": "ケトルの前まで、ついてくる。", "reach.p3": "タイマーはロック画面とDynamic Islandで動き、手首では注湯のたびに触覚で軽く叩きます。iPhoneは手を濡らさずカウンターに置いたままで大丈夫。ホーム画面ウィジェットもあり、iPadでは抽出、ジャーナル、コーチが横に並びます。", "reach.figcaption2": "Apple Watch · first pour<br>target 150 ml · steady", "privacy.p2": "設計からしてプライベート", "privacy.h21": "外へ知らせようがない。そのためのコードが入っていない。", "close.p2": "このアプリにはネットワーク通信のコードが一行も入っていません。コーチングはオフラインで動く決定論的なエンジンで、袋のラベルは端末内の文字認識で読み取ります。抽出の記録は端末に残り、同期はあなた自身のiCloudだけを通ります。いつでも全体をJSONで書き出せます。", "close.p3": "アカウント不要 · トラッキングなし · Logicaのサーバーなし<br>広告なし · ペイウォールなし · サブスクなし", "close.p4": "<a href=\"index.html\">プライバシーポリシーを読む →</a>", "close.h21": "まずは<em>一杯</em>から。", "close.p5": "無料。全機能。チップは任意。", "close.p6": "iOS 16.2以降 · Apple WatchにはwatchOS 10が必要 · 12言語対応", "chrome.foot_appstore": "App Store", "chrome.foot_privacy": "プライバシーポリシー", "chrome.foot_contact": "メール"}, "pl": {"chrome.nav_methods": "Metody", "chrome.nav_privacy": "Prywatność", "chrome.foot_support": "Pomoc", "chrome.nav_get": "Pobierz ↗", "chrome.pending": "Tej strony nie ma jeszcze po polsku — widzisz wersję angielską.", "hero.h11": "Każda filiżanka coś ci <em>mówi</em>.", "hero.p2": "Towarzysz parzenia, który słucha, pamięta i odpowiada — za darmo, offline, na twoim urządzeniu.", "chrome.cta": "Pobierz z App Store", "chrome.hero_terms": "Za darmo · Bez reklam · Bez konta · Bez subskrypcji", "the-problem.h21": "Prawie nikt tego nie zapisuje.", "the-problem.p2": "Parzymy, pijemy, zapominamy — a jutro znowu zgadujemy.", "remembering.h31": "Pamięta za <em>ciebie</em>.", "remembering.p3": "Dawka, mielenie, woda i jej temperatura, czas, młynek i jego ustawienie, ile kosztowała filiżanka i jak naprawdę smakowała. Zeskanuj opakowanie, a podstawy wpiszą się same. Jedno stuknięcie na koniec parzenia zapisuje ustawienia; tagi smaku zajmują jeszcze jedno.", "remembering.figcaption2": "Sunrise Blend · Ethiopia<br>180 g left of 250 g", "the-count.p2": "Co jest w pudełku", "the-count.h21": "Przepisy, za którymi warto iść.", "chrome.fig_methods": "Metody i napoje", "chrome.fig_recipes": "Przepisy krok po kroku", "chrome.fig_authorities": "Od wymienionych autorytetów", "the-count.p3": "Te z przypisaniem idą za opublikowanymi metodami dwudziestu wymienionych z nazwiska autorytetów — wśród nich Hoffmann, Rao, Kasuya, Hedrick, Adler, Wendelboe, Winton i Howell.", "the-timer.h31": "Sekwencja etapów, a nie <em>stoper</em>.", "the-timer.p3": "Każdy etap niesie wodę do osiągnięcia i moment, do którego trzeba ją osiągnąć, i zapowiada następny, zanim ten nadejdzie. Na Hario Switch podpowie nawet, kiedy zamknąć zawór.", "the-timer.figcaption2": "Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45", "one-variable.h31": "Potem wskazuje <em>jedną</em> rzecz do zmiany.", "one-variable.p3": "Jeden klik drobniej. Pół stopnia chłodniej. Jedna zmienna naraz, cała reszta dokładnie tam, gdzie była — na tym polega kalibracja i cała ta aplikacja. Dwadzieścia trzy młynki mają tu swoje prawdziwe kliki, więc ten jeden klik naprawdę istnieje na twojej skali.", "one-variable.figcaption2": "“James will move one variable<br>and hold the rest”", "methods-grid.h31": "Na czym tylko parzysz.", "methods-grid.p3": "Przelew, espresso i kawy z mlekiem. A kiedy zechcesz własny przepis na którymkolwiek z nich, zbudujesz go etap po etapie i wyślesz linkiem albo kodem QR — aplikacja odbiorcy przeliczy nawet twoje ustawienie mielenia na jego młynek.", "methods-grid.figcaption2": "Filter · Espresso · Milk", "tasting-lab.h31": "Spróbuj ich w <em>ciemno</em>.", "tasting-lab.p3": "Ustaw obok siebie od dwóch do sześciu kaw i oceń każdą w ciemno — osiem ocen, od aromatu po ogólną preferencję — a potem odkryj, która była która, i zobacz, na co naprawdę padł twój wybór. Degustacje zostają w tym samym prywatnym zapisie co wszystko inne.", "tasting-lab.figcaption2": "Sample A-42 · scored blind<br>8 of 8 marks", "the-loop.h31": "Przypnij najlepszą filiżankę. Parz <em>ku niej</em>.", "the-loop.p3": "Oznacz filiżankę wzorcową, a każde kolejne parzenie będzie do niej porównywane. Logica tłumaczy, co odpłynęło, ty planujesz jedną małą poprawkę, a ona czeka przy następnym ustawianiu — i znika po cichu, gdy tylko zostanie wprowadzona. Nie nazwie shota zbalansowanym na podstawie samych słów o smaku ani nie każe ci gonić za mieleniem na ziarnie, które jest po prostu zbyt świeże — powie, żeby dać mu odpocząć.", "the-loop.figcaption2": "“Your Hario V60 cups are balanced”<br>James · offline", "insights.h31": "Twój dziennik, <em>przeczytany</em> na głos.", "insights.p3": "Trend ocen, ustawienia, które powtarzają się w najlepszych filiżankach, i to, jak stała jest naprawdę twoja dawka. Poproś Jamesa, żeby przeczytał cały dziennik, a powie ci, co widzi — a kofeina trafi do Apple Health, jeśli tego chcesz.", "insights.figcaption2": "Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16", "break.figcaption1": "Kawa zrobiła swoje na długo przed tym, zanim trafiła do twojej kuchni.", "gear-care.h31": "Pilnuje też <em>sprzętu</em>.", "gear-care.p2": "Powiedz, na czym parzysz, a utrzyma konserwację w kalendarzu: odkamienianie w rytmie twardości twojej wody, czyszczenie młynka liczone użyciem, nie tylko miesiącami, a przypomnienie o backflushu tylko wtedy, gdy twój ekspres faktycznie ma zawór trójdrożny. Przypomnienia, nigdy diagnoza.", "gear-care.figcaption3": "The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026", "reach.h31": "Idzie z tobą do czajnika.", "reach.p3": "Minutnik działa na ekranie blokady i w Dynamic Island, a na nadgarstku stuka haptycznie przy każdym nalaniu — telefon może zostać na blacie, a ty masz suche ręce. Jest widżet na ekranie początkowym, a na iPadzie parzenie, dziennik i trener mieszczą się obok siebie.", "reach.figcaption2": "Apple Watch · first pour<br>target 150 ml · steady", "privacy.p2": "Prywatna z założenia", "privacy.h21": "Nie ma jak zadzwonić do domu. Nie ma w niej takiego kodu.", "close.p2": "Aplikacja nie zawiera żadnego kodu sieciowego. Trener to deterministyczny silnik działający offline, a etykietę opakowania czyta rozpoznawanie tekstu na urządzeniu. Twój zapis parzeń zostaje na urządzeniu i synchronizuje się wyłącznie przez twój własny iCloud — a całość wyeksportujesz do JSON, kiedy zechcesz.", "close.p3": "Bez konta · Bez śledzenia · Bez serwerów Logica<br>Bez reklam · Bez paywalli · Bez subskrypcji", "close.p4": "<a href=\"index.html\">Przeczytaj politykę prywatności →</a>", "close.h21": "Zacznij od <em>jednej</em> filiżanki.", "close.p5": "Za darmo. Wszystkie funkcje. Napiwek opcjonalny.", "close.p6": "iOS 16.2 lub nowszy · Apple Watch wymaga watchOS 10 · 12 języków", "chrome.foot_appstore": "App Store", "chrome.foot_privacy": "Polityka prywatności", "chrome.foot_contact": "E-mail"}, "pt-BR": {"chrome.nav_methods": "Métodos", "chrome.nav_privacy": "Privacidade", "chrome.foot_support": "Suporte", "chrome.nav_get": "Baixar o app ↗", "chrome.pending": "Esta página ainda não está em português — você está vendo a versão em inglês.", "hero.h11": "Toda xícara te <em>diz</em> alguma coisa.", "hero.p2": "Um companheiro de preparo que escuta, lembra e responde — de graça, offline, no seu aparelho.", "chrome.cta": "Baixe na App Store", "chrome.hero_terms": "Grátis · Sem anúncios · Sem conta · Sem assinatura", "the-problem.h21": "Quase ninguém anota.", "the-problem.p2": "A gente prepara, bebe, esquece — e amanhã chuta de novo.", "remembering.h31": "Ele lembra, pra <em>você</em> não precisar.", "remembering.p3": "Dose, moagem, água e a temperatura dela, tempo, o moedor e o ponto que você usou, quanto custou a xícara e o gosto que ela realmente teve. Escaneie o pacote e o básico se preenche sozinho. Um toque no fim do preparo salva os ajustes; as etiquetas de sabor pedem mais um.", "remembering.figcaption2": "Sunrise Blend · Ethiopia<br>180 g left of 250 g", "the-count.p2": "O que vem na caixa", "the-count.h21": "Receitas que valem a pena seguir.", "chrome.fig_methods": "Métodos e bebidas", "chrome.fig_recipes": "Receitas guiadas", "chrome.fig_authorities": "De nomes declarados", "the-count.p3": "As creditadas seguem métodos publicados por vinte nomes declarados — entre eles Hoffmann, Rao, Kasuya, Hedrick, Adler, Wendelboe, Winton e Howell.", "the-timer.h31": "Uma sequência em etapas, não um <em>cronômetro</em>.", "the-timer.p3": "Cada etapa traz a água a atingir e o momento de atingi-la, e anuncia a próxima antes que ela chegue. Num Hario Switch, ele ainda avisa a hora de fechar a válvula.", "the-timer.figcaption2": "Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45", "one-variable.h31": "Depois ele aponta a <em>única</em> coisa a mudar.", "one-variable.p3": "Um clique mais fino. Meio grau mais frio. Uma variável por vez, com todo o resto exatamente onde estava: é toda a disciplina de calibrar, e a deste aplicativo. Vinte e três moedores trazem os cliques reais deles, então esse clique é um que o seu anel realmente tem.", "one-variable.figcaption2": "“James will move one variable<br>and hold the rest”", "methods-grid.h31": "Seja lá no que você prepara.", "methods-grid.p3": "Filtrados, espresso e bebidas com leite. E quando quiser uma receita sua em qualquer um deles, monte etapa por etapa e mande por link ou QR code — o aplicativo de quem receber ainda traduz a sua moagem para o moedor dele.", "methods-grid.figcaption2": "Filter · Espresso · Milk", "tasting-lab.h31": "Prove às <em>cegas</em>.", "tasting-lab.p3": "Alinhe de dois a seis cafés e pontue cada um às cegas — oito marcas, do aroma à preferência geral — depois revele qual era qual e veja o que você escolheu de verdade. As provas ficam no mesmo registro privado que todo o resto.", "tasting-lab.figcaption2": "Sample A-42 · scored blind<br>8 of 8 marks", "the-loop.h31": "Fixe sua melhor xícara. Prepare <em>rumo a ela</em>.", "the-loop.p3": "Marque uma xícara de referência e todo preparo seguinte passa a ser medido por ela. O Logica explica o que saiu do lugar, você planeja uma correção pequena e ela te espera no próximo ajuste — e some sem alarde assim que você já a fez. Ele não vai chamar um shot de equilibrado só por palavras de sabor, nem te mandar caçar moagem em grãos que estão simplesmente frescos demais: vai dizer pra deixar descansar.", "the-loop.figcaption2": "“Your Hario V60 cups are balanced”<br>James · offline", "insights.h31": "Seu diário, <em>lido</em> de volta pra você.", "insights.p3": "A tendência das notas, os ajustes que as suas melhores xícaras insistem em repetir, o quanto a sua dose é constante de verdade. Peça pro James ler o diário inteiro e ele conta o que vê — e a sua cafeína vai pro Apple Health, se você quiser.", "insights.figcaption2": "Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16", "break.figcaption1": "O café fez a parte dele muito antes de chegar à sua cozinha.", "gear-care.h31": "Ele cuida do <em>equipamento</em> também.", "gear-care.p2": "Diga no que você prepara e ele mantém a manutenção no calendário: descalcificação no ritmo da dureza da sua água, limpeza do moedor por uso além de por mês, e um lembrete de backflush só se a sua máquina tiver mesmo uma válvula de três vias. Lembretes, nunca um diagnóstico.", "gear-care.figcaption3": "The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026", "reach.h31": "Ele te segue até a chaleira.", "reach.p3": "O timer roda na tela bloqueada e na Dynamic Island, e no seu pulso com um toque háptico a cada despejo — assim o telefone fica na bancada e as suas mãos, secas. Tem widget na tela de início, e no iPad o preparo, o diário e o coach ficam lado a lado.", "reach.figcaption2": "Apple Watch · first pour<br>target 150 ml · steady", "privacy.p2": "Privado por construção", "privacy.h21": "Ele não fala com ninguém. Não existe código nele pra isso.", "close.p2": "O aplicativo não contém nenhum código de rede. O coaching é um motor determinístico que roda offline; ler o rótulo de um pacote usa reconhecimento de texto no próprio aparelho. O seu registro fica no seu aparelho e sincroniza só pelo seu próprio iCloud — e você exporta tudo em JSON quando quiser.", "close.p3": "Sem conta · Sem rastreamento · Sem servidores Logica<br>Sem anúncios · Sem paywall · Sem assinaturas", "close.p4": "<a href=\"index.html\">Ler a política de privacidade →</a>", "close.h21": "Comece por <em>uma</em> xícara.", "close.p5": "De graça. Todos os recursos. Gorjeta opcional.", "close.p6": "iOS 16.2 ou posterior · Apple Watch requer watchOS 10 · 12 idiomas", "chrome.foot_appstore": "App Store", "chrome.foot_privacy": "Política de Privacidade", "chrome.foot_contact": "E-mail"}, "ru": {"chrome.nav_methods": "Методы", "chrome.nav_privacy": "Приватность", "chrome.foot_support": "Поддержка", "chrome.nav_get": "Скачать ↗", "chrome.pending": "Этой страницы пока нет на русском — показываем английскую версию.", "hero.h11": "Каждая чашка о чём-то <em>говорит</em>.", "hero.p2": "Помощник в заваривании: слушает, запоминает и отвечает. Бесплатно, офлайн, на твоём устройстве.", "chrome.cta": "Загрузите в App Store", "chrome.hero_terms": "Бесплатно · Без рекламы · Без аккаунта · Без подписки", "the-problem.h21": "Почти никто не записывает, что и как заварил.", "the-problem.p2": "Заварили, выпили, забыли — а завтра снова гадаем.", "remembering.h31": "Logica запомнит за <em>тебя</em>.", "remembering.p3": "Доза, помол, вода и её температура, время, кофемолка и её настройка, во что обошлась чашка и какой на самом деле получился вкус. Отсканируй пачку — основное заполнится само. Одно касание в конце заваривания — и настройки уже в дневнике; теги вкуса добавишь ещё одним.", "remembering.figcaption2": "Sunrise Blend · Ethiopia<br>180 g left of 250 g", "the-count.p2": "Что внутри", "the-count.h21": "Рецепты, которым стоит следовать.", "chrome.fig_methods": "Методы и напитки", "chrome.fig_recipes": "Пошаговые рецепты", "chrome.fig_authorities": "С указанием автора", "the-count.p3": "Рецепты с указанием автора следуют опубликованным методикам двадцати признанных специалистов — среди них Hoffmann, Rao, Kasuya, Hedrick, Adler, Wendelboe, Winton и Howell.", "the-timer.h31": "Секундомер просто считает. А этот таймер <em>ведёт</em>.", "the-timer.p3": "На каждом этапе видно, сколько воды долить и к какой секунде, а о следующем шаге таймер предупредит заранее. На Hario Switch он подскажет даже, когда закрыть клапан.", "the-timer.figcaption2": "Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45", "one-variable.h31": "Logica назовёт то <em>единственное</em>, что стоит изменить.", "one-variable.p3": "На щелчок мельче. На полградуса холоднее. Одна переменная за раз, всё остальное держим ровно там же, где было, — в этом и есть калибровка, и в этом весь смысл приложения. У двадцати трёх кофемолок здесь свои настоящие щелчки, так что такой щелчок на твоей кофемолке действительно есть.", "one-variable.figcaption2": "“James will move one variable<br>and hold the rest”", "methods-grid.h31": "Всё, на чём ты варишь.", "methods-grid.p3": "Фильтр, эспрессо и напитки с молоком. А захочется своего рецепта на любом из них — собери его по этапам и отправь ссылкой или QR-кодом: приложение на той стороне само пересчитает твою настройку помола под кофемолку друга.", "methods-grid.figcaption2": "Filter · Espresso · Milk", "tasting-lab.h31": "Пробуй <em>вслепую</em>.", "tasting-lab.p3": "Поставь рядом от двух до шести сортов и оцени каждый вслепую — восемь оценок, от аромата до общего предпочтения. Потом раскрой, где что было, и увидишь, какой кофе ты выбрал на самом деле, когда этикетка не подсказывала. Слепые дегустации хранятся там же, в твоём личном дневнике.", "tasting-lab.figcaption2": "Sample A-42 · scored blind<br>8 of 8 marks", "the-loop.h31": "Сделай лучшую чашку эталоном. И <em>равняйся</em> на неё.", "the-loop.p3": "Отметь эталонную чашку — и каждую следующую Logica будет сверять с ней: объяснит, что ушло в сторону, а ты запланируешь одну небольшую поправку. Она дождётся тебя при следующей настройке и тихо исчезнет, как только ты её внесёшь. Джеймс не назовёт шот сбалансированным по одним лишь словам о вкусе и не отправит гоняться за помолом там, где зерно просто слишком свежее, — он скажет дать ему отдохнуть.", "the-loop.figcaption2": "“Your Hario V60 cups are balanced”<br>James · offline", "insights.h31": "Твой дневник начинает <em>работать</em> на тебя.", "insights.p3": "Тренд оценок, настройки, которые повторяются в лучших чашках, и то, насколько ровная у тебя доза на самом деле. Попроси Джеймса прочитать весь дневник — он расскажет, что видит. А кофеин уйдёт в Apple Health, если захочешь.", "insights.figcaption2": "Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16", "break.figcaption1": "Кофе сделал своё дело задолго до того, как попал к тебе на кухню.", "gear-care.h31": "Присмотрит и за <em>техникой</em>.", "gear-care.p2": "Скажи, на чём ты варишь, — и уход сам встанет в расписание: чистка от накипи — под жёсткость твоей воды, мойка кофемолки — и по расходу зерна, и по календарю, а напоминание о бэкфлаше придёт, только если в машине правда есть трёхходовой клапан. Это напоминания. Диагнозов приложение не ставит.", "gear-care.figcaption3": "The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026", "reach.h31": "Таймер дойдёт с тобой до чайника.", "reach.p3": "Таймер идёт на экране блокировки и в Dynamic Island, а на запястье отбивает лёгкий тап на каждом наливе — телефон спокойно останется на столе, а руки — сухими. Есть виджет на экране «Домой», а на iPad заваривание, дневник и тренер стоят рядом.", "reach.figcaption2": "Apple Watch · first pour<br>target 150 ml · steady", "privacy.p2": "Приватность заложена в код", "privacy.h21": "Доложить о тебе некуда. Такого кода в приложении просто нет.", "close.p2": "В приложении нет ни строчки сетевого кода. Подсказки считает детерминированный движок, целиком офлайн; этикетку на пачке распознаёт само устройство. Дневник заварок остаётся на твоём устройстве и синхронизируется только через твой собственный iCloud — а выгрузить его целиком в JSON можно когда угодно.", "close.p3": "Без аккаунта · Без слежки · Без серверов Logica<br>Без рекламы · Без пейволов · Без подписок", "close.p4": "<a href=\"index.html\">Читать политику конфиденциальности →</a>", "close.h21": "Начни с <em>одной</em> чашки.", "close.p5": "Бесплатно. Все функции. Чаевые по желанию.", "close.p6": "iOS 16.2 или новее · Для Apple Watch нужна watchOS 10 · 12 языков", "chrome.foot_appstore": "App Store", "chrome.foot_privacy": "Политика конфиденциальности", "chrome.foot_contact": "Почта"}, "uk": {"chrome.nav_methods": "Методи", "chrome.nav_privacy": "Приватність", "chrome.foot_support": "Підтримка", "chrome.nav_get": "Завантажити ↗", "chrome.pending": "Цієї сторінки ще немає українською — показуємо англійську версію.", "hero.h11": "Кожна чашка щось тобі <em>каже</em>.", "hero.p2": "Помічник у заварюванні: слухає, запам’ятовує і відповідає. Безкоштовно, офлайн, на твоєму пристрої.", "chrome.cta": "Завантажити з App Store", "chrome.hero_terms": "Безкоштовно · Без реклами · Без акаунта · Без підписки", "the-problem.h21": "Майже ніхто не записує, що і як заварив.", "the-problem.p2": "Заварили, випили, забули — а завтра знову вгадуємо.", "remembering.h31": "Logica запам’ятає за <em>тебе</em>.", "remembering.p3": "Доза, помел, вода і її температура, час, млинок і його налаштування, у скільки вийшла чашка і який насправді вийшов смак. Відскануй пачку — основне заповниться саме. Одне торкання наприкінці заварювання — і налаштування вже в щоденнику; теги смаку додаси ще одним.", "remembering.figcaption2": "Sunrise Blend · Ethiopia<br>180 g left of 250 g", "the-count.p2": "Що всередині", "the-count.h21": "Рецепти, за якими варто йти.", "chrome.fig_methods": "Методи та напої", "chrome.fig_recipes": "Покрокові рецепти", "chrome.fig_authorities": "Із зазначенням автора", "the-count.p3": "Рецепти із зазначенням автора йдуть за опублікованими методиками двадцяти визнаних фахівців — серед них Hoffmann, Rao, Kasuya, Hedrick, Adler, Wendelboe, Winton і Howell.", "the-timer.h31": "Секундомір просто рахує. А цей таймер <em>веде</em>.", "the-timer.p3": "На кожному етапі видно, скільки води долити і до якої секунди, а про наступний крок таймер попередить заздалегідь. На Hario Switch він підкаже навіть, коли закрити клапан.", "the-timer.figcaption2": "Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45", "one-variable.h31": "Logica назве те <em>єдине</em>, що варто змінити.", "one-variable.p3": "На клац дрібніше. На пів градуса холодніше. Одна змінна за раз, усе інше тримаємо рівно там, де було, — у цьому і є калібрування, і в цьому весь сенс застосунку. У двадцяти трьох млинків тут свої справжні клацання, тож такий клац на твоєму млинку справді є.", "one-variable.figcaption2": "“James will move one variable<br>and hold the rest”", "methods-grid.h31": "Усе, на чому ти вариш.", "methods-grid.p3": "Фільтр, еспресо і напої з молоком. А захочеться власного рецепта на будь-якому з них — збери його за етапами і надішли посиланням чи QR-кодом: застосунок на тому боці сам перерахує твоє налаштування помелу під млинок друга.", "methods-grid.figcaption2": "Filter · Espresso · Milk", "tasting-lab.h31": "Куштуй <em>наосліп</em>.", "tasting-lab.p3": "Постав поруч від двох до шести сортів і оціни кожен наосліп — вісім оцінок, від аромату до загальної переваги. Потім розкрий, де що було, і побачиш, яку каву ти обрав насправді, коли етикетка не підказувала. Сліпі дегустації зберігаються там само, у твоєму особистому щоденнику.", "tasting-lab.figcaption2": "Sample A-42 · scored blind<br>8 of 8 marks", "the-loop.h31": "Зроби найкращу чашку еталоном. І <em>рівняйся</em> на неї.", "the-loop.p3": "Познач еталонну чашку — і кожну наступну Logica звірятиме з нею: пояснить, що пішло вбік, а ти заплануєш одну невелику поправку. Вона дочекається тебе під час наступного налаштування і тихо зникне, щойно ти її внесеш. Джеймс не назве шот збалансованим лише за словами про смак і не відправить ганятися за помелом там, де зерно просто надто свіже, — він скаже дати йому відпочити.", "the-loop.figcaption2": "“Your Hario V60 cups are balanced”<br>James · offline", "insights.h31": "Твій щоденник починає <em>працювати</em> на тебе.", "insights.p3": "Тренд оцінок, налаштування, які повторюються в найкращих чашках, і те, наскільки рівна насправді твоя доза. Попроси Джеймса прочитати весь щоденник — він розкаже, що бачить. А кофеїн піде в Apple Health, якщо захочеш.", "insights.figcaption2": "Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16", "break.figcaption1": "Кава зробила свою справу задовго до того, як потрапила до твоєї кухні.", "gear-care.h31": "Догляне і за <em>технікою</em>.", "gear-care.p2": "Скажи, на чому ти вариш, — і догляд сам стане в розклад: чищення від накипу — під жорсткість твоєї води, миття млинка — і за витратою зерна, і за календарем, а нагадування про бекфлаш прийде, тільки якщо в машині справді є триходовий клапан. Це нагадування. Діагнозів застосунок не ставить.", "gear-care.figcaption3": "The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026", "reach.h31": "Таймер дійде з тобою до чайника.", "reach.p3": "Таймер іде на екрані блокування і в Dynamic Island, а на зап’ясті відбиває легкий тап на кожному наливі — телефон спокійно лишиться на столі, а руки — сухими. Є віджет на екрані «Домівка», а на iPad заварювання, щоденник і тренер стоять поруч.", "reach.figcaption2": "Apple Watch · first pour<br>target 150 ml · steady", "privacy.p2": "Приватність закладена в код", "privacy.h21": "Доповісти про тебе нікуди. Такого коду в застосунку просто немає.", "close.p2": "У застосунку немає жодного рядка мережевого коду. Підказки рахує детермінований рушій, цілком офлайн; етикетку на пачці розпізнає сам пристрій. Щоденник заварювань лишається на твоєму пристрої й синхронізується лише через твій власний iCloud — а вивантажити його цілком у JSON можна будь-коли.", "close.p3": "Без акаунта · Без стеження · Без серверів Logica<br>Без реклами · Без пейволів · Без підписок", "close.p4": "<a href=\"index.html\">Читати політику конфіденційності →</a>", "close.h21": "Почни з <em>однієї</em> чашки.", "close.p5": "Безкоштовно. Усі функції. Чайові за бажанням.", "close.p6": "iOS 16.2 або новіша · Для Apple Watch потрібна watchOS 10 · 12 мов", "chrome.foot_appstore": "App Store", "chrome.foot_privacy": "Політика конфіденційності", "chrome.foot_contact": "Пошта"}, "zh-Hans": {"chrome.nav_methods": "冲煮方式", "chrome.nav_privacy": "隐私", "chrome.foot_support": "支持", "chrome.nav_get": "获取应用 ↗", "chrome.pending": "此页面暂无中文版本，先以英文显示。", "hero.h11": "每一杯都在<em>说</em>些什么。", "hero.p2": "一个会听、会记、也会回答的冲煮伙伴——免费、离线，全在你的设备里。", "chrome.cta": "从 App Store 下载", "chrome.hero_terms": "免费 · 无广告 · 无需账号 · 无订阅", "the-problem.h21": "可几乎没人把它记下来。", "the-problem.p2": "冲了，喝了，忘了——明天再凭感觉来一次。", "remembering.h31": "它替<em>你</em>记住。", "remembering.p3": "粉量、研磨、水量与水温、时间、用的磨豆机和它的刻度、这一杯的成本，还有它真正的味道。扫一下豆袋，基本信息自动填好。冲煮结束时点一下，这套参数就记下来了；风味标签再点一下。", "remembering.figcaption2": "Sunrise Blend · Ethiopia<br>180 g left of 250 g", "the-count.p2": "开箱即有", "the-count.h21": "值得跟着做的配方。", "chrome.fig_methods": "冲煮方式与饮品", "chrome.fig_recipes": "引导式配方", "chrome.fig_authorities": "出自具名行家", "the-count.p3": "标注来源的配方，遵循二十位具名行家公开发表的做法——其中包括 Hoffmann、Rao、Kasuya、Hedrick、Adler、Wendelboe、Winton 和 Howell。", "the-timer.h31": "是分段的流程，不是<em>秒表</em>。", "the-timer.p3": "每一段都写明该注到多少水、几秒之前注完，并在下一段到来之前先告诉你它是什么。用 Hario Switch 时，连什么时候关阀都会提醒。", "the-timer.figcaption2": "Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45", "one-variable.h31": "然后指出该改的那<em>一件</em>事。", "one-variable.p3": "研磨细一格。水温低半度。一次只动一个变量，其余全部保持原样——这是调校的纪律，也是这个 App 的纪律。23 台磨豆机都带着自己真实的刻度格，所以那一格，你的刻度盘上真的有。", "one-variable.figcaption2": "“James will move one variable<br>and hold the rest”", "methods-grid.h31": "你用什么冲，它都在。", "methods-grid.p3": "手冲、浓缩咖啡和奶咖都在。想在其中任何一种上做自己的配方，就一段一段搭起来，用链接或二维码发出去——对方的 App 还会把你的研磨刻度换算到他的磨豆机上。", "methods-grid.figcaption2": "Filter · Espresso · Milk", "tasting-lab.h31": "<em>盲测</em>着喝。", "tasting-lab.p3": "把两到六款咖啡摆在一起，逐一盲评——从香气到总体偏好，共八项——评完再揭晓谁是谁，看看你真正选的是哪一杯。品鉴记录和其他一切一样，留在同一份私人档案里。", "tasting-lab.figcaption2": "Sample A-42 · scored blind<br>8 of 8 marks", "the-loop.h31": "把最好的一杯钉住，然后<em>朝它</em>冲。", "the-loop.p3": "标记一只参考杯，之后每一次冲煮都以它为准。Logica 会说明哪里偏了，你规划一个小修正，它就在下次准备时等着你——你一旦照做，它便悄悄消失。它不会只凭几个风味词就说这杯浓缩是平衡的，也不会让你在还太新鲜的豆子上追着研磨跑——它会让你先把豆子养一养。", "the-loop.figcaption2": "“Your Hario V60 cups are balanced”<br>James · offline", "insights.h31": "你的日志，<em>读</em>给你听。", "insights.p3": "评分的走向、你最好的几杯反复共享的那套参数、你的粉量到底有多稳定。让 James 通读整本日志，他会讲他看到了什么——咖啡因也可以写进 Apple Health，如果你愿意。", "insights.figcaption2": "Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16", "break.figcaption1": "在到达你的厨房之前很久，这支咖啡就已经做完了它那份工作。", "gear-care.h31": "它也照看你的<em>器具</em>。", "gear-care.p2": "告诉它你用什么冲煮，它就把保养排进日程：除垢的间隔按你的水质硬度来，磨豆机清洁既看月份也看用量，而反冲洗提醒只在你的机器确实有三通阀时才出现。只是提醒，不是诊断。", "gear-care.figcaption3": "The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026", "reach.h31": "它会跟你走到水壶边。", "reach.p3": "计时器会在锁定屏幕和 Dynamic Island 里运行，也在手腕上——每一次注水都轻敲一下，手机就能留在台面上，你的手可以是干的。主屏幕有小组件，在 iPad 上，冲煮、日志和教练并排放得下。", "reach.figcaption2": "Apple Watch · first pour<br>target 150 ml · steady", "privacy.p2": "从构造上就是私密的", "privacy.h21": "它没法向外报信。里面根本没有这样的代码。", "close.p2": "这个 App 里没有任何网络代码。教练是一台离线运行的确定性引擎；读豆袋标签用的是设备本机的文字识别。你的冲煮记录留在你的设备上，只通过你自己的 iCloud 同步——而且随时可以把全部内容导出成 JSON。", "close.p3": "无账号 · 无追踪 · 没有 Logica 的服务器<br>无广告 · 无付费墙 · 无订阅", "close.p4": "<a href=\"index.html\">阅读隐私政策 →</a>", "close.h21": "从<em>一杯</em>开始。", "close.p5": "免费。全部功能。打赏随意。", "close.p6": "需要 iOS 16.2 或更高版本 · Apple Watch 需要 watchOS 10 · 支持 12 种语言", "chrome.foot_appstore": "App Store", "chrome.foot_privacy": "隐私政策", "chrome.foot_contact": "邮箱"}};
+  Object.assign(STR.be, {
+    "brew-today.label": "ЗАВАРЫЦЬ СЁННЯ",
+    "brew-today.h31": "Правільна завараная кава — у правільны момант.",
+    "brew-today.p3": "Logica ўлічвае свежасць вашай кавы ў зернях і кубкі, якія вам спадабаліся, а потым дае адну ясную рэкамендацыю для заварвання.",
+    "brew-today.figcaption2": "ЭФІОПІЯ · HARIO V60 · НА ПІКУ СВЕЖАСЦІ"
+  });
+  Object.assign(STR.de, {
+    "brew-today.label": "HEUTE BRÜHEN",
+    "brew-today.h31": "Die richtige Tasse, im richtigen Moment.",
+    "brew-today.p3": "Logica berücksichtigt die Frische deiner Bohnen und die Tassen, die du geliebt hast, und gibt dir dann eine klare Empfehlung fürs Brühen.",
+    "brew-today.figcaption2": "ÄTHIOPIEN · HARIO V60 · AUF DEM HÖHEPUNKT"
+  });
+  Object.assign(STR.es, {
+    "brew-today.label": "PREPARA HOY",
+    "brew-today.h31": "La preparación adecuada, en el momento adecuado.",
+    "brew-today.p3": "Logica tiene en cuenta la frescura de tus granos y los cafés que más te gustaron, y luego te da una recomendación clara para preparar café.",
+    "brew-today.figcaption2": "ETIOPÍA · HARIO V60 · EN SU PUNTO ÓPTIMO"
+  });
+  Object.assign(STR.fr, {
+    "brew-today.label": "PRÉPAREZ AUJOURD’HUI",
+    "brew-today.h31": "La bonne préparation, au bon moment.",
+    "brew-today.p3": "Logica prend en compte la fraîcheur de vos grains et les tasses que vous avez aimées, puis vous donne une recommandation claire pour votre prochaine préparation.",
+    "brew-today.figcaption2": "ÉTHIOPIE · HARIO V60 · À SON APOGÉE"
+  });
+  Object.assign(STR.it, {
+    "brew-today.label": "PREPARA OGGI",
+    "brew-today.h31": "La preparazione giusta, al momento giusto.",
+    "brew-today.p3": "Logica considera la freschezza dei tuoi chicchi e le tazze che hai amato, poi ti dà un chiaro consiglio di preparazione.",
+    "brew-today.figcaption2": "ETIOPIA · HARIO V60 · AL MASSIMO DELLA FRESCHEZZA"
+  });
+  Object.assign(STR.ja, {
+    "brew-today.label": "今日の抽出",
+    "brew-today.h31": "今、この瞬間にぴったりの一杯。",
+    "brew-today.p3": "Logicaは豆の鮮度と、あなたが気に入った一杯をもとに、次に淹れる一杯を明快におすすめします。",
+    "brew-today.figcaption2": "エチオピア · HARIO V60 · 最高の飲み頃"
+  });
+  Object.assign(STR.pl, {
+    "brew-today.label": "ZAPARZ DZIŚ",
+    "brew-today.h31": "Idealny napar, we właściwym momencie.",
+    "brew-today.p3": "Logica bierze pod uwagę świeżość Twoich ziaren i kawy, które smakowały Ci najbardziej, a potem daje jedną, jasną rekomendację parzenia.",
+    "brew-today.figcaption2": "ETIOPIA · HARIO V60 · W SZCZYCIE ŚWIEŻOŚCI"
+  });
+  Object.assign(STR["pt-BR"], {
+    "brew-today.label": "PREPARE HOJE",
+    "brew-today.h31": "O preparo certo, no momento certo.",
+    "brew-today.p3": "Logica considera o frescor dos seus grãos e os cafés que você adorou, e então oferece uma recomendação clara de preparo.",
+    "brew-today.figcaption2": "ETIÓPIA · HARIO V60 · NO AUGE DO FRESCOR"
+  });
+  Object.assign(STR.ru, {
+    "brew-today.label": "ЗАВАРИТЬ СЕГОДНЯ",
+    "brew-today.h31": "Идеальная чашка — в нужный момент.",
+    "brew-today.p3": "Logica учитывает свежесть ваших зёрен и чашки кофе, которые вам понравились, а затем даёт одну чёткую рекомендацию по завариванию.",
+    "brew-today.figcaption2": "ЭФИОПИЯ · HARIO V60 · НА ПИКЕ СВЕЖЕСТИ"
+  });
+  Object.assign(STR.uk, {
+    "brew-today.label": "ЗАВАРИТИ СЬОГОДНІ",
+    "brew-today.h31": "Ідеальна чашка — у потрібний момент.",
+    "brew-today.p3": "Logica бере до уваги свіжість ваших зерен і чашки кави, які вам полюбилися, а потім дає одну чітку рекомендацію щодо заварювання.",
+    "brew-today.figcaption2": "ЕФІОПІЯ · HARIO V60 · НА ПІКУ СВІЖОСТІ"
+  });
+  Object.assign(STR["zh-Hans"], {
+    "brew-today.label": "今日冲煮",
+    "brew-today.h31": "恰到好处的一杯，恰逢其时。",
+    "brew-today.p3": "Logica 会结合你的咖啡豆新鲜度和你喜爱的每一杯，为你给出一条清晰的冲煮推荐。",
+    "brew-today.figcaption2": "埃塞俄比亚 · HARIO V60 · 正值巅峰"
+  });
+
   var LANGS = ["en", "be", "de", "es", "fr", "it", "ja", "pl", "pt-BR", "ru", "uk", "zh-Hans"];
   // Locales Apple publishes a badge for. Anything else uses the English one.
   var BADGES = ["de", "en", "es", "fr", "it", "ja", "pl", "pt-BR", "ru", "zh-Hans"];
