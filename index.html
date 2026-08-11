@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Logica Coffee — the brewing companion that learns from your own cups</title>
 <meta name="description" content="A free, private brewing companion for iPhone, iPad, and Apple Watch. It learns from your own cups, tracks bean freshness, and helps you dial in without guesswork. No ads, accounts, or subscriptions.">
-<meta name="theme-color" content="#14100d">
+<meta name="theme-color" content="#F9F8F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151619" media="(prefers-color-scheme: dark)">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Logica Coffee">
@@ -49,39 +50,107 @@
 </script>
 
 <style>
+  @font-face {
+    font-family: "Logica Display Latin";
+    src: url("fonts/v1/SpecialGothicCondensedOne-Regular.ttf") format("truetype");
+    font-style: normal; font-weight: 400; font-display: swap;
+  }
+  @font-face {
+    font-family: "Logica Display Cyrillic";
+    src: url("fonts/v1/Oswald-Bold.ttf") format("truetype");
+    font-style: normal; font-weight: 700; font-display: swap;
+  }
+  @font-face {
+    font-family: "Logica Display Japanese";
+    src: url("fonts/v1/DelaGothicOne-Regular.ttf") format("truetype");
+    font-style: normal; font-weight: 400; font-display: swap;
+  }
+  @font-face {
+    font-family: "Logica Manrope";
+    src: url("fonts/v1/Manrope-Regular.ttf") format("truetype");
+    font-style: normal; font-weight: 400; font-display: swap;
+  }
+  @font-face {
+    font-family: "Logica Manrope";
+    src: url("fonts/v1/Manrope-Medium.ttf") format("truetype");
+    font-style: normal; font-weight: 500 900; font-display: swap;
+  }
+  @font-face {
+    font-family: "Logica Numeric";
+    src: url("fonts/v1/FiraMono-Medium.ttf") format("truetype");
+    font-style: normal; font-weight: 500; font-display: swap;
+  }
   :root {
-    --paper:  #f0eae0;
-    --ink:    #1d1610;
-    --ink2:   #6a5f52;
-    --rule:   #cfc5b4;   /* decorative hairlines */
-    --rule-strong: #928575; /* 3.01:1 — load-bearing separators */
-    --dark:   #14100d;
-    --cream:  #f2efe8;
-    /* The app ships an asymmetric accent because one mid-amber cannot clear
-       AA on both grounds (Color+App.swift). Same split here: 4.79:1 on paper,
-       6.72:1 on dark. The dark value is also the sibling pages' --orange. */
-    --amber-on-paper: #99542d;
-    --amber-on-dark:  #d68757;
+    --background-primary: #F9F8F3;
+    --surface-primary: #FFF;
+    --surface-secondary: #F1F0EB;
+    --surface-tertiary: #E7E6E0;
+    --text-primary: #2C2E31;
+    --text-secondary: #62656A;
+    --hairline: rgba(44, 46, 49, 0.14);
+    --hairline-strong: rgba(44, 46, 49, 0.32);
+    --background-dark: #151619;
+    --surface-dark-primary: #1D1F22;
+    --surface-dark-secondary: #25282C;
+    --surface-dark-tertiary: #303338;
+    --text-on-dark: #F9F8F3;
+    --text-secondary-on-dark: #B7B8B5;
+    --hairline-on-dark: rgba(249, 248, 243, 0.14);
+    --hairline-strong-on-dark: rgba(249, 248, 243, 0.32);
+    --focus-light: #2C2E31;
+    --focus-dark: #F9F8F3;
 
-    --serif: ui-serif, "New York", "Iowan Old Style", "Hoefler Text", Georgia, serif;
-    --sans:  -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    --mono:  ui-monospace, "SF Mono", Menlo, monospace;
+    --font-display: "Logica Display Latin", "Arial Narrow", sans-serif;
+    --font-display-weight: 400;
+    --font-body: "Logica Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: "Logica Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-label: "Logica Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-numeric: "Logica Numeric", ui-monospace, monospace;
+
+    --serif: var(--font-body);
+    --sans: var(--font-body);
+    --mono: var(--font-label);
 
     --gut: clamp(1.25rem, 4vw, 3rem);
     --maxw: 78rem;
   }
+  :root:lang(be), :root:lang(ru), :root:lang(uk) {
+    --font-display: "Logica Display Cyrillic", "Arial Narrow", sans-serif;
+    --font-display-weight: 700;
+  }
+  :root:lang(ja) {
+    --font-display: "Logica Display Japanese", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+    --font-heading: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+    --font-label: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  }
+  :root:lang(zh-Hans) {
+    --font-display: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    --font-heading: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    --font-label: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+  }
   *, *::before, *::after { box-sizing: border-box; }
   body {
-    margin: 0; background: var(--paper); color: var(--ink);
+    margin: 0; background: var(--background-primary); color: var(--text-primary);
     font-family: var(--sans); font-size: 17px; line-height: 1.6;
     -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  .label,
+  .masthead nav,
+  .lang-switch select,
+  .chapter-notes,
+  .terms,
+  footer {
+    font-family: var(--font-label);
+    font-weight: 500;
   }
   img { max-width: 100%; height: auto; display: block; }
   a { color: inherit; }
   figure { margin: 0; }
-  a:focus-visible { outline: 2px solid var(--amber-on-paper); outline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--focus-light); outline-offset: 3px; }
   .hero a:focus-visible, .onDark a:focus-visible, .feature-section--dark a:focus-visible {
-    outline-color: var(--amber-on-dark);
+    outline-color: var(--focus-dark);
   }
 
   .wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gut); }
@@ -92,7 +161,7 @@
     left: clamp(0.75rem, 2vw, 1.25rem); right: clamp(0.75rem, 2vw, 1.25rem);
     z-index: 10;
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-    background: var(--paper); border-radius: 2px;
+    background: var(--background-primary); border-radius: 2px;
     padding: 0.875rem clamp(1rem, 2.5vw, 1.75rem);
   }
   .masthead .mark {
@@ -108,12 +177,12 @@
     letter-spacing: 0.16em; text-transform: uppercase;
   }
   .masthead nav a {
-    color: var(--ink2); text-decoration: none; white-space: nowrap;
+    color: var(--text-secondary); text-decoration: none; white-space: nowrap;
     display: inline-flex; align-items: center;
     min-height: 44px; padding-block: 0.9rem; margin-block: -0.9rem;
   }
-  .masthead nav a:hover { color: var(--amber-on-paper); }
-  .masthead nav .get { color: var(--ink); }
+  .masthead nav a:hover { color: var(--focus-light); }
+  .masthead nav .get { color: var(--text-primary); }
   @media (max-width: 34rem) {
     .masthead nav .hide { display: none; }
     .masthead nav { gap: 1rem; }
@@ -138,8 +207,8 @@
   .hero {
     position: relative; min-height: min(94vh, 54rem);
     display: flex; align-items: flex-end;
-    background: var(--dark);
-    color: var(--cream);
+    background: var(--background-dark);
+    color: var(--text-on-dark);
     overflow: hidden;
     padding: clamp(2rem, 6vw, 5rem) 0 clamp(2.5rem, 6vw, 4.5rem);
   }
@@ -150,14 +219,14 @@
   }
   .hero::before {
     content: ""; position: absolute; inset: 0; z-index: 1;
-    background: linear-gradient(180deg, rgba(20,16,13,0.55) 0%, rgba(20,16,13,0.16) 36%, rgba(20,16,13,0.74) 100%);
+    background: linear-gradient(180deg, rgba(21,22,25,0.55) 0%, rgba(21,22,25,0.16) 36%, rgba(21,22,25,0.74) 100%);
   }
   /* Narrow viewports show the full image height, so the headline can land on
      rain-bead speculars. Deepen the mid-stop there only — desktop crops to the
      dark upper region and needs no help. */
   @media (max-width: 34rem) {
     .hero::before {
-      background: linear-gradient(180deg, rgba(20,16,13,0.55) 0%, rgba(20,16,13,0.34) 36%, rgba(20,16,13,0.80) 100%);
+      background: linear-gradient(180deg, rgba(21,22,25,0.55) 0%, rgba(21,22,25,0.34) 36%, rgba(21,22,25,0.80) 100%);
     }
   }
 
@@ -175,20 +244,20 @@
   .hero h1 em { font-style: italic; font-weight: 400; }
   .hero p {
     font-family: var(--serif); font-size: clamp(1.125rem, 2.1vw, 1.5rem);
-    color: rgba(242,239,232,0.84); margin: 1.5rem 0 0; max-width: 32ch;
+    color: var(--text-secondary-on-dark); margin: 1.5rem 0 0; max-width: 32ch;
   }
   .hero .go { margin-top: 2.25rem; display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; }
   .hero .terms {
     font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: rgba(242,239,232,0.62);
+    text-transform: uppercase; color: var(--text-secondary-on-dark);
   }
 
   .btn {
     display: inline-block; font-family: var(--mono); font-size: 0.6875rem;
     letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none;
-    padding: 1rem 1.75rem; background: var(--cream); color: var(--dark); border-radius: 2px;
+    padding: 1rem 1.75rem; background: var(--text-on-dark); color: var(--background-dark); border-radius: 2px;
   }
-  .btn:hover { background: #fff; }
+  .btn:hover { background: var(--surface-primary); }
 
   /* ---------- language picker ----------
      Shares the privacy/support pages' stored choice (localStorage 'lc_lang'), so
@@ -198,7 +267,7 @@
   .lang-switch select {
     appearance: none; -webkit-appearance: none;
     background: transparent; border: 0; border-radius: 0;
-    color: var(--ink2); font-family: var(--mono); font-size: 0.625rem;
+    color: var(--text-secondary); font-family: var(--mono); font-size: 0.625rem;
     letter-spacing: 0.16em;
     /* Native language names are not uppercased — and <option> styling is
        ignored by the iOS picker anyway, so the closed and open states would
@@ -206,11 +275,11 @@
     min-height: 44px; padding: 0.9rem 1rem 0.9rem 0; margin-block: -0.9rem;
     cursor: pointer;
   }
-  .lang-switch select:hover { color: var(--amber-on-paper); }
-  .lang-switch select:focus-visible { outline: 2px solid var(--amber-on-paper); outline-offset: 3px; }
+  .lang-switch select:hover { color: var(--focus-light); }
+  .lang-switch select:focus-visible { outline: 2px solid var(--focus-light); outline-offset: 3px; }
   .lang-switch::after {
     content: ""; position: absolute; right: 2px; top: 50%;
-    width: 5px; height: 5px; color: var(--ink2);
+    width: 5px; height: 5px; color: var(--text-secondary);
     border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
     transform: translateY(-70%) rotate(45deg); pointer-events: none;
   }
@@ -222,7 +291,7 @@
      say so than to serve English silently under a translated label. */
   #i18n-pending {
     font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: rgba(242, 239, 232, 0.6);
+    text-transform: uppercase; color: var(--text-secondary-on-dark);
     margin: 0 0 1.5rem;
   }
   #i18n-pending[hidden] { display: none; }
@@ -236,7 +305,7 @@
      text, so the image itself is decorative. */
   .btn-badge { display: inline-block; line-height: 0; border-radius: 8px; }
   .btn-badge img { width: auto; height: 44px; display: block; }
-  .btn-badge:focus-visible { outline: 2px solid var(--amber-on-dark); outline-offset: 4px; }
+  .btn-badge:focus-visible { outline: 2px solid var(--focus-dark); outline-offset: 4px; }
 
   /* ---------- shared beats ---------- */
   .beat { padding: clamp(4.5rem, 12vw, 9rem) 0; }
@@ -251,13 +320,13 @@
      scoping the base rule ends the whole class of bug rather than patching it. */
   .beat > .wrap > p:not([class]) {
     font-family: var(--serif); font-size: clamp(1.0625rem, 1.8vw, 1.375rem);
-    line-height: 1.5; color: var(--ink2); margin: 1.75rem 0 0; max-width: 34ch;
+    line-height: 1.5; color: var(--text-secondary); margin: 1.75rem 0 0; max-width: 34ch;
   }
   .beat.center { text-align: center; }
   .beat.center h2, .beat.center > .wrap > p:not([class]) { margin-inline: auto; }
   .label {
     font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--ink2); margin: 0 0 1.5rem;
+    text-transform: uppercase; color: var(--text-secondary); margin: 0 0 1.5rem;
   }
 
   /* ---------- feature system ----------
@@ -304,7 +373,7 @@
     width: min(100%, 19rem);
     margin-inline: auto;
     border-radius: 22px;
-    box-shadow: 0 2rem 4rem -1.5rem rgba(29,22,16,0.4);
+    box-shadow: 0 2rem 4rem -1.5rem rgba(44,46,49,0.4);
   }
   .feature-canvas--layered .feature-screen {
     position: absolute;
@@ -315,7 +384,7 @@
   }
   .feature-figure figcaption {
     font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--ink2); padding-top: 1rem; text-align: center;
+    text-transform: uppercase; color: var(--text-secondary); padding-top: 1rem; text-align: center;
     line-height: 1.7; overflow-wrap: anywhere;
   }
   .feature h3 {
@@ -326,7 +395,7 @@
   .feature h3 em { font-style: italic; font-weight: 400; }
   .feature p {
     font-family: var(--serif); font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
-    color: var(--ink2); margin: 1.25rem 0 0; max-width: 34ch; line-height: 1.5;
+    color: var(--text-secondary); margin: 1.25rem 0 0; max-width: 34ch; line-height: 1.5;
   }
   .feature--poster {
     justify-items: center;
@@ -398,10 +467,7 @@
     .feature--poster .feature-figure { max-width: 42rem; }
   }
 
-  /* ---------- brew today ----------
-     The collage carries its own deckled paper, torn terracotta layer, copper
-     arcs, device frame, and shadows. Keep the page composition open around it
-     instead of rebuilding any of that physical treatment in CSS. */
+  /* ---------- brew today ---------- */
   .brew-today { padding: 0 0 clamp(4.5rem, 12vw, 9rem); }
   .brew-today > .wrap { max-width: 86rem; }
   .brew-today-panel {
@@ -409,7 +475,7 @@
     gap: clamp(2.75rem, 7vw, 6.5rem);
   }
   .brew-today-copy { min-width: 0; }
-  .brew-today .label { color: var(--amber-on-paper); margin-bottom: 1.25rem; }
+  .brew-today .label { color: var(--focus-light); margin-bottom: 1.25rem; }
   .brew-today h3 {
     font-family: var(--serif); font-weight: 700;
     font-size: clamp(2.25rem, 5.4vw, 4.5rem); line-height: 1.02;
@@ -417,11 +483,11 @@
   }
   .brew-today-copy > p:not([class]) {
     font-family: var(--sans); font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
-    color: var(--ink2); margin: 1.5rem 0 0; max-width: 34ch; line-height: 1.5;
+    color: var(--text-secondary); margin: 1.5rem 0 0; max-width: 34ch; line-height: 1.5;
   }
   .brew-today-detail {
     font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--ink2);
+    text-transform: uppercase; color: var(--text-secondary);
     margin: 1.75rem 0 0; max-width: 46ch; line-height: 1.7;
     overflow-wrap: anywhere;
   }
@@ -439,28 +505,28 @@
     }
   }
 
-  .feature-section--dark { background: var(--dark); }
-  .feature-section--dark .feature h3 { color: var(--cream); }
-  .feature-section--dark .feature p { color: rgba(242, 239, 232, 0.74); }
+  .feature-section--dark { background: var(--background-dark); }
+  .feature-section--dark .feature h3 { color: var(--text-on-dark); }
+  .feature-section--dark .feature p { color: var(--text-secondary-on-dark); }
   .feature-section--dark .feature-screen {
     box-shadow: 0 2.5rem 5rem -1.5rem rgba(0, 0, 0, 0.85);
   }
   .feature-section--dark .feature-figure figcaption {
-    color: rgba(242, 239,232,0.5);
+    color: var(--text-secondary-on-dark);
   }
 
 
   /* ---------- the count: plain figures, no cards ---------- */
   .figures {
     display: grid; grid-template-columns: 1fr; gap: 0;
-    border-top: 1px solid var(--rule-strong); margin-top: 2rem;
+    border-top: 1px solid var(--hairline-strong); margin-top: 2rem;
   }
   @media (min-width: 46rem) { .figures { grid-template-columns: repeat(3, 1fr); } }
   .figures div {
-    padding: 1.75rem 0; border-bottom: 1px solid var(--rule-strong);
+    padding: 1.75rem 0; border-bottom: 1px solid var(--hairline-strong);
   }
   @media (min-width: 46rem) {
-    .figures div + div { border-left: 1px solid var(--rule-strong); padding-left: clamp(1.5rem, 3vw, 2.5rem); }
+    .figures div + div { border-left: 1px solid var(--hairline-strong); padding-left: clamp(1.5rem, 3vw, 2.5rem); }
   }
   .figures b {
     display: block; font-family: var(--serif); font-weight: 700;
@@ -469,7 +535,7 @@
   }
   .figures span {
     display: block; font-family: var(--mono); font-size: 0.625rem;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink2); margin-top: 0.875rem;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-secondary); margin-top: 0.875rem;
   }
 
   /* ---------- photographic break: no type on the picture ----------
@@ -480,46 +546,46 @@
   .break img { width: 100%; object-fit: cover; max-height: min(72vh, 36rem); }
   .break figcaption {
     font-family: var(--serif); font-size: clamp(1.125rem, 2.2vw, 1.625rem);
-    line-height: 1.4; color: var(--ink2);
+    line-height: 1.4; color: var(--text-secondary);
     max-width: calc(32ch + 2 * var(--gut)); margin: 1.75rem auto 0;
     text-align: center; padding-inline: var(--gut);
   }
 
   /* ---------- dark sections ---------- */
-  .onDark { background: var(--dark); color: var(--cream); }
-  .onDark h2 { color: var(--cream); }
-  .onDark > .wrap > p:not([class]) { color: rgba(242,239,232,0.7); }
-  .onDark .label { color: rgba(242,239,232,0.5); }
+  .onDark { background: var(--background-dark); color: var(--text-on-dark); }
+  .onDark h2 { color: var(--text-on-dark); }
+  .onDark > .wrap > p:not([class]) { color: var(--text-secondary-on-dark); }
+  .onDark .label { color: var(--text-secondary-on-dark); }
   .refuse {
     font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: rgba(242,239,232,0.58); margin: 2.25rem 0 0;
+    text-transform: uppercase; color: var(--text-secondary-on-dark); margin: 2.25rem 0 0;
     line-height: 2; max-width: none;
   }
   .readmore {
     font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.14em;
     text-transform: uppercase; margin: 2rem 0 0; max-width: none;
   }
-  .onDark .readmore a { color: var(--amber-on-dark); text-decoration: none; }
-  .onDark .readmore a:hover { color: var(--cream); }
+  .onDark .readmore a { color: var(--focus-dark); text-decoration: none; }
+  .onDark .readmore a:hover { color: var(--text-on-dark); }
 
   .close { text-align: center; }
   .close h2 { margin-inline: auto; }
   .close .refuse { margin: 1.75rem auto 2.5rem; }
   .close .terms {
     font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: rgba(242,239,232,0.5);
+    text-transform: uppercase; color: var(--text-secondary-on-dark);
     margin: 1.75rem auto 0; line-height: 2; max-width: none;
   }
 
-  footer { background: var(--dark); color: rgba(242,239,232,0.5); padding: 0 0 3rem; }
+  footer { background: var(--background-dark); color: var(--text-secondary-on-dark); padding: 0 0 3rem; }
   footer .wrap {
     display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between;
-    border-top: 1px solid rgba(242,239,232,0.14); padding-top: 1.5rem;
+    border-top: 1px solid var(--hairline-on-dark); padding-top: 1.5rem;
     font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase;
   }
   footer a { text-decoration: underline; text-underline-offset: 0.35em;
              text-decoration-thickness: 1px; }
-  footer a:hover { color: var(--cream); }
+  footer a:hover { color: var(--text-on-dark); }
 
   /* ---------- motion ----------
      Finite and discrete only. The app ships no continuous animation on any
@@ -558,17 +624,27 @@
 </style>
 <style>
   .chapter { padding: clamp(5rem, 11vw, 9rem) 0; }
-  .chapter:nth-of-type(even) { background: #e7dfd3; }
+  .chapter:nth-of-type(even) { background: var(--surface-secondary); }
   .chapter-grid { display:grid; gap:clamp(2.5rem,7vw,6rem); align-items:center; }
   .chapter-copy h2 { max-width:14ch; }
-  .chapter-copy > p:not([class]) { font-family:var(--serif); font-size:clamp(1.1rem,2vw,1.35rem); color:var(--ink2); max-width:38ch; }
+  .chapter-copy > p:not([class]) { font-family:var(--serif); font-size:clamp(1.1rem,2vw,1.35rem); color:var(--text-secondary); max-width:38ch; }
   .chapter-art { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(.75rem,2vw,1.25rem); align-items:end; }
-  .chapter-art img { width:100%; border-radius:1rem; box-shadow:0 2rem 4rem -2rem rgba(20,16,13,.55); }
-  .chapter-art .watch-native { border-radius:24%; background:#000; }
-  .chapter-notes { margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--rule-strong); font-family:var(--mono); font-size:.7rem; letter-spacing:.08em; color:var(--ink2); }
-  .chapter--dark { background:var(--dark)!important; color:var(--cream); }
-  .chapter--dark .chapter-copy > p:not([class]), .chapter--dark .chapter-notes { color:rgba(242,239,232,.72); }
-  .chapter--dark .chapter-notes { border-color:rgba(242,239,232,.35); }
+  .chapter-art img { width:100%; border-radius:1rem; box-shadow:0 2rem 4rem -2rem rgba(21,22,25,.55); }
+  .chapter-art .watch-native { border-radius:24%; background:var(--background-dark); }
+  .chapter-notes { margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--hairline-strong); font-family:var(--mono); font-size:.7rem; letter-spacing:.08em; color:var(--text-secondary); }
+  .chapter--dark { background:var(--background-dark)!important; color:var(--text-on-dark); }
+  .chapter--dark .chapter-copy > p:not([class]), .chapter--dark .chapter-notes { color:var(--text-secondary-on-dark); }
+  .chapter--dark .chapter-notes { border-color:var(--hairline-strong-on-dark); }
+  .hero h1,
+  .beat h2,
+  .feature h3,
+  .brew-today h3,
+  .chapter-copy h2 {
+    font-family:var(--font-display);
+    font-weight:var(--font-display-weight);
+  }
+  .hero h1 em, .beat h2 em, .feature h3 em { font-style:normal; font-weight:inherit; }
+  .figures b { font-family:var(--font-numeric); font-weight:500; }
   @media(min-width:58rem){.chapter-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}.chapter--reverse .chapter-copy{order:2}}
 </style>
 </head>
@@ -628,7 +704,7 @@
       </div>
       <figure class="chapter-art">
         <img src="assets/web_home_remember_v1.webp" width="900" height="1610" loading="lazy" decoding="async" alt="A straight iPhone on a stainless kitchen counter showing a guided Hario V60 brew timer." data-alt="home.alt.guide">
-        <img src="assets/feature_device_dialin.webp" width="852" height="1846" loading="lazy" decoding="async" alt="A straight iPhone showing an espresso Dial-In session with its next move and Stop Rule guidance." data-alt="home.alt.dialin">
+        <img src="assets/web_home_dialin_v2.webp" width="900" height="1610" loading="lazy" decoding="async" alt="A straight iPhone showing an espresso Dial-In session with its next move and Stop Rule guidance." data-alt="home.alt.dialin">
       </figure>
     </div>
   </section>
@@ -643,8 +719,8 @@
         <p class="chapter-notes" data-t="home.remember.note">Journal · Freshness · Insights · Tasting Lab · Optional Apple Health caffeine logging</p>
       </div>
       <figure class="chapter-art">
-        <img src="assets/feature_device_bean.webp" width="852" height="1846" loading="lazy" decoding="async" alt="A straight iPhone showing a coffee bag's freshness stage, tasting notes, and remaining weight." data-alt="home.alt.freshness">
-        <img src="assets/feature_device_insights.webp" width="852" height="1846" loading="lazy" decoding="async" alt="A straight iPhone showing rating trends and patterns found in the user's own brew history." data-alt="home.alt.insights">
+        <img src="assets/web_home_bean_v2.webp" width="900" height="1610" loading="lazy" decoding="async" alt="A straight iPhone showing a coffee bag's freshness stage, tasting notes, and remaining weight." data-alt="home.alt.freshness">
+        <img src="assets/web_home_insights_v2.webp" width="900" height="1610" loading="lazy" decoding="async" alt="A straight iPhone showing rating trends and patterns found in the user's own brew history." data-alt="home.alt.insights">
       </figure>
     </div>
   </section>
@@ -660,8 +736,8 @@
         <p class="readmore"><a href="privacy.html" data-t="home.kettle.privacy">Read the privacy policy →</a></p>
       </div>
       <figure class="chapter-art">
-        <img src="assets/web_home_watch_timer_v1.webp" class="watch-native" width="624" height="744" loading="lazy" decoding="async" alt="The native Logica Coffee Apple Watch timer showing the First Pour stage, 150 millilitres, and a steady pour cue." data-alt="home.alt.watch">
-        <img src="assets/feature_device_gear.webp" width="852" height="1846" loading="lazy" decoding="async" alt="A straight iPhone showing private, device-local maintenance reminders for the user's coffee equipment." data-alt="home.alt.gear">
+        <img src="assets/web_home_watch_timer_v2.webp" class="watch-native" width="416" height="496" loading="lazy" decoding="async" alt="The native Logica Coffee Apple Watch timer showing Water First, 225 millilitres to fill, at 0:18." data-alt="home.alt.watch">
+        <img src="assets/web_home_privacy_v2.webp" width="900" height="1610" loading="lazy" decoding="async" alt="A straight iPhone showing Data &amp; Legal controls for export, import, restore purchases, privacy policy, and terms of use." data-alt="home.alt.gear">
       </figure>
     </div>
   </section>
@@ -676,7 +752,7 @@
   </section>
 
   <!-- Retained only as untranslated source-copy archive for translator context.
-       A template is inert: its old campaign imagery is neither rendered nor fetched. -->
+       A template is inert; media-loading attributes are removed so retired campaign imagery cannot be fetched. -->
   <template id="legacy-localized-copy">
 
   <!-- HERO -->
@@ -687,13 +763,11 @@
         <h2 data-t="hero.h11">Every cup is <em>telling</em> you something.</h2>
         <p data-t="hero.p2">A brewing companion that listens, remembers, and answers back — offline, on your device.</p>
         <div class="go">
-          <a class="btn-badge" href="https://apps.apple.com/app/id6772714417"><img data-badge src="assets/badge-en.svg" alt="" width="120" height="40"><span class="visually-hidden" data-t="chrome.cta">Download on the App Store</span></a>
+          <a class="btn-badge" href="https://apps.apple.com/app/id6772714417"><img data-badge alt="" width="120" height="40"><span class="visually-hidden" data-t="chrome.cta">Download on the App Store</span></a>
           <span class="terms" data-t="chrome.hero_terms">Free · No ads · No account · No subscription</span>
         </div>
       </div>
-      <img class="hero-photo" fetchpriority="high" src="assets/photo_cherries.webp"
-           srcset="assets/photo_cherries.webp 941w, assets/photo_cherries@2x.webp 1882w"
-           sizes="100vw" width="941" height="1672"
+      <img class="hero-photo" fetchpriority="high" width="941" height="1672"
            alt="A branch of ripe coffee cherries, backlit and beaded with rain, against a dark hillside.">
     </div>
   </section>
@@ -717,7 +791,7 @@
           <p class="brew-today-detail" data-t="brew-today.figcaption2">Ethiopia · Hario V60 · at its peak</p>
         </div>
         <figure class="brew-today-shot">
-          <img width="1003" height="1568" loading="lazy" decoding="async" src="assets/brew_today_collage.webp" alt="A framed Logica Coffee Brew Today recommendation for an Ethiopia Hario V60, layered on deckled cream and terracotta paper with copper linework.">
+          <img width="1003" height="1568" loading="lazy" decoding="async" alt="A framed Logica Coffee Brew Today recommendation for an Ethiopia Hario V60, layered on deckled cream and terracotta paper with copper linework.">
         </figure>
       </div>
     </div>
@@ -733,9 +807,9 @@
           themselves in. One tap at the end of a brew logs the setup; taste tags take one more.</p>
       </div>
       <figure class="feature-figure">
-        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_bean_backdrop.webp">
-          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_bean_backdrop.webp" alt="">
-          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_bean.webp" alt="A bean detail screen for Sunrise Blend from Ethiopia, showing an estimated freshness window, tasting notes and the weight left in the bag.">
+        <div class="feature-canvas feature-canvas--layered">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" alt="A bean detail screen for Sunrise Blend from Ethiopia, showing an estimated freshness window, tasting notes and the weight left in the bag.">
         </div>
         <figcaption data-t="remembering.figcaption2">Sunrise Blend · Ethiopia<br>180 g left of 250 g</figcaption>
       </figure>
@@ -766,9 +840,9 @@
           coming next before it arrives. On a Switch it even tells you when to close the valve.</p>
       </div>
       <figure class="feature-figure">
-        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_timer_backdrop.webp">
-          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_timer_backdrop.webp" alt="">
-          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_timer.webp" alt="A running Hario Switch brew timer on the Bloom stage, step 2 of 4: close the switch, add 30 g of water and swirl to saturate the grounds, with a 30 ml target by 0:45 and Fill and Steep queued next.">
+        <div class="feature-canvas feature-canvas--layered">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" alt="A running Hario Switch brew timer on the Bloom stage, step 2 of 4: close the switch, add 30 g of water and swirl to saturate the grounds, with a 30 ml target by 0:45 and Fill and Steep queued next.">
         </div>
         <figcaption data-t="the-timer.figcaption2">Hario Switch · bloom · step 2 of 4<br>target 30 ml by 0:45</figcaption>
       </figure>
@@ -785,9 +859,9 @@
           grinders carry their real detents, so that click is one your dial actually has.</p>
       </div>
       <figure class="feature-figure">
-        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_dialin_backdrop.webp">
-          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_dialin_backdrop.webp" alt="">
-          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_dialin.webp" alt="An espresso dial-in session showing the current grind setting, a running shot timer, and a taste picker of Sour, Balanced and Bitter.">
+        <div class="feature-canvas feature-canvas--layered">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" alt="An espresso dial-in session showing the current grind setting, a running shot timer, and a taste picker of Sour, Balanced and Bitter.">
         </div>
         <figcaption data-t="one-variable.figcaption2">“James will move one variable<br>and hold the rest”</figcaption>
       </figure>
@@ -805,9 +879,9 @@
           translate your grind setting onto their grinder.</p>
       </div>
       <figure class="feature-figure">
-        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_methods_backdrop.webp">
-          <img class="feature-backdrop" width="1200" height="960" loading="lazy" decoding="async" src="assets/feature_methods_backdrop.webp" alt="">
-          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_methods.webp" alt="The Choose a method screen showing AeroPress, Ceado Hoop, Chemex and Clever Dripper, under Filter, Espresso and Milk tabs.">
+        <div class="feature-canvas feature-canvas--layered">
+          <img class="feature-backdrop" width="1200" height="960" loading="lazy" decoding="async" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" alt="The Choose a method screen showing AeroPress, Ceado Hoop, Chemex and Clever Dripper, under Filter, Espresso and Milk tabs.">
         </div>
         <figcaption data-t="methods-grid.figcaption2">Filter · Espresso · Milk</figcaption>
       </figure>
@@ -824,9 +898,9 @@
           Cupping sessions live in the same private record as everything else.</p>
       </div>
       <figure class="feature-figure">
-        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_cupping_backdrop.webp">
-          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_cupping_backdrop.webp" alt="">
-          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_cupping.webp" alt="Scoring a blind cupping sample in the Tasting Lab: Sample A-42 rated across aroma, flavour clarity, acidity quality, sweetness, body, aftertaste, balance and overall preference.">
+        <div class="feature-canvas feature-canvas--layered">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" alt="Scoring a blind cupping sample in the Tasting Lab: Sample A-42 rated across aroma, flavour clarity, acidity quality, sweetness, body, aftertaste, balance and overall preference.">
         </div>
         <figcaption data-t="tasting-lab.figcaption2">Sample A-42 · scored blind<br>8 of 8 marks</figcaption>
       </figure>
@@ -845,9 +919,9 @@
           it'll tell you to let them rest.</p>
       </div>
       <figure class="feature-figure">
-        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_coach_backdrop.webp">
-          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_coach_backdrop.webp" alt="">
-          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_coach.webp" alt="The Coach tab, marked James · Offline, reporting that the user's Hario V60 cups are balanced and advising them to repeat the recorded variables unchanged.">
+        <div class="feature-canvas feature-canvas--layered">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" alt="The Coach tab, marked James · Offline, reporting that the user's Hario V60 cups are balanced and advising them to repeat the recorded variables unchanged.">
         </div>
         <figcaption data-t="the-loop.figcaption2">“Your Hario V60 cups are balanced”<br>James · offline</figcaption>
       </figure>
@@ -864,9 +938,9 @@
           caffeine goes to Apple Health, if you want it there.</p>
       </div>
       <figure class="feature-figure">
-        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_insights_backdrop.webp">
-          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_insights_backdrop.webp" alt="">
-          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_insights.webp" alt="The Insights screen: a key takeaway that the user's cups are landing balanced, a rating trend chart averaging 4.5 stars, the setup shared by their best brews, and a dose-consistency reading.">
+        <div class="feature-canvas feature-canvas--layered">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" alt="The Insights screen: a key takeaway that the user's cups are landing balanced, a rating trend chart averaging 4.5 stars, the setup shared by their best brews, and a dose-consistency reading.">
         </div>
         <figcaption data-t="insights.figcaption2">Your rating · averaging 4.5★<br>best brews · Hario V60 · 18 g · 1:16</figcaption>
       </figure>
@@ -876,9 +950,7 @@
   <!-- BREAK -->
   <section class="break">
     <figure>
-      <img src="assets/photo_break.webp"
-           srcset="assets/photo_break.webp 1120w, assets/photo_break@2x.webp 2240w"
-           sizes="100vw" width="1120" height="1400" alt="A branch of ripe red coffee cherries in the foreground, with misted mountain ridges receding behind it.">
+      <img width="1120" height="1400" alt="A branch of ripe red coffee cherries in the foreground, with misted mountain ridges receding behind it.">
       <figcaption data-t="break.figcaption1">The coffee did its part long before it reached your kitchen.</figcaption>
     </figure>
   </section>
@@ -894,9 +966,9 @@
           Reminders, never a diagnosis.</p>
       </div>
       <figure class="feature-figure">
-        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_gear_backdrop.webp">
-          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" src="assets/feature_gear_backdrop.webp" alt="">
-          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" src="assets/feature_device_gear.webp" alt="An espresso machine's gear record: a three-way valve switch enabling the detergent backflush reminder, water hardness set to Medium for descaling intervals, and maintenance tasks showing Descale last done Jul 25 2026 with group gasket check and detergent backflush not logged yet.">
+        <div class="feature-canvas feature-canvas--layered">
+          <img class="feature-backdrop" width="1000" height="1500" loading="lazy" decoding="async" alt="">
+          <img class="feature-device" width="852" height="1846" loading="lazy" decoding="async" alt="An espresso machine's gear record: a three-way valve switch enabling the detergent backflush reminder, water hardness set to Medium for descaling intervals, and maintenance tasks showing Descale last done Jul 25 2026 with group gasket check and detergent backflush not logged yet.">
         </div>
         <figcaption data-t="gear-care.figcaption3">The Bianca · Lelit Bianca V3<br>descale · last done Jul 25, 2026</figcaption>
       </figure>
@@ -913,9 +985,9 @@
           a Home Screen widget, and on iPad the brew, the journal and the coach sit side by side.</p>
       </div>
       <figure class="feature-figure">
-        <div class="feature-canvas feature-canvas--layered" data-backdrop="assets/feature_watch_backdrop.webp">
-          <img class="feature-backdrop" width="1000" height="1000" loading="lazy" decoding="async" src="assets/feature_watch_backdrop.webp" alt="">
-          <img class="feature-screen" width="416" height="496" loading="lazy" decoding="async" src="assets/watch.webp" alt="The Logica Coffee watch app during a Hario V60 brew, showing the First Pour stage with a 150 ml target and a steady pour tempo.">
+        <div class="feature-canvas feature-canvas--layered">
+          <img class="feature-backdrop" width="1000" height="1000" loading="lazy" decoding="async" alt="">
+          <img class="feature-screen" width="416" height="496" loading="lazy" decoding="async" alt="The Logica Coffee watch app during a Hario V60 brew, showing the First Pour stage with a 150 ml target and a steady pour tempo.">
         </div>
         <figcaption data-t="reach.figcaption2">Apple Watch · first pour<br>target 150 ml · steady</figcaption>
       </figure>
@@ -941,7 +1013,7 @@
     <div class="wrap">
       <h2 data-t="close.h21">Start with <em>one</em> cup.</h2>
       <p class="refuse" data-t="close.p5">Free. Every feature. Tips optional.</p>
-      <a class="btn-badge" href="https://apps.apple.com/app/id6772714417"><img data-badge src="assets/badge-en.svg" alt="" width="120" height="40"><span class="visually-hidden" data-t="chrome.cta">Download on the App Store</span></a>
+      <a class="btn-badge" href="https://apps.apple.com/app/id6772714417"><img data-badge alt="" width="120" height="40"><span class="visually-hidden" data-t="chrome.cta">Download on the App Store</span></a>
       <p class="terms" data-t="close.p6">iOS 16.2 or later · Apple Watch requires watchOS 10 · 12 languages</p>
     </div>
   </section>
@@ -1032,6 +1104,7 @@
     "brew-today.figcaption2": "埃塞俄比亚 · HARIO V60 · 正值巅峰"
   });
 
+
   // Translator handoff: every key here deliberately falls back to the complete
   // English HTML until an authored locale value is supplied. Do not machine-fill.
   var TRANSLATION_HANDOFF = [
@@ -1043,17 +1116,18 @@
     "home.alt.hero", "home.alt.brew_today", "home.alt.journal", "home.alt.guide", "home.alt.dialin",
     "home.alt.freshness", "home.alt.insights", "home.alt.watch", "home.alt.gear"
   ];
-  Object.assign(STR.be, {"home.hero.title":"Заварвай з лепшай памяццю.","home.hero.body":"Logica вучыцца на тваіх кубках, сочыць за свежасцю зерня і вядзе наступнае заварванне без здагадак.","home.today.label":"01 · Заварыць сёння","home.today.title":"Правільная кава ў правільны момант.","home.today.body":"Brew Today улічвае твае зерні, дату абсмажкі, стадыю свежасці і кубкі, што табе спадабаліся. Ён дае адну ясную адпраўную кропку — або дазваляе сабраць сваю.","home.today.note":"Свежасць залежыць ад метаду · Рэкамендацыі — з тваёй гісторыі","home.guide.label":"02 · Вядзі заварванне","home.guide.title":"Ведай, калі змяніць <em>адну</em> рэч — і калі спыніцца.","home.guide.body":"83 пакрокавыя рэцэпты для 25 метадаў і напояў. Dial-In ужывае Stop Rule: Logica можа прапанаваць адну малую змену, папрасіць паўтарыць без змен, сказаць спыніцца або не чапаць памол, каб не марнаваць каву.","home.guide.note":"Сапраўдныя пстрыкі млынка · Этапы · Эталонныя кубкі · Уласныя рэцэпты","home.remember.label":"03 · Памятай і вучыся","home.remember.title":"Твой журнал становіцца карысным.","home.remember.body":"Трымай разам дозу, памол, ваду, тэмпературу, час, нататкі і фота кубка. Сачы за свежасцю кожнай пачкі, параўноўвай сляпыя дэгустацыі і знаходзь заканамернасці ў сваёй гісторыі.","home.remember.analysis":"У Джэймса заўсёды ёсць дэтэрмінаваны афлайн-адказ. На сумяшчальных iPhone і iPad з iOS або iPadOS 26+ дадатковы аналіз можа карыстацца мадэллю Apple на прыладзе, калі мадэль і мова гатовыя.","home.remember.note":"Журнал · Свежасць · Insights · Лабараторыя дэгустацыі · Неабавязковы запіс кафеіну ў Apple Health","home.kettle.label":"04 · Ля чайніка","home.kettle.title":"Прыватнасць па задуме. Побач, дзе ты заварваеш.","home.kettle.body":"Таймер выходзіць на экран блакіроўкі, Dynamic Island, віджэт, iPad і Apple Watch. Logica не кіруе серверамі. Твая гісторыя застаецца на прыладах, з неабавязковай сінхранізацыяй праз твой iCloud.","home.kettle.analysis":"Джэймс працуе афлайн. Неабавязковы аналіз Foundation Models працуе на прыладзе, калі даступны; гэтая функцыя не адпраўляе даныя пра заварванне ў Logica, Apple або на сервер Logica.","home.kettle.note":"Без рэкламы · Без акаўнта · Без падпіскі · Чаявыя па жаданні · Экспарт сваёй гісторыі","home.kettle.privacy":"Чытаць палітыку прыватнасці →","home.alt.hero":"Спелыя кававыя ягады на залітай дажджом галінцы над цёмным схілам.","home.alt.brew_today":"iPhone на сонечнай кухоннай стальніцы: Brew Today раіць Ethiopia Hario V60 на піку свежасці.","home.alt.journal":"iPhone на кухоннай стальніцы з журналам заварванняў Logica Coffee.","home.alt.guide":"iPhone на кухоннай стальніцы з таймерам вядзенага заварвання Hario V60.","home.alt.dialin":"iPhone з сесіяй Dial-In для эспрэса, наступным крокам і Stop Rule.","home.alt.freshness":"iPhone са стадыяй свежасці пачкі кавы, нататкамі і рэшткам вагі.","home.alt.insights":"iPhone з тэндэнцыямі ацэнак і заканамернасцямі з гісторыі заварванняў.","home.alt.watch":"Натыўны таймер Logica Coffee на Apple Watch: першы праліў, 150 мл і роўны тэмп.","home.alt.gear":"iPhone з прыватнымі лакальнымі напамінамі па доглядзе за кававым абсталяваннем."});
-  Object.assign(STR.de, {"home.hero.title":"Brühe mit besserem Gedächtnis.","home.hero.body":"Logica lernt aus deinen Tassen, behält die Bohnenfrische im Blick und führt dich ohne Rätselraten zum nächsten Brühgang.","home.today.label":"01 · Heute brühen","home.today.title":"Der richtige Kaffee, im richtigen Moment.","home.today.body":"Brew Today berücksichtigt deine Bohnen, Röstdatum, Frischestufe und gelungene Tassen. Es gibt dir einen klaren Ausgangspunkt — oder lässt dich deinen eigenen bauen.","home.today.note":"Frische ist methodenabhängig · Empfehlungen aus deiner eigenen Historie","home.guide.label":"02 · Den Brühgang führen","home.guide.title":"Wissen, wann du <em>eine</em> Sache änderst — und wann Schluss ist.","home.guide.body":"83 geführte Rezepte für 25 Methoden und Getränke. Dial-In nutzt eine Stop Rule: Logica kann eine kleine Änderung vorschlagen, dich unverändert wiederholen lassen, zum Aufhören raten oder den Mahlgrad in Ruhe lassen, statt Kaffee zu verschwenden.","home.guide.note":"Echte Mahlwerksrasten · Geführte Schritte · Referenztassen · Eigene Rezepte","home.remember.label":"03 · Erinnern und lernen","home.remember.title":"Dein Journal wird nützlich.","home.remember.body":"Halte Dosis, Mahlgrad, Wasser, Temperatur, Zeit, Notizen und Tassenfotos zusammen. Verfolge jede Bohne, vergleiche Blindverkostungen und finde Muster in deiner eigenen Historie.","home.remember.analysis":"James hat immer eine deterministische Offline-Antwort. Auf kompatiblen iPhones und iPads mit iOS oder iPadOS 26+ kann die optionale Analyse auch Apples Modell auf dem Gerät nutzen, wenn Modell und Sprache bereit sind.","home.remember.note":"Journal · Frische · Insights · Tasting Lab · Optionale Koffeinprotokollierung in Apple Health","home.kettle.label":"04 · Am Wasserkocher","home.kettle.title":"Privat konstruiert. Da, wo du brühst.","home.kettle.body":"Der Timer reicht bis Sperrbildschirm, Dynamic Island, Home-Bildschirm-Widget, iPad und Apple Watch. Logica betreibt keine Server. Deine Historie bleibt auf deinen Geräten, optional synchronisiert über deine eigene iCloud.","home.kettle.analysis":"James arbeitet offline. Die optionale Foundation-Models-Analyse läuft, wenn verfügbar, auf dem Gerät; diese Funktion sendet Brühdaten nicht an Logica, Apple oder einen Logica-Server.","home.kettle.note":"Keine Werbung · Kein Konto · Kein Abo · Trinkgeld optional · Eigene Historie exportieren","home.kettle.privacy":"Datenschutzerklärung lesen →","home.alt.hero":"Reife Kaffeekirschen an einem regennassen Ast über einem dunklen Berghang.","home.alt.brew_today":"iPhone auf sonniger Küchenarbeitsfläche: Brew Today empfiehlt einen Ethiopia Hario V60 auf dem Frischehöhepunkt.","home.alt.journal":"iPhone auf einer Küchenarbeitsfläche mit dem Brühjournal von Logica Coffee.","home.alt.guide":"iPhone auf einer Edelstahl-Arbeitsfläche mit einem geführten Hario-V60-Timer.","home.alt.dialin":"iPhone mit einer Espresso-Dial-In-Sitzung, nächstem Schritt und Stop-Rule-Hinweis.","home.alt.freshness":"iPhone mit Frischestufe, Verkostungsnotizen und Restgewicht einer Kaffeetüte.","home.alt.insights":"iPhone mit Bewertungstrends und Mustern aus der eigenen Brühhistorie.","home.alt.watch":"Nativer Logica-Coffee-Timer auf der Apple Watch: erster Guss, 150 ml und ruhiger Gießhinweis.","home.alt.gear":"iPhone mit privaten, lokalen Wartungserinnerungen für Kaffeeausrüstung."});
-  Object.assign(STR.es, {"home.hero.title":"Prepara con mejor memoria.","home.hero.body":"Logica aprende de tus tazas, vigila la frescura del café y guía la próxima preparación sin conjeturas.","home.today.label":"01 · Preparar hoy","home.today.title":"El café adecuado, en el momento adecuado.","home.today.body":"Brew Today tiene en cuenta tus cafés, fecha de tueste, etapa de frescura y las tazas que disfrutaste. Ofrece un punto de partida claro, o te deja crear el tuyo.","home.today.note":"Frescura según el método · Recomendaciones de tu propio historial","home.guide.label":"02 · Guía la preparación","home.guide.title":"Sabe cuándo cambiar <em>una</em> cosa — y cuándo parar.","home.guide.body":"Sigue 83 recetas guiadas de 25 métodos y bebidas. Dial-In aplica una Stop Rule: Logica puede sugerir un pequeño cambio, pedirte repetir sin cambios, decirte que pares o dejar quieta la molienda para no desperdiciar café.","home.guide.note":"Clics reales de molinillo · Etapas guiadas · Tazas de referencia · Recetas propias","home.remember.label":"03 · Recuerda y aprende","home.remember.title":"Tu diario se vuelve útil.","home.remember.body":"Reúne dosis, molienda, agua, temperatura, tiempo, notas y fotos de taza. Sigue la frescura de cada bolsa, compara catas a ciegas y deja que Insights encuentre patrones en tu historial.","home.remember.analysis":"James siempre tiene una respuesta determinista sin conexión. En iPhone y iPad compatibles con iOS o iPadOS 26 o posterior, el análisis opcional también puede usar el modelo en el dispositivo de Apple cuando el modelo y el idioma estén listos.","home.remember.note":"Diario · Frescura · Insights · Laboratorio de cata · Registro opcional de cafeína en Apple Health","home.kettle.label":"04 · Junto al hervidor","home.kettle.title":"Privado por diseño. Presente donde preparas.","home.kettle.body":"El temporizador llega a la pantalla bloqueada, Dynamic Island, el widget, iPad y Apple Watch. Logica no opera servidores. Tu registro queda en tus dispositivos, con sincronización opcional en tu propia cuenta de iCloud.","home.kettle.analysis":"James funciona sin conexión. El análisis opcional con Foundation Models se ejecuta en el dispositivo cuando está disponible; esa función no envía datos de preparación a Logica, Apple ni a un servidor de Logica.","home.kettle.note":"Sin anuncios · Sin cuenta · Sin suscripción · Propinas opcionales · Exporta tu historial","home.kettle.privacy":"Leer la política de privacidad →","home.alt.hero":"Cerezas de café maduras en una rama salpicada de lluvia sobre una ladera oscura.","home.alt.brew_today":"iPhone en una encimera soleada: Brew Today recomienda un Hario V60 de Etiopía en su punto de frescura.","home.alt.journal":"iPhone en una encimera de cocina con el diario de preparaciones de Logica Coffee.","home.alt.guide":"iPhone en una encimera de acero con un temporizador guiado para Hario V60.","home.alt.dialin":"iPhone con una sesión de Dial-In para espresso, su siguiente ajuste y la Stop Rule.","home.alt.freshness":"iPhone con la etapa de frescura, notas de cata y peso restante de una bolsa de café.","home.alt.insights":"iPhone con tendencias de valoración y patrones del historial de preparaciones.","home.alt.watch":"Temporizador nativo de Logica Coffee en Apple Watch: primer vertido, 150 ml y ritmo constante.","home.alt.gear":"iPhone con recordatorios privados y locales de mantenimiento del equipo de café."});
-  Object.assign(STR.fr, {"home.hero.title":"Brassez avec une meilleure mémoire.","home.hero.body":"Logica apprend de vos tasses, surveille la fraîcheur des grains et guide la prochaine préparation sans tâtonner.","home.today.label":"01 · Préparer aujourd’hui","home.today.title":"Le bon café, au bon moment.","home.today.body":"Brew Today tient compte de vos grains, de leur date de torréfaction, de leur fraîcheur et des tasses aimées. Il propose un point de départ clair — ou vous laisse créer le vôtre.","home.today.note":"Fraîcheur selon la méthode · Recommandations issues de votre historique","home.guide.label":"02 · Guider la préparation","home.guide.title":"Savoir quand changer <em>une</em> chose — et quand s’arrêter.","home.guide.body":"Suivez 83 recettes guidées, pour 25 méthodes et boissons. Dial-In applique une Stop Rule : Logica peut proposer un petit ajustement, demander de répéter sans rien changer, dire d’arrêter ou laisser la mouture tranquille plutôt que gâcher du café.","home.guide.note":"Cranans réels du moulin · Étapes guidées · Tasses de référence · Recettes personnelles","home.remember.label":"03 · Se souvenir et apprendre","home.remember.title":"Votre journal devient utile.","home.remember.body":"Gardez dose, mouture, eau, température, temps, notes et photos de tasse ensemble. Suivez chaque sac, comparez des dégustations à l’aveugle et laissez Insights révéler les motifs de votre historique.","home.remember.analysis":"James a toujours une réponse déterministe hors ligne. Sur iPhone et iPad compatibles avec iOS ou iPadOS 26 ou ultérieur, l’analyse facultative peut aussi utiliser le modèle d’Apple sur l’appareil lorsque le modèle et la langue sont prêts.","home.remember.note":"Journal · Fraîcheur · Insights · Laboratoire de dégustation · Enregistrement facultatif de caféine dans Apple Health","home.kettle.label":"04 · À la bouilloire","home.kettle.title":"Privé par conception. Présent là où vous brassez.","home.kettle.body":"Le minuteur arrive sur l’écran verrouillé, Dynamic Island, le widget, iPad et Apple Watch. Logica n’exploite aucun serveur. Votre historique reste sur vos appareils, avec une synchronisation facultative via votre iCloud.","home.kettle.analysis":"James fonctionne hors ligne. L’analyse facultative Foundation Models s’exécute sur l’appareil lorsqu’elle est disponible ; cette fonction n’envoie pas les données de préparation à Logica, Apple ni à un serveur Logica.","home.kettle.note":"Sans publicité · Sans compte · Sans abonnement · Pourboires facultatifs · Exportez votre historique","home.kettle.privacy":"Lire la politique de confidentialité →","home.alt.hero":"Cerises de café mûres sur une branche mouillée de pluie, au-dessus d’un versant sombre.","home.alt.brew_today":"iPhone sur un plan de travail ensoleillé : Brew Today recommande un Hario V60 d’Éthiopie à son pic de fraîcheur.","home.alt.journal":"iPhone sur un plan de travail avec le journal de préparation Logica Coffee.","home.alt.guide":"iPhone sur un plan de travail en inox montrant un minuteur Hario V60 guidé.","home.alt.dialin":"iPhone montrant une session Dial-In espresso, son prochain geste et la Stop Rule.","home.alt.freshness":"iPhone montrant la fraîcheur d’un sac de café, ses notes et son poids restant.","home.alt.insights":"iPhone montrant tendances de notes et motifs tirés de l’historique de préparation.","home.alt.watch":"Minuteur Logica Coffee natif sur Apple Watch : première verse, 150 ml et indication de débit régulier.","home.alt.gear":"iPhone montrant des rappels privés et locaux d’entretien du matériel café."});
-  Object.assign(STR.it, {"home.hero.title":"Prepara con una memoria migliore.","home.hero.body":"Logica impara dalle tue tazze, tiene d’occhio la freschezza dei chicchi e guida la prossima estrazione senza congetture.","home.today.label":"01 · Prepara oggi","home.today.title":"Il caffè giusto, al momento giusto.","home.today.body":"Brew Today considera i tuoi chicchi, data di tostatura, fase di freschezza e tazze riuscite. Ti offre un punto di partenza chiaro — oppure lascia a te la scelta.","home.today.note":"Freschezza legata al metodo · Consigli dalla tua cronologia","home.guide.label":"02 · Guida l’estrazione","home.guide.title":"Sapere quando cambiare <em>una</em> cosa — e quando fermarsi.","home.guide.body":"Segui 83 ricette guidate per 25 metodi e bevande. Dial-In applica una Stop Rule: Logica può suggerire un piccolo cambiamento, chiederti di ripetere senza modifiche, dirti di fermarti o lasciare invariata la macinatura per non sprecare caffè.","home.guide.note":"Scatti reali del macinacaffè · Fasi guidate · Tazze di riferimento · Ricette personali","home.remember.label":"03 · Ricorda e impara","home.remember.title":"Il tuo diario diventa utile.","home.remember.body":"Tieni insieme dose, macinatura, acqua, temperatura, tempo, note e foto della tazza. Segui la freschezza di ogni sacchetto, confronta degustazioni alla cieca e lascia che Insights trovi schemi nella tua cronologia.","home.remember.analysis":"James ha sempre una risposta deterministica offline. Su iPhone e iPad compatibili con iOS o iPadOS 26 o successivo, l’analisi opzionale può usare anche il modello Apple sul dispositivo quando modello e lingua sono pronti.","home.remember.note":"Diario · Freschezza · Insights · Laboratorio di degustazione · Registrazione facoltativa della caffeina in Apple Health","home.kettle.label":"04 · Al bollitore","home.kettle.title":"Privato per natura. Presente dove prepari.","home.kettle.body":"Il timer arriva su schermata di blocco, Dynamic Island, widget, iPad e Apple Watch. Logica non gestisce server. La tua cronologia rimane sui tuoi dispositivi, con sincronizzazione opzionale tramite il tuo iCloud.","home.kettle.analysis":"James funziona offline. L’analisi opzionale Foundation Models viene eseguita sul dispositivo quando disponibile; questa funzione non invia dati di estrazione a Logica, Apple o a un server Logica.","home.kettle.note":"Niente pubblicità · Nessun account · Nessun abbonamento · Mance facoltative · Esporta la tua cronologia","home.kettle.privacy":"Leggi l’informativa sulla privacy →","home.alt.hero":"Ciliegie di caffè mature su un ramo bagnato dalla pioggia sopra un pendio scuro.","home.alt.brew_today":"iPhone su un piano cucina soleggiato: Brew Today consiglia un Hario V60 Etiopia al picco di freschezza.","home.alt.journal":"iPhone su un piano cucina con il diario di estrazione di Logica Coffee.","home.alt.guide":"iPhone su un piano in acciaio con un timer guidato Hario V60.","home.alt.dialin":"iPhone con una sessione Dial-In per espresso, la prossima mossa e la Stop Rule.","home.alt.freshness":"iPhone con freschezza, note di degustazione e peso restante di un sacchetto di caffè.","home.alt.insights":"iPhone con tendenze delle valutazioni e schemi dalla cronologia di estrazione.","home.alt.watch":"Timer nativo Logica Coffee su Apple Watch: primo versamento, 150 ml e ritmo costante.","home.alt.gear":"iPhone con promemoria privati e locali per la manutenzione dell’attrezzatura da caffè."});
-  Object.assign(STR.ja, {"home.hero.title":"一杯の記憶を、もっと確かに。","home.hero.body":"Logicaはあなたの一杯から学び、豆の鮮度を見守り、次の抽出を迷いなく導きます。","home.today.label":"01 · 今日淹れる","home.today.title":"今この瞬間に、ぴったりのコーヒーを。","home.today.body":"Brew Todayは、手元の豆、焙煎日、鮮度の段階、気に入った一杯をもとに考えます。明快な出発点を示すことも、自分で組み立てることもできます。","home.today.note":"鮮度は抽出方法ごとに判断 · おすすめはあなた自身の履歴から","home.guide.label":"02 · 抽出を導く","home.guide.title":"<em>ひとつ</em>変える時と、止める時を知る。","home.guide.body":"25の抽出方法とドリンクに対応した83の段階式レシピ。Dial-InのStop Ruleは、小さな変更を一つ提案する、同じ条件で繰り返す、止める、またはコーヒーを無駄にしないために挽き目を動かさない、という判断をします。","home.guide.note":"実機のクリック幅 · ガイド付きステップ · 基準の一杯 · 自作レシピ","home.remember.label":"03 · 記録して、学ぶ","home.remember.title":"ジャーナルが、役に立ち始める。","home.remember.body":"ドーズ、挽き目、水、温度、時間、テイスティングノート、写真をひとつに。各袋の鮮度を追い、ブラインドテイスティングを比べ、Insightsで自分の履歴の傾向を見つけます。","home.remember.analysis":"Jamesには常に決定論的なオフライン回答があります。iOSまたはiPadOS 26以降の対応iPhone／iPadでは、モデルと言語の準備が整っていれば、任意の分析でAppleのオンデバイスモデルも使えます。","home.remember.note":"ジャーナル · 鮮度 · Insights · テイスティングラボ · 任意のApple Healthカフェイン記録","home.kettle.label":"04 · ケトルのそばで","home.kettle.title":"設計からプライベート。淹れる場所に、いつも。","home.kettle.body":"タイマーはロック画面、Dynamic Island、ホーム画面ウィジェット、iPad、Apple Watchまで届きます。Logicaはサーバーを運用しません。記録はあなたのデバイスに残り、必要なら自分のiCloudで同期します。","home.kettle.analysis":"Jamesはオフラインで動きます。任意のFoundation Models分析は、利用可能な場合デバイス上で実行され、この機能が抽出データをLogica、Apple、またはLogicaのサーバーへ送ることはありません。","home.kettle.note":"広告なし · アカウント不要 · サブスクリプションなし · 任意のチップ · 履歴をエクスポート","home.kettle.privacy":"プライバシーポリシーを読む →","home.alt.hero":"雨に濡れた枝に実る熟したコーヒーチェリー。その奥に暗い山腹。","home.alt.brew_today":"陽の当たるキッチンカウンターのiPhone。Brew Todayが鮮度の頂点にあるエチオピアHario V60を提案している。","home.alt.journal":"キッチンの作業台にあるiPhone。Logica Coffeeの抽出ジャーナルを表示している。","home.alt.guide":"ステンレスのキッチンカウンターにあるiPhone。Hario V60のガイド付きタイマーを表示している。","home.alt.dialin":"エスプレッソのDial-Inセッション、次の一手、Stop Ruleを表示するiPhone。","home.alt.freshness":"コーヒー袋の鮮度段階、テイスティングノート、残量を表示するiPhone。","home.alt.insights":"評価の傾向と抽出履歴から見つかったパターンを表示するiPhone。","home.alt.watch":"Apple WatchのLogica Coffeeネイティブタイマー。最初の注湯、150 ml、一定の注湯ペース。","home.alt.gear":"コーヒー器具のための非公開・端末内メンテナンス通知を表示するiPhone。"});
-  Object.assign(STR.pl, {"home.hero.title":"Parz z lepszą pamięcią.","home.hero.body":"Logica uczy się z Twoich filiżanek, pilnuje świeżości ziaren i prowadzi kolejne parzenie bez zgadywania.","home.today.label":"01 · Parz dziś","home.today.title":"Właściwa kawa, we właściwej chwili.","home.today.body":"Brew Today bierze pod uwagę Twoje ziarna, datę palenia, etap świeżości i udane filiżanki. Daje jeden jasny punkt wyjścia — albo pozwala stworzyć własny.","home.today.note":"Świeżość zależna od metody · Rekomendacje z Twojej historii","home.guide.label":"02 · Prowadź parzenie","home.guide.title":"Wiedz, kiedy zmienić <em>jedną</em> rzecz — i kiedy przestać.","home.guide.body":"Korzystaj z 83 etapowych receptur dla 25 metod i napojów. Dial-In stosuje Stop Rule: Logica może zaproponować małą zmianę, poprosić o powtórkę bez zmian, doradzić koniec lub zostawić mielenie w spokoju, zamiast marnować kawę.","home.guide.note":"Prawdziwe kliknięcia młynka · Prowadzone etapy · Filiżanki referencyjne · Własne receptury","home.remember.label":"03 · Pamiętaj i ucz się","home.remember.title":"Twój dziennik staje się użyteczny.","home.remember.body":"Trzymaj razem dozę, mielenie, wodę, temperaturę, czas, notatki i zdjęcia filiżanki. Śledź świeżość każdej paczki, porównuj ślepe degustacje i znajduj wzory we własnej historii.","home.remember.analysis":"James zawsze ma deterministyczną odpowiedź offline. Na zgodnych iPhone’ach i iPadach z iOS lub iPadOS 26+ opcjonalna analiza może też użyć modelu Apple na urządzeniu, gdy model i język są gotowe.","home.remember.note":"Dziennik · Świeżość · Insights · Laboratorium degustacji · Opcjonalne zapisy kofeiny w Apple Health","home.kettle.label":"04 · Przy czajniku","home.kettle.title":"Prywatność od podstaw. Tam, gdzie parzysz.","home.kettle.body":"Timer trafia na ekran blokady, Dynamic Island, widżet, iPada i Apple Watch. Logica nie prowadzi serwerów. Twoja historia zostaje na urządzeniach, z opcjonalną synchronizacją przez własne iCloud.","home.kettle.analysis":"James działa offline. Opcjonalna analiza Foundation Models działa na urządzeniu, gdy jest dostępna; ta funkcja nie wysyła danych parzenia do Logica, Apple ani na serwer Logica.","home.kettle.note":"Bez reklam · Bez konta · Bez subskrypcji · Napiwki opcjonalne · Eksport własnej historii","home.kettle.privacy":"Przeczytaj politykę prywatności →","home.alt.hero":"Dojrzałe owoce kawowca na mokrej od deszczu gałęzi nad ciemnym zboczem.","home.alt.brew_today":"iPhone na nasłonecznionym blacie: Brew Today poleca Ethiopia Hario V60 w szczycie świeżości.","home.alt.journal":"iPhone na kuchennym blacie z dziennikiem parzenia Logica Coffee.","home.alt.guide":"iPhone na stalowym blacie z prowadzonym timerem Hario V60.","home.alt.dialin":"iPhone z sesją Dial-In espresso, kolejnym ruchem i Stop Rule.","home.alt.freshness":"iPhone z etapem świeżości kawy, notatkami degustacyjnymi i pozostałą masą.","home.alt.insights":"iPhone z trendami ocen i wzorami z historii parzenia.","home.alt.watch":"Natywny timer Logica Coffee na Apple Watch: pierwszy nalew, 150 ml i równe tempo.","home.alt.gear":"iPhone z prywatnymi, lokalnymi przypomnieniami o konserwacji sprzętu kawowego."});
-  Object.assign(STR["pt-BR"], {"home.hero.title":"Prepare com uma memória melhor.","home.hero.body":"Logica aprende com suas xícaras, acompanha o frescor dos grãos e guia o próximo preparo sem adivinhação.","home.today.label":"01 · Preparar hoje","home.today.title":"O café certo, na hora certa.","home.today.body":"O Brew Today considera seus grãos, data de torra, estágio de frescor e as xícaras que você gostou. Ele oferece um ponto de partida claro — ou deixa você criar o seu.","home.today.note":"Frescor atento ao método · Recomendações do seu histórico","home.guide.label":"02 · Guiar o preparo","home.guide.title":"Saiba quando mudar <em>uma</em> coisa — e quando parar.","home.guide.body":"Siga 83 receitas guiadas em 25 métodos e bebidas. O Dial-In usa uma Stop Rule: Logica pode sugerir uma pequena mudança, pedir que você repita sem alterar nada, mandar parar ou deixar a moagem como está para não desperdiçar café.","home.guide.note":"Cliques reais do moedor · Etapas guiadas · Xícaras de referência · Receitas próprias","home.remember.label":"03 · Lembrar e aprender","home.remember.title":"Seu diário se torna útil.","home.remember.body":"Mantenha dose, moagem, água, temperatura, tempo, notas e fotos da xícara juntos. Acompanhe o frescor de cada pacote, compare degustações às cegas e encontre padrões no seu histórico.","home.remember.analysis":"James sempre tem uma resposta determinística offline. Em iPhones e iPads compatíveis com iOS ou iPadOS 26 ou posterior, a análise opcional também pode usar o modelo da Apple no dispositivo quando modelo e idioma estiverem prontos.","home.remember.note":"Diário · Frescor · Insights · Laboratório de degustação · Registro opcional de cafeína no Apple Health","home.kettle.label":"04 · Na chaleira","home.kettle.title":"Privado por natureza. Presente onde você prepara.","home.kettle.body":"O timer chega à Tela Bloqueada, Dynamic Island, widget, iPad e Apple Watch. A Logica não opera servidores. Seu histórico fica nos seus dispositivos, com sincronização opcional pela sua própria conta iCloud.","home.kettle.analysis":"James funciona offline. A análise opcional do Foundation Models roda no dispositivo quando disponível; esse recurso não envia dados de preparo à Logica, Apple nem a um servidor Logica.","home.kettle.note":"Sem anúncios · Sem conta · Sem assinatura · Gorjetas opcionais · Exporte seu histórico","home.kettle.privacy":"Leia a política de privacidade →","home.alt.hero":"Cerejas de café maduras em um galho marcado pela chuva acima de uma encosta escura.","home.alt.brew_today":"iPhone em uma bancada ensolarada: Brew Today recomenda um Hario V60 da Etiópia no auge do frescor.","home.alt.journal":"iPhone em uma bancada mostrando o diário de preparo do Logica Coffee.","home.alt.guide":"iPhone em uma bancada de aço mostrando um timer guiado Hario V60.","home.alt.dialin":"iPhone mostrando uma sessão Dial-In de espresso, seu próximo passo e a Stop Rule.","home.alt.freshness":"iPhone mostrando estágio de frescor, notas e peso restante de um pacote de café.","home.alt.insights":"iPhone mostrando tendências de avaliações e padrões do histórico de preparo.","home.alt.watch":"Timer nativo do Logica Coffee no Apple Watch: primeiro despejo, 150 ml e fluxo constante.","home.alt.gear":"iPhone mostrando lembretes privados e locais de manutenção do equipamento de café."});
-  Object.assign(STR.ru, {"home.hero.title":"Заваривайте с лучшей памятью.","home.hero.body":"Logica учится на ваших чашках, следит за свежестью зёрен и ведёт следующее заваривание без догадок.","home.today.label":"01 · Заварить сегодня","home.today.title":"Подходящий кофе — в нужный момент.","home.today.body":"Brew Today учитывает ваши зёрна, дату обжарки, этап свежести и понравившиеся чашки. Он даёт ясную отправную точку — или позволяет собрать свою.","home.today.note":"Свежесть зависит от метода · Рекомендации из вашей истории","home.guide.label":"02 · Вести заваривание","home.guide.title":"Знать, когда изменить <em>одно</em> — и когда остановиться.","home.guide.body":"83 пошаговых рецепта для 25 методов и напитков. Dial-In применяет Stop Rule: Logica может предложить небольшую правку, попросить повторить без изменений, сказать остановиться или не трогать помол, чтобы не тратить кофе.","home.guide.note":"Реальные щелчки кофемолок · Этапы · Эталонные чашки · Свои рецепты","home.remember.label":"03 · Помнить и учиться","home.remember.title":"Ваш журнал становится полезным.","home.remember.body":"Храните вместе дозу, помол, воду, температуру, время, заметки и фото. Следите за свежестью каждой пачки, сравнивайте слепые дегустации и находите закономерности в истории.","home.remember.analysis":"У Джеймса всегда есть детерминированный офлайн-ответ. На совместимых iPhone и iPad с iOS или iPadOS 26+ дополнительный анализ может использовать модель Apple на устройстве, когда модель и язык готовы.","home.remember.note":"Журнал · Свежесть · Insights · Лаборатория дегустации · Необязательная запись кофеина в Apple Health","home.kettle.label":"04 · У чайника","home.kettle.title":"Приватность по замыслу. Там, где вы завариваете.","home.kettle.body":"Таймер доступен на экране блокировки, Dynamic Island, виджете, iPad и Apple Watch. Logica не управляет серверами. История остаётся на ваших устройствах с необязательной синхронизацией через ваш iCloud.","home.kettle.analysis":"Джеймс работает офлайн. Дополнительный анализ Foundation Models выполняется на устройстве; эта функция не отправляет данные заваривания в Logica, Apple или на сервер Logica.","home.kettle.note":"Без рекламы · Без аккаунта · Без подписки · Чаевые по желанию · Экспорт истории","home.kettle.privacy":"Читать политику конфиденциальности →","home.alt.hero":"Спелые кофейные ягоды на мокрой от дождя ветке над тёмным склоном.","home.alt.brew_today":"iPhone на солнечной кухне: Brew Today рекомендует Ethiopia Hario V60 на пике свежести.","home.alt.journal":"iPhone с журналом завариваний Logica Coffee.","home.alt.guide":"iPhone с таймером Hario V60.","home.alt.dialin":"iPhone с сессией Dial-In для эспрессо и Stop Rule.","home.alt.freshness":"iPhone со свежестью, заметками и остатком кофе.","home.alt.insights":"iPhone с оценками и закономерностями истории.","home.alt.watch":"Таймер Logica Coffee на Apple Watch: первый пролив, 150 мл, ровный темп.","home.alt.gear":"iPhone с локальными напоминаниями об уходе за кофейным оборудованием."});
-  Object.assign(STR.uk, {"home.hero.title":"Заварюйте з кращою пам’яттю.","home.hero.body":"Logica вчиться на ваших чашках, стежить за свіжістю зерна й веде наступне заварювання без здогадів.","home.today.label":"01 · Заварити сьогодні","home.today.title":"Правильна кава у правильний момент.","home.today.body":"Brew Today враховує ваші зерна, дату обсмаження, етап свіжості й чашки, що вам сподобалися. Він дає одну ясну стартову точку — або дозволяє створити свою.","home.today.note":"Свіжість залежить від методу · Рекомендації з вашої історії","home.guide.label":"02 · Вести заварювання","home.guide.title":"Знати, коли змінити <em>одну</em> річ — і коли зупинитися.","home.guide.body":"83 покрокові рецепти для 25 методів і напоїв. Dial-In застосовує Stop Rule: Logica може запропонувати малу зміну, попросити повторити без змін, порадити зупинитися або не чіпати помел, щоб не марнувати каву.","home.guide.note":"Справжні клацання млинків · Керовані етапи · Еталонні чашки · Власні рецепти","home.remember.label":"03 · Пам’ятати й учитися","home.remember.title":"Ваш журнал стає корисним.","home.remember.body":"Тримайте разом дозу, помел, воду, температуру, час, нотатки й фото чашки. Стежте за свіжістю кожної пачки, порівнюйте сліпі дегустації та знаходьте закономірності у своїй історії.","home.remember.analysis":"Джеймс завжди має детерміновану офлайн-відповідь. На сумісних iPhone та iPad з iOS або iPadOS 26+ необов’язковий аналіз також може використовувати модель Apple на пристрої, коли модель і мова готові.","home.remember.note":"Журнал · Свіжість · Insights · Лабораторія дегустації · Необов’язковий запис кофеїну в Apple Health","home.kettle.label":"04 · Біля чайника","home.kettle.title":"Приватність за задумом. Там, де ви заварюєте.","home.kettle.body":"Таймер доступний на екрані блокування, Dynamic Island, віджеті, iPad і Apple Watch. Logica не керує серверами. Ваша історія лишається на пристроях із необов’язковою синхронізацією через ваш iCloud.","home.kettle.analysis":"Джеймс працює офлайн. Необов’язковий аналіз Foundation Models виконується на пристрої; ця функція не надсилає дані заварювання в Logica, Apple чи на сервер Logica.","home.kettle.note":"Без реклами · Без облікового запису · Без підписки · Чайові за бажанням · Експорт історії","home.kettle.privacy":"Читати політику конфіденційності →","home.alt.hero":"Стиглі кавові ягоди на змоченій дощем гілці над темним схилом.","home.alt.brew_today":"iPhone на сонячній кухонній стільниці: Brew Today радить Ethiopia Hario V60 на піку свіжості.","home.alt.journal":"iPhone з журналом заварювань Logica Coffee.","home.alt.guide":"iPhone із керованим таймером Hario V60.","home.alt.dialin":"iPhone із сесією Dial-In для еспресо та Stop Rule.","home.alt.freshness":"iPhone зі свіжістю, нотатками й залишком кави.","home.alt.insights":"iPhone із трендами оцінок і закономірностями історії.","home.alt.watch":"Таймер Logica Coffee на Apple Watch: перший пролив, 150 мл, рівний темп.","home.alt.gear":"iPhone з приватними локальними нагадуваннями про догляд за кавовим обладнанням."});
-  Object.assign(STR["zh-Hans"], {"home.hero.title":"让每一杯，都有更好的记忆。","home.hero.body":"Logica 从您的每一杯中学习，留意咖啡豆的新鲜度，并为下一次冲煮提供无需猜测的引导。","home.today.label":"01 · 今日冲煮","home.today.title":"恰好的咖啡，恰好的时刻。","home.today.body":"Brew Today 会综合您现有的咖啡豆、烘焙日期、新鲜度阶段以及您喜欢的咖啡。它给出一个清晰的起点，也让您自己决定。","home.today.note":"按冲煮方式判断新鲜度 · 建议来自您的历史记录","home.guide.label":"02 · 引导冲煮","home.guide.title":"知道何时改变<em>一件</em>事，也知道何时停下。","home.guide.body":"覆盖 25 种冲煮方式和饮品的 83 份分阶段配方。Dial-In 会应用 Stop Rule：Logica 可能建议一个小改动、让您不作改动地再试一次、建议停止，或让研磨度保持不变，以免浪费咖啡。","home.guide.note":"真实磨豆机刻度 · 引导步骤 · 参考杯 · 自定义配方","home.remember.label":"03 · 记录与学习","home.remember.title":"您的日志开始变得有用。","home.remember.body":"将粉量、研磨度、水、温度、时间、品鉴记录和杯子照片放在一起。追踪每袋咖啡的新鲜度，比较盲测，并让 Insights 从您的历史中发现规律。","home.remember.analysis":"James 始终能给出确定性的离线回答。在运行 iOS 或 iPadOS 26 或更高版本的兼容 iPhone 和 iPad 上，若模型和语言已就绪，可选分析还可使用 Apple 的设备端模型。","home.remember.note":"日志 · 新鲜度 · Insights · 品鉴实验室 · 可选的 Apple 健康咖啡因记录","home.kettle.label":"04 · 在壶边","home.kettle.title":"天生私密。陪您在冲煮之处。","home.kettle.body":"计时器可到达锁定屏幕、灵动岛、主屏幕小组件、iPad 和 Apple Watch。Logica 不运营服务器。您的记录留在设备上，也可通过您自己的 iCloud 账户同步。","home.kettle.analysis":"James 可离线工作。可选的 Foundation Models 分析在可用时于设备端运行；该功能不会将冲煮信息发送给 Logica、Apple 或 Logica 服务器。","home.kettle.note":"无广告 · 无需账户 · 无订阅 · 可选小费 · 导出自己的历史记录","home.kettle.privacy":"阅读隐私政策 →","home.alt.hero":"雨点斑驳的枝头上结着成熟咖啡果，背后是深色山坡。","home.alt.brew_today":"阳光洒落的厨房台面上，一部 iPhone 显示 Brew Today 推荐正处鲜度高峰的埃塞俄比亚 Hario V60。","home.alt.journal":"厨房台面上的 iPhone，显示 Logica Coffee 的冲煮日志。","home.alt.guide":"不锈钢厨房台面上的 iPhone，显示引导式 Hario V60 计时器。","home.alt.dialin":"iPhone 显示浓缩咖啡 Dial-In 会话、下一步和 Stop Rule 提示。","home.alt.freshness":"iPhone 显示咖啡袋的新鲜度阶段、品鉴记录和剩余重量。","home.alt.insights":"iPhone 显示评分趋势和从冲煮历史中找到的规律。","home.alt.watch":"Apple Watch 上的原生 Logica Coffee 计时器：第一次注水、150 毫升和稳定的注水提示。","home.alt.gear":"iPhone 显示为咖啡器具准备的私密本地维护提醒。"});
+  Object.assign(STR.be, {"home.hero.title":"Заварвай з лепшай памяццю.","home.hero.body":"Logica вучыцца на тваіх кубках, сочыць за свежасцю зерня і вядзе наступнае заварванне без здагадак.","home.today.label":"01 · Заварыць сёння","home.today.title":"Правільная кава ў правільны момант.","home.today.body":"Brew Today улічвае твае зерні, дату абсмажкі, стадыю свежасці і кубкі, што табе спадабаліся. Ён дае адну ясную адпраўную кропку — або дазваляе сабраць сваю.","home.today.note":"Свежасць залежыць ад метаду · Рэкамендацыі — з тваёй гісторыі","home.guide.label":"02 · Вядзі заварванне","home.guide.title":"Ведай, калі змяніць <em>адну</em> рэч — і калі спыніцца.","home.guide.body":"83 пакрокавыя рэцэпты для 25 метадаў і напояў. Dial-In ужывае Stop Rule: Logica можа прапанаваць адну малую змену, папрасіць паўтарыць без змен, сказаць спыніцца або не чапаць памол, каб не марнаваць каву.","home.guide.note":"Сапраўдныя пстрыкі млынка · Этапы · Эталонныя кубкі · Уласныя рэцэпты","home.remember.label":"03 · Памятай і вучыся","home.remember.title":"Твой журнал становіцца карысным.","home.remember.body":"Трымай разам дозу, памол, ваду, тэмпературу, час, нататкі і фота кубка. Сачы за свежасцю кожнай пачкі, параўноўвай сляпыя дэгустацыі і знаходзь заканамернасці ў сваёй гісторыі.","home.remember.analysis":"У Джэймса заўсёды ёсць дэтэрмінаваны афлайн-адказ. На сумяшчальных iPhone і iPad з iOS або iPadOS 26+ дадатковы аналіз можа карыстацца мадэллю Apple на прыладзе, калі мадэль і мова гатовыя.","home.remember.note":"Журнал · Свежасць · Insights · Лабараторыя дэгустацыі · Неабавязковы запіс кафеіну ў Apple Health","home.kettle.label":"04 · Ля чайніка","home.kettle.title":"Прыватнасць па задуме. Побач, дзе ты заварваеш.","home.kettle.body":"Таймер выходзіць на экран блакіроўкі, Dynamic Island, віджэт, iPad і Apple Watch. Logica не кіруе серверамі. Твая гісторыя застаецца на прыладах, з неабавязковай сінхранізацыяй праз твой iCloud.","home.kettle.analysis":"Джэймс працуе афлайн. Неабавязковы аналіз Foundation Models працуе на прыладзе, калі даступны; гэтая функцыя не адпраўляе даныя пра заварванне ў Logica, Apple або на сервер Logica.","home.kettle.note":"Без рэкламы · Без акаўнта · Без падпіскі · Чаявыя па жаданні · Экспарт сваёй гісторыі","home.kettle.privacy":"Чытаць палітыку прыватнасці →","home.alt.hero":"Спелыя кававыя ягады на залітай дажджом галінцы над цёмным схілам.","home.alt.brew_today":"iPhone на сонечнай кухоннай стальніцы: Brew Today раіць Ethiopia Hario V60 на піку свежасці.","home.alt.journal":"iPhone на кухоннай стальніцы з журналам заварванняў Logica Coffee.","home.alt.guide":"iPhone на кухоннай стальніцы з таймерам вядзенага заварвання Hario V60.","home.alt.dialin":"iPhone з сесіяй Dial-In для эспрэса, наступным крокам і Stop Rule.","home.alt.freshness":"iPhone са стадыяй свежасці пачкі кавы, нататкамі і рэшткам вагі.","home.alt.insights":"iPhone з тэндэнцыямі ацэнак і заканамернасцямі з гісторыі заварванняў.","home.alt.watch":"Apple Watch з актыўным этапам «Спачатку вада»: 225 мл, 0:18.","home.alt.gear":"iPhone з экранам «Даныя і права»: экспарт, імпарт і налады прыватнасці."});
+  Object.assign(STR.de, {"home.hero.title":"Brühe mit besserem Gedächtnis.","home.hero.body":"Logica lernt aus deinen Tassen, behält die Bohnenfrische im Blick und führt dich ohne Rätselraten zum nächsten Brühgang.","home.today.label":"01 · Heute brühen","home.today.title":"Der richtige Kaffee, im richtigen Moment.","home.today.body":"Brew Today berücksichtigt deine Bohnen, Röstdatum, Frischestufe und gelungene Tassen. Es gibt dir einen klaren Ausgangspunkt — oder lässt dich deinen eigenen bauen.","home.today.note":"Frische ist methodenabhängig · Empfehlungen aus deiner eigenen Historie","home.guide.label":"02 · Den Brühgang führen","home.guide.title":"Wissen, wann du <em>eine</em> Sache änderst — und wann Schluss ist.","home.guide.body":"83 geführte Rezepte für 25 Methoden und Getränke. Dial-In nutzt eine Stop Rule: Logica kann eine kleine Änderung vorschlagen, dich unverändert wiederholen lassen, zum Aufhören raten oder den Mahlgrad in Ruhe lassen, statt Kaffee zu verschwenden.","home.guide.note":"Echte Mahlwerksrasten · Geführte Schritte · Referenztassen · Eigene Rezepte","home.remember.label":"03 · Erinnern und lernen","home.remember.title":"Dein Journal wird nützlich.","home.remember.body":"Halte Dosis, Mahlgrad, Wasser, Temperatur, Zeit, Notizen und Tassenfotos zusammen. Verfolge jede Bohne, vergleiche Blindverkostungen und finde Muster in deiner eigenen Historie.","home.remember.analysis":"James hat immer eine deterministische Offline-Antwort. Auf kompatiblen iPhones und iPads mit iOS oder iPadOS 26+ kann die optionale Analyse auch Apples Modell auf dem Gerät nutzen, wenn Modell und Sprache bereit sind.","home.remember.note":"Journal · Frische · Insights · Tasting Lab · Optionale Koffeinprotokollierung in Apple Health","home.kettle.label":"04 · Am Wasserkocher","home.kettle.title":"Privat konstruiert. Da, wo du brühst.","home.kettle.body":"Der Timer reicht bis Sperrbildschirm, Dynamic Island, Home-Bildschirm-Widget, iPad und Apple Watch. Logica betreibt keine Server. Deine Historie bleibt auf deinen Geräten, optional synchronisiert über deine eigene iCloud.","home.kettle.analysis":"James arbeitet offline. Die optionale Foundation-Models-Analyse läuft, wenn verfügbar, auf dem Gerät; diese Funktion sendet Brühdaten nicht an Logica, Apple oder einen Logica-Server.","home.kettle.note":"Keine Werbung · Kein Konto · Kein Abo · Trinkgeld optional · Eigene Historie exportieren","home.kettle.privacy":"Datenschutzerklärung lesen →","home.alt.hero":"Reife Kaffeekirschen an einem regennassen Ast über einem dunklen Berghang.","home.alt.brew_today":"iPhone auf sonniger Küchenarbeitsfläche: Brew Today empfiehlt einen Ethiopia Hario V60 auf dem Frischehöhepunkt.","home.alt.journal":"iPhone auf einer Küchenarbeitsfläche mit dem Brühjournal von Logica Coffee.","home.alt.guide":"iPhone auf einer Edelstahl-Arbeitsfläche mit einem geführten Hario-V60-Timer.","home.alt.dialin":"iPhone mit einer Espresso-Dial-In-Sitzung, nächstem Schritt und Stop-Rule-Hinweis.","home.alt.freshness":"iPhone mit Frischestufe, Verkostungsnotizen und Restgewicht einer Kaffeetüte.","home.alt.insights":"iPhone mit Bewertungstrends und Mustern aus der eigenen Brühhistorie.","home.alt.watch":"Apple Watch mit aktivem Schritt „Wasser zuerst“, 225 ml und 0:18.","home.alt.gear":"iPhone mit dem Bildschirm „Daten & Recht“ für Export, Import und Datenschutz."});
+  Object.assign(STR.es, {"home.hero.title":"Prepara con mejor memoria.","home.hero.body":"Logica aprende de tus tazas, vigila la frescura del café y guía la próxima preparación sin conjeturas.","home.today.label":"01 · Preparar hoy","home.today.title":"El café adecuado, en el momento adecuado.","home.today.body":"Brew Today tiene en cuenta tus cafés, fecha de tueste, etapa de frescura y las tazas que disfrutaste. Ofrece un punto de partida claro, o te deja crear el tuyo.","home.today.note":"Frescura según el método · Recomendaciones de tu propio historial","home.guide.label":"02 · Guía la preparación","home.guide.title":"Sabe cuándo cambiar <em>una</em> cosa — y cuándo parar.","home.guide.body":"Sigue 83 recetas guiadas de 25 métodos y bebidas. Dial-In aplica una Stop Rule: Logica puede sugerir un pequeño cambio, pedirte repetir sin cambios, decirte que pares o dejar quieta la molienda para no desperdiciar café.","home.guide.note":"Clics reales de molinillo · Etapas guiadas · Tazas de referencia · Recetas propias","home.remember.label":"03 · Recuerda y aprende","home.remember.title":"Tu diario se vuelve útil.","home.remember.body":"Reúne dosis, molienda, agua, temperatura, tiempo, notas y fotos de taza. Sigue la frescura de cada bolsa, compara catas a ciegas y deja que Insights encuentre patrones en tu historial.","home.remember.analysis":"James siempre tiene una respuesta determinista sin conexión. En iPhone y iPad compatibles con iOS o iPadOS 26 o posterior, el análisis opcional también puede usar el modelo en el dispositivo de Apple cuando el modelo y el idioma estén listos.","home.remember.note":"Diario · Frescura · Insights · Laboratorio de cata · Registro opcional de cafeína en Apple Health","home.kettle.label":"04 · Junto al hervidor","home.kettle.title":"Privado por diseño. Presente donde preparas.","home.kettle.body":"El temporizador llega a la pantalla bloqueada, Dynamic Island, el widget, iPad y Apple Watch. Logica no opera servidores. Tu registro queda en tus dispositivos, con sincronización opcional en tu propia cuenta de iCloud.","home.kettle.analysis":"James funciona sin conexión. El análisis opcional con Foundation Models se ejecuta en el dispositivo cuando está disponible; esa función no envía datos de preparación a Logica, Apple ni a un servidor de Logica.","home.kettle.note":"Sin anuncios · Sin cuenta · Sin suscripción · Propinas opcionales · Exporta tu historial","home.kettle.privacy":"Leer la política de privacidad →","home.alt.hero":"Cerezas de café maduras en una rama salpicada de lluvia sobre una ladera oscura.","home.alt.brew_today":"iPhone en una encimera soleada: Brew Today recomienda un Hario V60 de Etiopía en su punto de frescura.","home.alt.journal":"iPhone en una encimera de cocina con el diario de preparaciones de Logica Coffee.","home.alt.guide":"iPhone en una encimera de acero con un temporizador guiado para Hario V60.","home.alt.dialin":"iPhone con una sesión de Dial-In para espresso, su siguiente ajuste y la Stop Rule.","home.alt.freshness":"iPhone con la etapa de frescura, notas de cata y peso restante de una bolsa de café.","home.alt.insights":"iPhone con tendencias de valoración y patrones del historial de preparaciones.","home.alt.watch":"Apple Watch con la etapa activa «Primero el agua», 225 ml y 0:18.","home.alt.gear":"iPhone con la pantalla Datos y aspectos legales: exportar, importar y privacidad."});
+  Object.assign(STR.fr, {"home.hero.title":"Brassez avec une meilleure mémoire.","home.hero.body":"Logica apprend de vos tasses, surveille la fraîcheur des grains et guide la prochaine préparation sans tâtonner.","home.today.label":"01 · Préparer aujourd’hui","home.today.title":"Le bon café, au bon moment.","home.today.body":"Brew Today tient compte de vos grains, de leur date de torréfaction, de leur fraîcheur et des tasses aimées. Il propose un point de départ clair — ou vous laisse créer le vôtre.","home.today.note":"Fraîcheur selon la méthode · Recommandations issues de votre historique","home.guide.label":"02 · Guider la préparation","home.guide.title":"Savoir quand changer <em>une</em> chose — et quand s’arrêter.","home.guide.body":"Suivez 83 recettes guidées, pour 25 méthodes et boissons. Dial-In applique une Stop Rule : Logica peut proposer un petit ajustement, demander de répéter sans rien changer, dire d’arrêter ou laisser la mouture tranquille plutôt que gâcher du café.","home.guide.note":"Cranans réels du moulin · Étapes guidées · Tasses de référence · Recettes personnelles","home.remember.label":"03 · Se souvenir et apprendre","home.remember.title":"Votre journal devient utile.","home.remember.body":"Gardez dose, mouture, eau, température, temps, notes et photos de tasse ensemble. Suivez chaque sac, comparez des dégustations à l’aveugle et laissez Insights révéler les motifs de votre historique.","home.remember.analysis":"James a toujours une réponse déterministe hors ligne. Sur iPhone et iPad compatibles avec iOS ou iPadOS 26 ou ultérieur, l’analyse facultative peut aussi utiliser le modèle d’Apple sur l’appareil lorsque le modèle et la langue sont prêts.","home.remember.note":"Journal · Fraîcheur · Insights · Laboratoire de dégustation · Enregistrement facultatif de caféine dans Apple Health","home.kettle.label":"04 · À la bouilloire","home.kettle.title":"Privé par conception. Présent là où vous brassez.","home.kettle.body":"Le minuteur arrive sur l’écran verrouillé, Dynamic Island, le widget, iPad et Apple Watch. Logica n’exploite aucun serveur. Votre historique reste sur vos appareils, avec une synchronisation facultative via votre iCloud.","home.kettle.analysis":"James fonctionne hors ligne. L’analyse facultative Foundation Models s’exécute sur l’appareil lorsqu’elle est disponible ; cette fonction n’envoie pas les données de préparation à Logica, Apple ni à un serveur Logica.","home.kettle.note":"Sans publicité · Sans compte · Sans abonnement · Pourboires facultatifs · Exportez votre historique","home.kettle.privacy":"Lire la politique de confidentialité →","home.alt.hero":"Cerises de café mûres sur une branche mouillée de pluie, au-dessus d’un versant sombre.","home.alt.brew_today":"iPhone sur un plan de travail ensoleillé : Brew Today recommande un Hario V60 d’Éthiopie à son pic de fraîcheur.","home.alt.journal":"iPhone sur un plan de travail avec le journal de préparation Logica Coffee.","home.alt.guide":"iPhone sur un plan de travail en inox montrant un minuteur Hario V60 guidé.","home.alt.dialin":"iPhone montrant une session Dial-In espresso, son prochain geste et la Stop Rule.","home.alt.freshness":"iPhone montrant la fraîcheur d’un sac de café, ses notes et son poids restant.","home.alt.insights":"iPhone montrant tendances de notes et motifs tirés de l’historique de préparation.","home.alt.watch":"Apple Watch avec l’étape active « L’eau d’abord », 225 ml et 0:18.","home.alt.gear":"iPhone affichant l’écran Données et mentions légales : export, import et confidentialité."});
+  Object.assign(STR.it, {"home.hero.title":"Prepara con una memoria migliore.","home.hero.body":"Logica impara dalle tue tazze, tiene d’occhio la freschezza dei chicchi e guida la prossima estrazione senza congetture.","home.today.label":"01 · Prepara oggi","home.today.title":"Il caffè giusto, al momento giusto.","home.today.body":"Brew Today considera i tuoi chicchi, data di tostatura, fase di freschezza e tazze riuscite. Ti offre un punto di partenza chiaro — oppure lascia a te la scelta.","home.today.note":"Freschezza legata al metodo · Consigli dalla tua cronologia","home.guide.label":"02 · Guida l’estrazione","home.guide.title":"Sapere quando cambiare <em>una</em> cosa — e quando fermarsi.","home.guide.body":"Segui 83 ricette guidate per 25 metodi e bevande. Dial-In applica una Stop Rule: Logica può suggerire un piccolo cambiamento, chiederti di ripetere senza modifiche, dirti di fermarti o lasciare invariata la macinatura per non sprecare caffè.","home.guide.note":"Scatti reali del macinacaffè · Fasi guidate · Tazze di riferimento · Ricette personali","home.remember.label":"03 · Ricorda e impara","home.remember.title":"Il tuo diario diventa utile.","home.remember.body":"Tieni insieme dose, macinatura, acqua, temperatura, tempo, note e foto della tazza. Segui la freschezza di ogni sacchetto, confronta degustazioni alla cieca e lascia che Insights trovi schemi nella tua cronologia.","home.remember.analysis":"James ha sempre una risposta deterministica offline. Su iPhone e iPad compatibili con iOS o iPadOS 26 o successivo, l’analisi opzionale può usare anche il modello Apple sul dispositivo quando modello e lingua sono pronti.","home.remember.note":"Diario · Freschezza · Insights · Laboratorio di degustazione · Registrazione facoltativa della caffeina in Apple Health","home.kettle.label":"04 · Al bollitore","home.kettle.title":"Privato per natura. Presente dove prepari.","home.kettle.body":"Il timer arriva su schermata di blocco, Dynamic Island, widget, iPad e Apple Watch. Logica non gestisce server. La tua cronologia rimane sui tuoi dispositivi, con sincronizzazione opzionale tramite il tuo iCloud.","home.kettle.analysis":"James funziona offline. L’analisi opzionale Foundation Models viene eseguita sul dispositivo quando disponibile; questa funzione non invia dati di estrazione a Logica, Apple o a un server Logica.","home.kettle.note":"Niente pubblicità · Nessun account · Nessun abbonamento · Mance facoltative · Esporta la tua cronologia","home.kettle.privacy":"Leggi l’informativa sulla privacy →","home.alt.hero":"Ciliegie di caffè mature su un ramo bagnato dalla pioggia sopra un pendio scuro.","home.alt.brew_today":"iPhone su un piano cucina soleggiato: Brew Today consiglia un Hario V60 Etiopia al picco di freschezza.","home.alt.journal":"iPhone su un piano cucina con il diario di estrazione di Logica Coffee.","home.alt.guide":"iPhone su un piano in acciaio con un timer guidato Hario V60.","home.alt.dialin":"iPhone con una sessione Dial-In per espresso, la prossima mossa e la Stop Rule.","home.alt.freshness":"iPhone con freschezza, note di degustazione e peso restante di un sacchetto di caffè.","home.alt.insights":"iPhone con tendenze delle valutazioni e schemi dalla cronologia di estrazione.","home.alt.watch":"Apple Watch con la fase attiva «Prima l’acqua», 225 ml e 0:18.","home.alt.gear":"iPhone con la schermata Dati e aspetti legali: esportazione, importazione e privacy."});
+  Object.assign(STR.ja, {"home.hero.title":"一杯の記憶を、もっと確かに。","home.hero.body":"Logicaはあなたの一杯から学び、豆の鮮度を見守り、次の抽出を迷いなく導きます。","home.today.label":"01 · 今日淹れる","home.today.title":"今この瞬間に、ぴったりのコーヒーを。","home.today.body":"Brew Todayは、手元の豆、焙煎日、鮮度の段階、気に入った一杯をもとに考えます。明快な出発点を示すことも、自分で組み立てることもできます。","home.today.note":"鮮度は抽出方法ごとに判断 · おすすめはあなた自身の履歴から","home.guide.label":"02 · 抽出を導く","home.guide.title":"<em>ひとつ</em>変える時と、止める時を知る。","home.guide.body":"25の抽出方法とドリンクに対応した83の段階式レシピ。Dial-InのStop Ruleは、小さな変更を一つ提案する、同じ条件で繰り返す、止める、またはコーヒーを無駄にしないために挽き目を動かさない、という判断をします。","home.guide.note":"実機のクリック幅 · ガイド付きステップ · 基準の一杯 · 自作レシピ","home.remember.label":"03 · 記録して、学ぶ","home.remember.title":"ジャーナルが、役に立ち始める。","home.remember.body":"ドーズ、挽き目、水、温度、時間、テイスティングノート、写真をひとつに。各袋の鮮度を追い、ブラインドテイスティングを比べ、Insightsで自分の履歴の傾向を見つけます。","home.remember.analysis":"Jamesには常に決定論的なオフライン回答があります。iOSまたはiPadOS 26以降の対応iPhone／iPadでは、モデルと言語の準備が整っていれば、任意の分析でAppleのオンデバイスモデルも使えます。","home.remember.note":"ジャーナル · 鮮度 · Insights · テイスティングラボ · 任意のApple Healthカフェイン記録","home.kettle.label":"04 · ケトルのそばで","home.kettle.title":"設計からプライベート。淹れる場所に、いつも。","home.kettle.body":"タイマーはロック画面、Dynamic Island、ホーム画面ウィジェット、iPad、Apple Watchまで届きます。Logicaはサーバーを運用しません。記録はあなたのデバイスに残り、必要なら自分のiCloudで同期します。","home.kettle.analysis":"Jamesはオフラインで動きます。任意のFoundation Models分析は、利用可能な場合デバイス上で実行され、この機能が抽出データをLogica、Apple、またはLogicaのサーバーへ送ることはありません。","home.kettle.note":"広告なし · アカウント不要 · サブスクリプションなし · 任意のチップ · 履歴をエクスポート","home.kettle.privacy":"プライバシーポリシーを読む →","home.alt.hero":"雨に濡れた枝に実る熟したコーヒーチェリー。その奥に暗い山腹。","home.alt.brew_today":"陽の当たるキッチンカウンターのiPhone。Brew Todayが鮮度の頂点にあるエチオピアHario V60を提案している。","home.alt.journal":"キッチンの作業台にあるiPhone。Logica Coffeeの抽出ジャーナルを表示している。","home.alt.guide":"ステンレスのキッチンカウンターにあるiPhone。Hario V60のガイド付きタイマーを表示している。","home.alt.dialin":"エスプレッソのDial-Inセッション、次の一手、Stop Ruleを表示するiPhone。","home.alt.freshness":"コーヒー袋の鮮度段階、テイスティングノート、残量を表示するiPhone。","home.alt.insights":"評価の傾向と抽出履歴から見つかったパターンを表示するiPhone。","home.alt.watch":"「まず湯」を実行中のApple Watch。225 ml、0:18。","home.alt.gear":"書き出し、読み込み、プライバシー設定を備えた「データと法務」画面を表示するiPhone。"});
+  Object.assign(STR.pl, {"home.hero.title":"Parz z lepszą pamięcią.","home.hero.body":"Logica uczy się z Twoich filiżanek, pilnuje świeżości ziaren i prowadzi kolejne parzenie bez zgadywania.","home.today.label":"01 · Parz dziś","home.today.title":"Właściwa kawa, we właściwej chwili.","home.today.body":"Brew Today bierze pod uwagę Twoje ziarna, datę palenia, etap świeżości i udane filiżanki. Daje jeden jasny punkt wyjścia — albo pozwala stworzyć własny.","home.today.note":"Świeżość zależna od metody · Rekomendacje z Twojej historii","home.guide.label":"02 · Prowadź parzenie","home.guide.title":"Wiedz, kiedy zmienić <em>jedną</em> rzecz — i kiedy przestać.","home.guide.body":"Korzystaj z 83 etapowych receptur dla 25 metod i napojów. Dial-In stosuje Stop Rule: Logica może zaproponować małą zmianę, poprosić o powtórkę bez zmian, doradzić koniec lub zostawić mielenie w spokoju, zamiast marnować kawę.","home.guide.note":"Prawdziwe kliknięcia młynka · Prowadzone etapy · Filiżanki referencyjne · Własne receptury","home.remember.label":"03 · Pamiętaj i ucz się","home.remember.title":"Twój dziennik staje się użyteczny.","home.remember.body":"Trzymaj razem dozę, mielenie, wodę, temperaturę, czas, notatki i zdjęcia filiżanki. Śledź świeżość każdej paczki, porównuj ślepe degustacje i znajduj wzory we własnej historii.","home.remember.analysis":"James zawsze ma deterministyczną odpowiedź offline. Na zgodnych iPhone’ach i iPadach z iOS lub iPadOS 26+ opcjonalna analiza może też użyć modelu Apple na urządzeniu, gdy model i język są gotowe.","home.remember.note":"Dziennik · Świeżość · Insights · Laboratorium degustacji · Opcjonalne zapisy kofeiny w Apple Health","home.kettle.label":"04 · Przy czajniku","home.kettle.title":"Prywatność od podstaw. Tam, gdzie parzysz.","home.kettle.body":"Timer trafia na ekran blokady, Dynamic Island, widżet, iPada i Apple Watch. Logica nie prowadzi serwerów. Twoja historia zostaje na urządzeniach, z opcjonalną synchronizacją przez własne iCloud.","home.kettle.analysis":"James działa offline. Opcjonalna analiza Foundation Models działa na urządzeniu, gdy jest dostępna; ta funkcja nie wysyła danych parzenia do Logica, Apple ani na serwer Logica.","home.kettle.note":"Bez reklam · Bez konta · Bez subskrypcji · Napiwki opcjonalne · Eksport własnej historii","home.kettle.privacy":"Przeczytaj politykę prywatności →","home.alt.hero":"Dojrzałe owoce kawowca na mokrej od deszczu gałęzi nad ciemnym zboczem.","home.alt.brew_today":"iPhone na nasłonecznionym blacie: Brew Today poleca Ethiopia Hario V60 w szczycie świeżości.","home.alt.journal":"iPhone na kuchennym blacie z dziennikiem parzenia Logica Coffee.","home.alt.guide":"iPhone na stalowym blacie z prowadzonym timerem Hario V60.","home.alt.dialin":"iPhone z sesją Dial-In espresso, kolejnym ruchem i Stop Rule.","home.alt.freshness":"iPhone z etapem świeżości kawy, notatkami degustacyjnymi i pozostałą masą.","home.alt.insights":"iPhone z trendami ocen i wzorami z historii parzenia.","home.alt.watch":"Apple Watch z aktywnym etapem „Najpierw woda”, 225 ml i 0:18.","home.alt.gear":"iPhone z ekranem Dane i kwestie prawne: eksport, import i ustawienia prywatności."});
+  Object.assign(STR["pt-BR"], {"home.hero.title":"Prepare com uma memória melhor.","home.hero.body":"Logica aprende com suas xícaras, acompanha o frescor dos grãos e guia o próximo preparo sem adivinhação.","home.today.label":"01 · Preparar hoje","home.today.title":"O café certo, na hora certa.","home.today.body":"O Brew Today considera seus grãos, data de torra, estágio de frescor e as xícaras que você gostou. Ele oferece um ponto de partida claro — ou deixa você criar o seu.","home.today.note":"Frescor atento ao método · Recomendações do seu histórico","home.guide.label":"02 · Guiar o preparo","home.guide.title":"Saiba quando mudar <em>uma</em> coisa — e quando parar.","home.guide.body":"Siga 83 receitas guiadas em 25 métodos e bebidas. O Dial-In usa uma Stop Rule: Logica pode sugerir uma pequena mudança, pedir que você repita sem alterar nada, mandar parar ou deixar a moagem como está para não desperdiçar café.","home.guide.note":"Cliques reais do moedor · Etapas guiadas · Xícaras de referência · Receitas próprias","home.remember.label":"03 · Lembrar e aprender","home.remember.title":"Seu diário se torna útil.","home.remember.body":"Mantenha dose, moagem, água, temperatura, tempo, notas e fotos da xícara juntos. Acompanhe o frescor de cada pacote, compare degustações às cegas e encontre padrões no seu histórico.","home.remember.analysis":"James sempre tem uma resposta determinística offline. Em iPhones e iPads compatíveis com iOS ou iPadOS 26 ou posterior, a análise opcional também pode usar o modelo da Apple no dispositivo quando modelo e idioma estiverem prontos.","home.remember.note":"Diário · Frescor · Insights · Laboratório de degustação · Registro opcional de cafeína no Apple Health","home.kettle.label":"04 · Na chaleira","home.kettle.title":"Privado por natureza. Presente onde você prepara.","home.kettle.body":"O timer chega à Tela Bloqueada, Dynamic Island, widget, iPad e Apple Watch. A Logica não opera servidores. Seu histórico fica nos seus dispositivos, com sincronização opcional pela sua própria conta iCloud.","home.kettle.analysis":"James funciona offline. A análise opcional do Foundation Models roda no dispositivo quando disponível; esse recurso não envia dados de preparo à Logica, Apple nem a um servidor Logica.","home.kettle.note":"Sem anúncios · Sem conta · Sem assinatura · Gorjetas opcionais · Exporte seu histórico","home.kettle.privacy":"Leia a política de privacidade →","home.alt.hero":"Cerejas de café maduras em um galho marcado pela chuva acima de uma encosta escura.","home.alt.brew_today":"iPhone em uma bancada ensolarada: Brew Today recomenda um Hario V60 da Etiópia no auge do frescor.","home.alt.journal":"iPhone em uma bancada mostrando o diário de preparo do Logica Coffee.","home.alt.guide":"iPhone em uma bancada de aço mostrando um timer guiado Hario V60.","home.alt.dialin":"iPhone mostrando uma sessão Dial-In de espresso, seu próximo passo e a Stop Rule.","home.alt.freshness":"iPhone mostrando estágio de frescor, notas e peso restante de um pacote de café.","home.alt.insights":"iPhone mostrando tendências de avaliações e padrões do histórico de preparo.","home.alt.watch":"Apple Watch com a etapa ativa “Água primeiro”, 225 ml e 0:18.","home.alt.gear":"iPhone mostrando a tela Dados e aspectos legais: exportar, importar e privacidade."});
+  Object.assign(STR.ru, {"home.hero.title":"Заваривайте с лучшей памятью.","home.hero.body":"Logica учится на ваших чашках, следит за свежестью зёрен и ведёт следующее заваривание без догадок.","home.today.label":"01 · Заварить сегодня","home.today.title":"Подходящий кофе — в нужный момент.","home.today.body":"Brew Today учитывает ваши зёрна, дату обжарки, этап свежести и понравившиеся чашки. Он даёт ясную отправную точку — или позволяет собрать свою.","home.today.note":"Свежесть зависит от метода · Рекомендации из вашей истории","home.guide.label":"02 · Вести заваривание","home.guide.title":"Знать, когда изменить <em>одно</em> — и когда остановиться.","home.guide.body":"83 пошаговых рецепта для 25 методов и напитков. Dial-In применяет Stop Rule: Logica может предложить небольшую правку, попросить повторить без изменений, сказать остановиться или не трогать помол, чтобы не тратить кофе.","home.guide.note":"Реальные щелчки кофемолок · Этапы · Эталонные чашки · Свои рецепты","home.remember.label":"03 · Помнить и учиться","home.remember.title":"Ваш журнал становится полезным.","home.remember.body":"Храните вместе дозу, помол, воду, температуру, время, заметки и фото. Следите за свежестью каждой пачки, сравнивайте слепые дегустации и находите закономерности в истории.","home.remember.analysis":"У Джеймса всегда есть детерминированный офлайн-ответ. На совместимых iPhone и iPad с iOS или iPadOS 26+ дополнительный анализ может использовать модель Apple на устройстве, когда модель и язык готовы.","home.remember.note":"Журнал · Свежесть · Insights · Лаборатория дегустации · Необязательная запись кофеина в Apple Health","home.kettle.label":"04 · У чайника","home.kettle.title":"Приватность по замыслу. Там, где вы завариваете.","home.kettle.body":"Таймер доступен на экране блокировки, Dynamic Island, виджете, iPad и Apple Watch. Logica не управляет серверами. История остаётся на ваших устройствах с необязательной синхронизацией через ваш iCloud.","home.kettle.analysis":"Джеймс работает офлайн. Дополнительный анализ Foundation Models выполняется на устройстве; эта функция не отправляет данные заваривания в Logica, Apple или на сервер Logica.","home.kettle.note":"Без рекламы · Без аккаунта · Без подписки · Чаевые по желанию · Экспорт истории","home.kettle.privacy":"Читать политику конфиденциальности →","home.alt.hero":"Спелые кофейные ягоды на мокрой от дождя ветке над тёмным склоном.","home.alt.brew_today":"iPhone на солнечной кухне: Brew Today рекомендует Ethiopia Hario V60 на пике свежести.","home.alt.journal":"iPhone с журналом завариваний Logica Coffee.","home.alt.guide":"iPhone с таймером Hario V60.","home.alt.dialin":"iPhone с сессией Dial-In для эспрессо и Stop Rule.","home.alt.freshness":"iPhone со свежестью, заметками и остатком кофе.","home.alt.insights":"iPhone с оценками и закономерностями истории.","home.alt.watch":"Apple Watch с активным этапом «Сначала вода», 225 мл и 0:18.","home.alt.gear":"iPhone с экраном «Данные и правовая информация»: экспорт, импорт и настройки конфиденциальности."});
+  Object.assign(STR.uk, {"home.hero.title":"Заварюйте з кращою пам’яттю.","home.hero.body":"Logica вчиться на ваших чашках, стежить за свіжістю зерна й веде наступне заварювання без здогадів.","home.today.label":"01 · Заварити сьогодні","home.today.title":"Правильна кава у правильний момент.","home.today.body":"Brew Today враховує ваші зерна, дату обсмаження, етап свіжості й чашки, що вам сподобалися. Він дає одну ясну стартову точку — або дозволяє створити свою.","home.today.note":"Свіжість залежить від методу · Рекомендації з вашої історії","home.guide.label":"02 · Вести заварювання","home.guide.title":"Знати, коли змінити <em>одну</em> річ — і коли зупинитися.","home.guide.body":"83 покрокові рецепти для 25 методів і напоїв. Dial-In застосовує Stop Rule: Logica може запропонувати малу зміну, попросити повторити без змін, порадити зупинитися або не чіпати помел, щоб не марнувати каву.","home.guide.note":"Справжні клацання млинків · Керовані етапи · Еталонні чашки · Власні рецепти","home.remember.label":"03 · Пам’ятати й учитися","home.remember.title":"Ваш журнал стає корисним.","home.remember.body":"Тримайте разом дозу, помел, воду, температуру, час, нотатки й фото чашки. Стежте за свіжістю кожної пачки, порівнюйте сліпі дегустації та знаходьте закономірності у своїй історії.","home.remember.analysis":"Джеймс завжди має детерміновану офлайн-відповідь. На сумісних iPhone та iPad з iOS або iPadOS 26+ необов’язковий аналіз також може використовувати модель Apple на пристрої, коли модель і мова готові.","home.remember.note":"Журнал · Свіжість · Insights · Лабораторія дегустації · Необов’язковий запис кофеїну в Apple Health","home.kettle.label":"04 · Біля чайника","home.kettle.title":"Приватність за задумом. Там, де ви заварюєте.","home.kettle.body":"Таймер доступний на екрані блокування, Dynamic Island, віджеті, iPad і Apple Watch. Logica не керує серверами. Ваша історія лишається на пристроях із необов’язковою синхронізацією через ваш iCloud.","home.kettle.analysis":"Джеймс працює офлайн. Необов’язковий аналіз Foundation Models виконується на пристрої; ця функція не надсилає дані заварювання в Logica, Apple чи на сервер Logica.","home.kettle.note":"Без реклами · Без облікового запису · Без підписки · Чайові за бажанням · Експорт історії","home.kettle.privacy":"Читати політику конфіденційності →","home.alt.hero":"Стиглі кавові ягоди на змоченій дощем гілці над темним схилом.","home.alt.brew_today":"iPhone на сонячній кухонній стільниці: Brew Today радить Ethiopia Hario V60 на піку свіжості.","home.alt.journal":"iPhone з журналом заварювань Logica Coffee.","home.alt.guide":"iPhone із керованим таймером Hario V60.","home.alt.dialin":"iPhone із сесією Dial-In для еспресо та Stop Rule.","home.alt.freshness":"iPhone зі свіжістю, нотатками й залишком кави.","home.alt.insights":"iPhone із трендами оцінок і закономірностями історії.","home.alt.watch":"Apple Watch з активним етапом «Спочатку вода», 225 мл і 0:18.","home.alt.gear":"iPhone з екраном «Дані та правова інформація»: експорт, імпорт і налаштування конфіденційності."});
+  Object.assign(STR["zh-Hans"], {"home.hero.title":"让每一杯，都有更好的记忆。","home.hero.body":"Logica 从您的每一杯中学习，留意咖啡豆的新鲜度，并为下一次冲煮提供无需猜测的引导。","home.today.label":"01 · 今日冲煮","home.today.title":"恰好的咖啡，恰好的时刻。","home.today.body":"Brew Today 会综合您现有的咖啡豆、烘焙日期、新鲜度阶段以及您喜欢的咖啡。它给出一个清晰的起点，也让您自己决定。","home.today.note":"按冲煮方式判断新鲜度 · 建议来自您的历史记录","home.guide.label":"02 · 引导冲煮","home.guide.title":"知道何时改变<em>一件</em>事，也知道何时停下。","home.guide.body":"覆盖 25 种冲煮方式和饮品的 83 份分阶段配方。Dial-In 会应用 Stop Rule：Logica 可能建议一个小改动、让您不作改动地再试一次、建议停止，或让研磨度保持不变，以免浪费咖啡。","home.guide.note":"真实磨豆机刻度 · 引导步骤 · 参考杯 · 自定义配方","home.remember.label":"03 · 记录与学习","home.remember.title":"您的日志开始变得有用。","home.remember.body":"将粉量、研磨度、水、温度、时间、品鉴记录和杯子照片放在一起。追踪每袋咖啡的新鲜度，比较盲测，并让 Insights 从您的历史中发现规律。","home.remember.analysis":"James 始终能给出确定性的离线回答。在运行 iOS 或 iPadOS 26 或更高版本的兼容 iPhone 和 iPad 上，若模型和语言已就绪，可选分析还可使用 Apple 的设备端模型。","home.remember.note":"日志 · 新鲜度 · Insights · 品鉴实验室 · 可选的 Apple 健康咖啡因记录","home.kettle.label":"04 · 在壶边","home.kettle.title":"天生私密。陪您在冲煮之处。","home.kettle.body":"计时器可到达锁定屏幕、灵动岛、主屏幕小组件、iPad 和 Apple Watch。Logica 不运营服务器。您的记录留在设备上，也可通过您自己的 iCloud 账户同步。","home.kettle.analysis":"James 可离线工作。可选的 Foundation Models 分析在可用时于设备端运行；该功能不会将冲煮信息发送给 Logica、Apple 或 Logica 服务器。","home.kettle.note":"无广告 · 无需账户 · 无订阅 · 可选小费 · 导出自己的历史记录","home.kettle.privacy":"阅读隐私政策 →","home.alt.hero":"雨点斑驳的枝头上结着成熟咖啡果，背后是深色山坡。","home.alt.brew_today":"阳光洒落的厨房台面上，一部 iPhone 显示 Brew Today 推荐正处鲜度高峰的埃塞俄比亚 Hario V60。","home.alt.journal":"厨房台面上的 iPhone，显示 Logica Coffee 的冲煮日志。","home.alt.guide":"不锈钢厨房台面上的 iPhone，显示引导式 Hario V60 计时器。","home.alt.dialin":"iPhone 显示浓缩咖啡 Dial-In 会话、下一步和 Stop Rule 提示。","home.alt.freshness":"iPhone 显示咖啡袋的新鲜度阶段、品鉴记录和剩余重量。","home.alt.insights":"iPhone 显示评分趋势和从冲煮历史中找到的规律。","home.alt.watch":"Apple Watch 显示正在进行的“先加水”阶段：225 毫升，0:18。","home.alt.gear":"iPhone 显示“数据与法律”页面，包含导出、导入和隐私控制。"});
+
   var LANGS = ["en", "be", "de", "es", "fr", "it", "ja", "pl", "pt-BR", "ru", "uk", "zh-Hans"];
   // Locales Apple publishes a badge for. Anything else uses the English one.
   var BADGES = ["de", "en", "es", "fr", "it", "ja", "pl", "pt-BR", "ru", "zh-Hans"];

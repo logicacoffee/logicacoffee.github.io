@@ -3,24 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#F9F8F3" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#151619" media="(prefers-color-scheme: dark)" />
   <title>Support — Logica Coffee</title>
   <meta name="description" content="Help with Logica Coffee, Brew Today, freshness tracking, Dial-In, privacy, iCloud sync, and optional on-device brew analysis." />
   <link rel="canonical" href="https://logicacoffee.github.io/support.html" />
   <link rel="icon" href="assets/icon.png" />
   <style>
+    @font-face { font-family:"Logica Display Latin"; src:url("fonts/v1/SpecialGothicCondensedOne-Regular.ttf") format("truetype"); font-style:normal; font-weight:400; font-display:swap; }
+    @font-face { font-family:"Logica Display Cyrillic"; src:url("fonts/v1/Oswald-Bold.ttf") format("truetype"); font-style:normal; font-weight:700; font-display:swap; }
+    @font-face { font-family:"Logica Display Japanese"; src:url("fonts/v1/DelaGothicOne-Regular.ttf") format("truetype"); font-style:normal; font-weight:400; font-display:swap; }
+    @font-face { font-family:"Logica Manrope"; src:url("fonts/v1/Manrope-Regular.ttf") format("truetype"); font-style:normal; font-weight:400; font-display:swap; }
+    @font-face { font-family:"Logica Manrope"; src:url("fonts/v1/Manrope-Medium.ttf") format("truetype"); font-style:normal; font-weight:500 900; font-display:swap; }
+    @font-face { font-family:"Logica Numeric"; src:url("fonts/v1/FiraMono-Medium.ttf") format("truetype"); font-style:normal; font-weight:500; font-display:swap; }
     :root {
-      --bg:      #100f0d;
-      --surface: #1a1613;
-      --orange:  #d68757;
-      --white:   #f4f1ea;
-      --gray:    #8a8076;
-      --border:  #2c2722;
+      --background-primary:#F9F8F3;
+      --surface-primary:#FFF;
+      --surface-secondary:#F1F0EB;
+      --surface-tertiary:#E7E6E0;
+      --text-primary:#2C2E31;
+      --text-secondary:#62656A;
+      --hairline:rgba(44,46,49,.14);
+      --focus:#2C2E31;
+      --font-display:"Logica Display Latin", "Arial Narrow", sans-serif;
+      --font-display-weight:400;
+      --font-body:"Logica Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading:"Logica Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-label:"Logica Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+      color-scheme:light dark;
+    }
+    :root:lang(be), :root:lang(ru), :root:lang(uk) { --font-display:"Logica Display Cyrillic", "Arial Narrow", sans-serif; --font-display-weight:700; }
+    :root:lang(ja) { --font-display:"Logica Display Japanese", -apple-system, BlinkMacSystemFont, sans-serif; --font-body:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif; --font-heading:var(--font-body); --font-label:var(--font-body); }
+    :root:lang(zh-Hans) { --font-display:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; --font-body:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; --font-heading:var(--font-body); --font-label:var(--font-body); }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background-primary:#151619;
+        --surface-primary:#1D1F22;
+        --surface-secondary:#25282C;
+        --surface-tertiary:#303338;
+        --text-primary:#F9F8F3;
+        --text-secondary:#B7B8B5;
+        --hairline:rgba(249,248,243,.14);
+        --focus:#F9F8F3;
+      }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--background-primary);
+      color: var(--text-primary);
+      font-family: var(--font-body);
       font-size: 16px;
       line-height: 1.7;
       padding: 0 16px 80px;
@@ -28,7 +59,7 @@
     .wrap { max-width: 680px; margin: 0 auto; }
     header {
       padding: 56px 0 40px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--hairline);
       margin-bottom: 48px;
     }
     .topbar {
@@ -39,10 +70,10 @@
       margin-bottom: 14px;
     }
     .app-label {
-      font-family: "SF Mono", "Fira Mono", monospace;
+      font-family: var(--font-label);
       font-size: 12px;
       letter-spacing: 0.12em;
-      color: var(--orange);
+      color: var(--text-primary);
       text-transform: uppercase;
     }
     .lang-switch {
@@ -52,9 +83,9 @@
     .lang-switch select {
       appearance: none;
       -webkit-appearance: none;
-      background: var(--surface);
-      color: var(--white);
-      border: 1px solid var(--border);
+      background: var(--surface-primary);
+      color: var(--text-primary);
+      border: 1px solid var(--hairline);
       border-radius: 8px;
       min-height: 44px;
       padding: 10px 34px 10px 12px;
@@ -70,73 +101,72 @@
       top: 50%;
       width: 7px;
       height: 7px;
-      border-right: 1.5px solid var(--gray);
-      border-bottom: 1.5px solid var(--gray);
+      border-right: 1.5px solid var(--text-secondary);
+      border-bottom: 1.5px solid var(--text-secondary);
       transform: translateY(-65%) rotate(45deg);
       pointer-events: none;
     }
-    .lang-switch select:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    .lang-switch select:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
     h1 {
-      font-family: "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
+      font-family: var(--font-display);
       font-size: clamp(34px, 6.5vw, 56px);
-      font-weight: 700;
+      font-weight: var(--font-display-weight);
       letter-spacing: -0.01em;
       line-height: 1.08;
-      color: var(--white);
+      color: var(--text-primary);
     }
     .updated {
       margin-top: 16px;
       font-size: 13px;
-      color: var(--gray);
-      font-family: "SF Mono", "Fira Mono", monospace;
+      color: var(--text-secondary);
+      font-family: var(--font-label);
       letter-spacing: 0.05em;
     }
     section { margin-bottom: 48px; }
     h2 {
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 500;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--orange);
-      font-family: "SF Mono", "Fira Mono", monospace;
+      color: var(--text-primary);
+      font-family: var(--font-label);
       margin-bottom: 16px;
     }
-    p { color: #ccc; margin-bottom: 14px; }
+    p { color: var(--text-secondary); margin-bottom: 14px; }
     p:last-child { margin-bottom: 0; }
     ul { list-style: none; padding: 0; }
     ul li {
-      color: #ccc;
+      color: var(--text-secondary);
       padding: 10px 0 10px 20px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--hairline);
       position: relative;
     }
-    ul li:first-child { border-top: 1px solid var(--border); }
+    ul li:first-child { border-top: 1px solid var(--hairline); }
     ul li::before {
       content: "—";
       position: absolute;
       left: 0;
-      color: var(--orange);
+      color: var(--text-primary);
       font-weight: 700;
     }
     .highlight-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--orange);
+      background: var(--surface-primary);
+      border: 1px solid var(--hairline);
+      border-left: 3px solid var(--text-primary);
       border-radius: 8px;
       padding: 20px 24px;
       margin-bottom: 32px;
     }
-    .highlight-box p { color: var(--white); font-size: 15px; margin: 0; }
-    .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
-    .faq-item:first-of-type { border-top: 1px solid var(--border); }
-    .faq-q { color: var(--white); font-weight: 600; margin-bottom: 8px; }
-    .faq-a { color: #ccc; margin: 0; }
-    .faq-a strong { color: var(--white); }
-    a { color: var(--orange); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    .highlight-box p { color: var(--text-primary); font-size: 15px; margin: 0; }
+    .faq-item { border-bottom: 1px solid var(--hairline); padding: 20px 0; }
+    .faq-item:first-of-type { border-top: 1px solid var(--hairline); }
+    .faq-q { color: var(--text-primary); font-weight: 600; margin-bottom: 8px; }
+    .faq-a { color: var(--text-secondary); margin: 0; }
+    .faq-a strong { color: var(--text-primary); }
+    a { color: var(--text-primary); text-decoration: underline; text-underline-offset: .2em; }
     .contact-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--surface-primary);
+      border: 1px solid var(--hairline);
       border-radius: 8px;
       padding: 24px;
       display: flex;
@@ -144,30 +174,30 @@
       gap: 6px;
     }
     .contact-card .label {
-      font-family: "SF Mono", "Fira Mono", monospace;
+      font-family: var(--font-label);
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--gray);
+      color: var(--text-secondary);
     }
-    .contact-card .email { font-size: 17px; font-weight: 600; color: var(--orange); }
-    .contact-card .note { font-size: 13px; color: var(--gray); margin-top: 4px; }
+    .contact-card .email { font-size: 17px; font-weight: 600; color: var(--text-primary); }
+    .contact-card .note { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
     footer {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--hairline);
       padding-top: 32px;
       font-size: 13px;
-      color: var(--gray);
-      font-family: "SF Mono", "Fira Mono", monospace;
+      color: var(--text-secondary);
+      font-family: var(--font-label);
     }
-    footer a { color: var(--gray); }
-    footer a:hover { color: var(--orange); text-decoration: underline; }
-    a:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
-    .site-nav { max-width: 920px; margin:0 auto; min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:20px; border-bottom:1px solid var(--border); }
-    .site-nav .brand { color:var(--white); font-family:"New York", Georgia, serif; font-weight:700; text-decoration:none; }
+    footer a { color: var(--text-secondary); }
+    footer a:hover { color: var(--text-primary); text-decoration: underline; }
+    a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .site-nav { max-width: 920px; margin:0 auto; min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:20px; border-bottom:1px solid var(--hairline); }
+    .site-nav .brand { color:var(--text-primary); font-family:var(--font-heading); font-weight:500; text-decoration:none; }
     .site-nav nav { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:4px 18px; }
-    .site-nav nav a { min-height:44px; display:inline-flex; align-items:center; color:var(--gray); font-size:13px; }
-    .site-nav nav a[aria-current="page"] { color:var(--white); }
-    .translation-note { border:1px solid var(--orange); padding:12px 16px; color:var(--white); margin-bottom:28px; }
+    .site-nav nav a { min-height:44px; display:inline-flex; align-items:center; color:var(--text-secondary); font-size:13px; text-decoration:none; }
+    .site-nav nav a[aria-current="page"] { color:var(--text-primary); }
+    .translation-note { border:1px solid var(--text-primary); padding:12px 16px; color:var(--text-primary); margin-bottom:28px; }
     @media(max-width:620px){.site-nav{align-items:flex-start;padding:12px 0}.site-nav nav{gap:0 12px}}
 </style>
 </head>
