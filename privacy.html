@@ -5,19 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy — Logica Coffee</title>
   <style>
+    @font-face { font-family: "Logica Display Latin"; src: url("fonts/v1/SpecialGothicCondensedOne-Regular.ttf") format("truetype"); font-style: normal; font-weight: 400; font-display: swap; }
+    @font-face { font-family: "Logica Display Cyrillic"; src: url("fonts/v1/Oswald-Bold.ttf") format("truetype"); font-style: normal; font-weight: 700; font-display: swap; }
+    @font-face { font-family: "Logica Display Japanese"; src: url("fonts/v1/DelaGothicOne-Regular.ttf") format("truetype"); font-style: normal; font-weight: 400; font-display: swap; }
+    @font-face { font-family: "Logica Manrope"; src: url("fonts/v1/Manrope-Regular.ttf") format("truetype"); font-style: normal; font-weight: 400; font-display: swap; }
+    @font-face { font-family: "Logica Manrope"; src: url("fonts/v1/Manrope-Medium.ttf") format("truetype"); font-style: normal; font-weight: 500 900; font-display: swap; }
+    @font-face { font-family: "Logica Numeric"; src: url("fonts/v1/FiraMono-Medium.ttf") format("truetype"); font-style: normal; font-weight: 500; font-display: swap; }
     :root {
-      --bg:      #100f0d;
-      --surface: #1a1613;
-      --orange:  #d68757;
-      --white:   #f4f1ea;
-      --gray:    #8a8076;
-      --border:  #2c2722;
+      /* Graphite, matching the app and the marketing page exactly. The previous
+         warm-black + amber palette was the RETIRED identity. There is no accent
+         HUE in this system, so links carry an underline instead of a colour —
+         which is also the accessible way to mark a link. */
+      --bg:      #151619;
+      --surface: #1D1F22;
+      --accent:  #F9F8F3;
+      --white:   #F9F8F3;
+      --body:    #E7E6E0;
+      --gray:    #B7B8B5;
+      --border:  #303338;
+
+      --font-display: "Logica Display Latin", "Arial Narrow", sans-serif;
+      --font-display-weight: 400;
+      --font-body: "Logica Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: "Logica Numeric", ui-monospace, monospace;
     }
+    :root:lang(be), :root:lang(ru), :root:lang(uk) {
+      --font-display: "Logica Display Cyrillic", "Arial Narrow", sans-serif;
+      --font-display-weight: 700;
+    }
+    :root:lang(ja) {
+      --font-display: "Logica Display Japanese", -apple-system, sans-serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+    }
+    :root:lang(zh-Hans) {
+      --font-display: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    }
+    :root:lang(ko) {
+      --font-display: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+    }
+    /* Korean words are space-separated and must not break between arbitrary
+       syllables the way ja/zh legitimately do. */
+    :lang(ko) { word-break: keep-all; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: var(--bg);
       color: var(--white);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-family: var(--font-body);
       font-size: 16px;
       line-height: 1.7;
       padding: 0 16px 80px;
@@ -36,10 +71,10 @@
       margin-bottom: 14px;
     }
     .app-label {
-      font-family: "SF Mono", "Fira Mono", monospace;
+      font-family: var(--font-mono);
       font-size: 12px;
       letter-spacing: 0.12em;
-      color: var(--orange);
+      color: var(--accent);
       text-transform: uppercase;
     }
     .lang-switch {
@@ -71,9 +106,10 @@
       transform: translateY(-65%) rotate(45deg);
       pointer-events: none;
     }
-    .lang-switch select:focus { outline: none; border-color: var(--orange); }
+    .lang-switch select:focus { outline: none; border-color: var(--accent); }
     h1 {
-      font-family: "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
+      font-family: var(--font-display);
+      font-weight: var(--font-display-weight);
       font-size: clamp(34px, 6.5vw, 56px);
       font-weight: 700;
       letter-spacing: -0.01em;
@@ -84,7 +120,7 @@
       margin-top: 16px;
       font-size: 13px;
       color: var(--gray);
-      font-family: "SF Mono", "Fira Mono", monospace;
+      font-family: var(--font-mono);
       letter-spacing: 0.05em;
     }
     section { margin-bottom: 48px; }
@@ -93,11 +129,11 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--orange);
-      font-family: "SF Mono", "Fira Mono", monospace;
+      color: var(--accent);
+      font-family: var(--font-mono);
       margin-bottom: 16px;
     }
-    p { color: #ccc; margin-bottom: 14px; }
+    p { color: var(--body); margin-bottom: 14px; }
     p:last-child { margin-bottom: 0; }
     ul { list-style: none; padding: 0; }
     ul li {
@@ -111,13 +147,13 @@
       content: "—";
       position: absolute;
       left: 0;
-      color: var(--orange);
+      color: var(--accent);
       font-weight: 700;
     }
     .highlight-box {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-left: 3px solid var(--orange);
+      border-left: 3px solid var(--accent);
       border-radius: 8px;
       padding: 20px 24px;
       margin-bottom: 32px;
@@ -126,10 +162,10 @@
     .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
     .faq-item:first-of-type { border-top: 1px solid var(--border); }
     .faq-q { color: var(--white); font-weight: 600; margin-bottom: 8px; }
-    .faq-a { color: #ccc; margin: 0; }
+    .faq-a { color: var(--body); margin: 0; }
     .faq-a strong { color: var(--white); }
-    a { color: var(--orange); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+    a:hover { text-decoration-thickness: 2px; }
     .contact-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -140,23 +176,23 @@
       gap: 6px;
     }
     .contact-card .label {
-      font-family: "SF Mono", "Fira Mono", monospace;
+      font-family: var(--font-mono);
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--gray);
     }
-    .contact-card .email { font-size: 17px; font-weight: 600; color: var(--orange); }
+    .contact-card .email { font-size: 17px; font-weight: 600; color: var(--accent); }
     .contact-card .note { font-size: 13px; color: var(--gray); margin-top: 4px; }
     footer {
       border-top: 1px solid var(--border);
       padding-top: 32px;
       font-size: 13px;
       color: var(--gray);
-      font-family: "SF Mono", "Fira Mono", monospace;
+      font-family: var(--font-mono);
     }
     footer a { color: var(--gray); }
-    footer a:hover { color: var(--orange); text-decoration: underline; }
+    footer a:hover { color: var(--accent); text-decoration: underline; }
 </style>
 </head>
 <body>
